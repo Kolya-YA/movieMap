@@ -1,0 +1,21 @@
+{
+  "name": "moviebuff",
+  "version": "0.0.1",
+  "workspaces": [
+    "client",
+    "server"
+  ],
+  "type": "module",
+  "scripts": {
+    "client": "npm run dev -w client",
+    "server": "npm run dev -w server",
+    "dev": "concurrently \"npm run client\" \"npm run server\"",
+    "build": "npm run build -ws"
+  },
+  "author": "Nikolay Kolomyytsev",
+  "license": "MIT",
+  "description": "",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
