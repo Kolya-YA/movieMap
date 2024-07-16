@@ -1,32 +1,18 @@
-import { useState, useEffect } from 'react'
-import axios from 'axios'
-import './App.css'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { MainLayout } from './layouts'
+import { About, Home } from './Pages'
 
 function App() {
-  const [serverResponse, setServerResponse] = useState('')
-
-  useEffect(() => {
-    const fetchServer = async () => {
-      const data = await axios.get('/api')
-      setServerResponse(data.data)
-    }
-    fetchServer()
-  }, [])
-
-  return (
-    <>
-      <header>
-        Header
-      </header>
-      <main>
-        <h1>Main</h1>
-        <p>Server say { serverResponse }</p>
-      </main>
-      <footer>
-        Footer
-      </footer>
-    </>
-  )
+    return (
+        <BrowserRouter>
+            <Routes>
+                <Route element={<MainLayout />}>
+                    <Route index element={<Home />} />
+                    <Route path="about" element={<About />} />
+                </Route>
+            </Routes>
+        </BrowserRouter>
+    )
 }
 
 export default App
