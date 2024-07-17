@@ -1,13 +1,12 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 const TMDP_API_KEY = import.meta.env.VITE_TMDP_API_KEY;
+
 const SearchMovies = () => {
     const [input, setInput] = useState('');
     const [query, setQuery] = useState('');
     const [page, setPage] = useState(1);
     const [movies, setMovies] = useState(null);
-
-    console.log('page', page);
 
     useEffect(() => {
         const searchMovies = async () => {
@@ -31,18 +30,19 @@ const SearchMovies = () => {
 
     const MovieCard = ({ movie }) => {
         return (
-            <div className="card">
+            <div className="flex items-center gap-4 mb-4 bg-slate-100">
                 <img
-                    className="card--image"
+                    width="4rem"
+                    className="w-16"
                     src={`https://image.tmdb.org/t/p/w92/${movie.poster_path}`}
                     alt={`${movie.title} poster`}
-                    loading='lazy'
+                    loading="lazy"
                 />
-                <div className="card--content">
-                    <h3 className="card--title">{movie.title}</h3>
-                    <p><small>RELEASE DATE: {movie.release_date}</small></p>
-                    <p><small>RATING: {movie.vote_average}</small></p>
-                    <p className="card--desc">{movie.overview}</p>
+                <div>
+                    <h3 className="text-xl font-bold mb-2">{movie.title}</h3>
+                    <p className="text-sm">RELEASE DATE: {movie.release_date}</p>
+                    <p className="text-sm">RATING: {movie.vote_average}</p>
+                    <p className="text-gray-700">{movie.overview}</p>
                 </div>
             </div>
         );
@@ -67,11 +67,28 @@ const SearchMovies = () => {
                 </button>
             </form>
             <div className="card-list">
-                <p>Total results: {movies?.total_results}. Page {movies?.page} of {movies?.total_pages}.</p>
-                <div>
-                    {page > 1 && <button type="button" onClick={() => setPage(prev => prev - 1)}>prev</button>}
-                     | 
-                    {page < movies?.total_pages && <button type="button" onClick={() => setPage(prev => prev + 1)}>next</button>}
+                <p className="text-gray-700">
+                    Total results: {movies?.total_results}. Page {movies?.page} of {movies?.total_pages}.
+                </p>
+                <div className="flex justify-center items-center gap-8 mt-4">
+                    {page > 1 && (
+                        <button
+                            type="button"
+                            onClick={() => setPage((prev) => prev - 1)}
+                            className="bg-slate-800 text-white p-2 mr-2"
+                        >
+                            prev
+                        </button>
+                    )}
+                    {page < movies?.total_pages && (
+                        <button
+                            type="button"
+                            onClick={() => setPage((prev) => prev + 1)}
+                            className="bg-slate-800 text-white p-2"
+                        >
+                            next
+                        </button>
+                    )}
                 </div>
                 {movies?.results
                     .filter((movie) => movie.poster_path)
