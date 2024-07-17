@@ -8,9 +8,10 @@ function App() {
             <Routes>
                 <Route element={<MainLayout />}>
                     <Route index element={<Home />} />
-                    <Route path="login" element={<LoginSignUp />}/>
-                    <Route path="about" element={<About />} />
-                    <Route path="search" element={<SearchMovies />} />
+                    <Route path="/login" element={<LoginSignUp />}/>
+                    <Route path="/about" element={<About />} />
+                    <Route path="/search" element={<SearchMovies />} />
+                    <Route path="/*" element={<div>404</div>} />
                 </Route>
             </Routes>
         </BrowserRouter>

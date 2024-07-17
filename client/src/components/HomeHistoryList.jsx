@@ -10,7 +10,7 @@ const HomeHistoryList = () => {
                 <li>2. The Godfather (1972) - 9.1</li>
                 <li>3. The Dark Knight (2008) - 9.0</li>
             </ul>
-            <Link to='/waiting-list' className="text-blue-500 hover:underline">To full hisory list</Link>
+            <Link to='/history-list' className="text-blue-500 hover:underline">To full hisory list</Link>
             <hr />
         </>
     )
