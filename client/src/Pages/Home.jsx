@@ -5,8 +5,9 @@ import { UserHomePage, TopMovieList, GuestHomePage } from '../components'
 
 const Home = () => {
     const { user } = useContext(UserContext)
+    
+    // This useState and useEffect just for testing server connection
     const [serverResponse, setServerResponse] = useState({ hello: '' })
-
     useEffect(() => {
         const fetchServer = async () => {
             try {

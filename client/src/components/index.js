@@ -8,6 +8,8 @@ import HomeWaitingList from "./HomeWaitingList";
 import HomeHistoryList from "./HomeHistoryList";
 import UserHomePage from "./UserHomePage";
 import GuestHomePage from "./GuestHomePage";
+import LoginForm from "./LoginForm";
+import SighUpForm from "./SighUpForm";
 
 export {
 	Footer,
@@ -20,4 +22,6 @@ export {
 	RecomendationsForToday,
     HomeWaitingList,
     HomeHistoryList,
+    LoginForm,
+    SighUpForm,
 };
