@@ -24,7 +24,7 @@ const TopNav = () => {
                 className={`${navOpen ? 'block' : 'hidden'}`}
             >
                 <li><NavLink to='/' onClick={toggleNav}>Home</NavLink></li>
-                <li><NavLink to='/' onClick={toggleNav}>Movies</NavLink></li>
+                <li><NavLink to='/search' onClick={toggleNav}>Search movies</NavLink></li>
                 <li><NavLink to='/about' onClick={toggleNav}>About</NavLink></li>
             </ul>
         </nav>
