@@ -8,12 +8,12 @@ const Header = () => {
 
     return (
         <header className="flex justify-between items-start gap-2 p-2 bg-slate-200">
-            <Link to='/'>Movie Map</Link>
             {user ? (
                 <button className="btn-login" type="button" onClick={() => setUser(null)}>Logout</button>
             ) : (
                 <button className="btn-login" type="button" onClick={() => setUser(testUser)}>Login</button>
             )}
+            <Link to='/' className="text-xl font-semibold">Movie Map</Link>
             <TopNav />
         </header>
     )

@@ -1,14 +1,20 @@
+import { useContext } from 'react'
+
+import { UserContext } from '../contexts'
+import { UserInfo } from '../components'
+
 const About = () => {
+    const { user } = useContext(UserContext)
 
     return (
         <>
             <h1>Our team</h1>
-            <p>Our team is the best team in the world</p>
-            <ul>
+            <ol>
                 <li>John Doe</li>
                 <li>Jane Doe</li>
                 <li>John Smith</li>
-            </ul>
+            </ol>
+            {user && <UserInfo user={user} />}
         </>
     )
 }
