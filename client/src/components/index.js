@@ -6,6 +6,7 @@ import TopMovieList from "./TopMovieList";
 import RecomendationsForToday from "./RecomendationsForToday";
 import HomeWaitingList from "./HomeWaitingList";
 import HomeHistoryList from "./HomeHistoryList";
+import HomeMovieCard from "./HomeMovieCard";
 import UserHomePage from "./UserHomePage";
 import GuestHomePage from "./GuestHomePage";
 import LoginForm from "./LoginForm";
@@ -22,6 +23,7 @@ export {
 	RecomendationsForToday,
     HomeWaitingList,
     HomeHistoryList,
+    HomeMovieCard,
     LoginForm,
     SighUpForm,
 };

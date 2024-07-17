@@ -1,19 +1,27 @@
+import HomeMovieCard from "./HomeMovieCard";
+
 const TopMovieList = () => {
+    const tempMovieList = [
+        { id: 111, title: 'The Shawshank Redemption', year: 1994, rating: 9.2 },
+        { id: 222, title: 'The Godfather', year: 1972, rating: 9.1 },
+        { id: 333, title: 'The Dark Knight', year: 2008, rating: 9.0 },
+        { id: 444, title: 'The Lord of the Rings: The Return of the King', year: 2003, rating: 8.9 },
+        { id: 555, title: 'Pulp Fiction', year: 1994, rating: 8.9 },
+        { id: 666, title: 'Schindler`s List', year: 1993, rating: 8.9 },
+        { id: 777, title: '12 Angry men', year: 1957, rating: 8.9 },
+        { id: 888, title: 'The Lord of the Rings: The Fellowship of the Ring', year: 2001, rating: 8.8 },
+        { id: 999, title: 'Fight Club', year: 1999, rating: 8.8 },
+        { id: 100500, title: 'Forrest Gump', year: 1994, rating: 8.8 }
+    ];
+
     return (
         <>
             <hr />
-            <h2>Top movie list</h2>
+            <h2 className="text-xl font-semibold">Top movie list</h2>
             <ul>
-                <li>1. The Shawshank Redemption (1994) - 9.2</li>
-                <li>2. The Godfather (1972) - 9.1</li>
-                <li>3. The Dark Knight (2008) - 9.0</li>
-                <li>4. The Lord of the Rings: The Return of the King (2003) - 8.9</li>
-                <li>5. Pulp Fiction (1994) - 8.9</li>
-                <li>6. Schindler`s List (1993) - 8.9</li>
-                <li>7. 12 Angry men (1957) - 8.9</li>
-                <li>8. The Lord of the Rings: The Fellowship of the Ring (2001) - 8.8</li>
-                <li>9. Fight Club (1999) - 8.8</li>
-                <li>10. Forrest Gump (1994) - 8.8</li>
+                {tempMovieList.map((movie) => (
+                    <HomeMovieCard key={movie.id} movie={movie} />
+                ))}
             </ul>
             <hr />
         </>
