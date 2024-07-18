@@ -32,7 +32,9 @@ function shapeMovieList(movies: MovieList) {
                     original_title: movie.original_title,
                     overview: movie.overview,
 					release_date: movie.release_date,
-					poster_path: `${TMDB_IMAGE_API_THAMNAIL}${movie.poster_path}`,
+					poster_path: movie.poster_path ? `${TMDB_IMAGE_API_THAMNAIL}${movie.poster_path}` : null,
+                    vote_average: Math.round(movie.vote_average * 10) / 10,
+                    vote_count: movie.vote_count,
 				}))
     }
 };
@@ -53,4 +55,6 @@ interface Movie {
     overview: string;
     release_date: string;
     poster_path: string;
+    vote_average: number;
+    vote_count: number;
 }
