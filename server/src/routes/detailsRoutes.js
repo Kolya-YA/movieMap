@@ -1,6 +1,6 @@
 import express from "express";
 
-import getMovieDetails from "../controllers/details/getMovieDetails";
+import getMovieDetails from "../controllers/details/getMovieDetails.js";
 
 const detailsRoutes = express.Router();
 

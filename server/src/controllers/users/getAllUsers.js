@@ -1,6 +1,5 @@
-import type { Request, Response, NextFunction } from 'express';
 
-const getAllUsers = async (_req: Request, res: Response, next: NextFunction): Promise<void> => {
+const getAllUsers = async (_req, res, next) => {
 
     const users = [{ id: 1, name: "John Doe" }, { id: 2, name: "Jane Doe" }, { id: 3, name: "John Smith" }];
 

@@ -1,9 +1,9 @@
 import express from "express";
 
-import getAllUsers from "../controllers/users/getAllUsers";
+import getAllUsers from "../controllers/users/getAllUsers.js";
 
-import isAuth from "../middleware/isAuth";
-import isAdmin from "../middleware/isAdmin";
+import isAuth from "../middleware/isAuth.js";
+import isAdmin from "../middleware/isAdmin.js";
 
 const userRoutes = express.Router();
 

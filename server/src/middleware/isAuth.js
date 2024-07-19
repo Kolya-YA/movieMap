@@ -1,14 +1,12 @@
-import type { Request, Response, NextFunction } from "express";
-
 // import jwt from "jsonwebtoken";
 // import config from "../utils/config.js";
 
-import logger from "../utils/logger";
+import logger from "../utils/logger.js";
 
-export default (req: Request, _res: Response, next: NextFunction) => {
+export default (req, _res, next) => {
 	logger.info("Auth middleware called");
 	// const authHeader = req.get("authorization");
-	const authHeader: string | undefined = req.headers.authorization;
+	const authHeader = req.headers.authorization;
 
 	if (!authHeader?.startsWith("Bearer ")) {
         return next();
