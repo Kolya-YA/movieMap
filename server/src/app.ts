@@ -6,6 +6,7 @@ import express, { type Express, type Request, type Response } from "express";
 
 // import userRoutes from "./routes/userRoutes";
 import searchRoutes from "./routes/searchRoutes";
+import detailsRoutes from "./routes/detailsRoutes";
 
 // import errorHandler from "./middleware/errorHandler.js";
 // import { requestLogger, unknownEndpoint } from "./utils/middleware.js";
@@ -18,18 +19,13 @@ const app: Express = express();
 // app.use(requestLogger);
 
 app.get("/api", (req: Request, res: Response) => {
-    res.send("Hello World!");    
+    res.send("Hello, I'm Movie Map!");    
 });
 
+app.use("/api/v1/search", searchRoutes);
+app.use("/api/v1/details",detailsRoutes);
 // app.use("/api/v1/users", userRoutes);    
-app.use("/api/v1/search", searchRoutes);    
 
-app.use("/api/v1/buff", (req: Request, res: Response) => {
-    res.send("Hello MovAI!");    
-});
-app.use("/api/v1/movai", (req: Request, res: Response) => {
-    res.send("Hello MovAI!");    
-});
 
 // app.use(errorHandler);
 // app.use(unknownEndpoint);
