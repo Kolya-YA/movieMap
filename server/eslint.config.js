@@ -1,9 +1,10 @@
 import globals from "globals";
 import pluginJs from "@eslint/js";
-
+// import { rules } from "@eslint/js/src/configs/eslint-all";
 
 export default [
-  {files: ["**/*.{js,mjs,cjs,ts}"]},
-  {languageOptions: { globals: globals.browser }},
-  pluginJs.configs.recommended,
+	pluginJs.configs.recommended,
+	{
+		languageOptions: { globals: globals.node },
+	},
 ];

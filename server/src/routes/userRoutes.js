@@ -1,17 +1,19 @@
 import express from "express";
 
-import getAllUsers from "../controllers/users/getAllUsers.js";
+import { createNewUser, getAllUsers, loginUser } from "../controllers/users/index.js";
 
-import isAuth from "../middleware/isAuth.js";
-import isAdmin from "../middleware/isAdmin.js";
+import { verifyToken, isAdmin, isOwner } from "../middleware/index.js";
+
 
 const userRoutes = express.Router();
 
-userRoutes.post("/", getAllUsers);
-userRoutes.post("/login", getAllUsers);
-userRoutes.get("/", isAuth, isAdmin, getAllUsers);
-userRoutes.get("/:id", isAuth, isAdmin, getAllUsers);
-userRoutes.put("/:id", isAuth, isAdmin, getAllUsers);
-userRoutes.delete("/:id", isAuth, isAdmin, getAllUsers);
+userRoutes.post("/", createNewUser);
+userRoutes.post("/login", loginUser)
+
+userRoutes.get("/:userId", verifyToken, isOwner, getAllUsers);
+// userRoutes.put("/:userId", verifyToken, isOwner, getAllUsers);
+// userRoutes.delete("/:userId", verifyToken, isOwner, getAllUsers);
+
+userRoutes.get("/", verifyToken, isAdmin, getAllUsers);
 
 export default userRoutes;

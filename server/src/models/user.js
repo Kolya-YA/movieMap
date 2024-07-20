@@ -1,16 +1,10 @@
 import { Schema, model } from "mongoose";
-import bcrypt from "bcrypt";
-// import jwt from "jsonwebtoken";
-// import config from "../utils/config.js";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+import { JWT_EXPIRATION, JWT_SECRET } from "../utils/config.js";
 
 const UserSchema = new Schema(
 	{
-		name: {
-			type: String,
-			trim: true,
-			minlength: 3,
-			maxlength: 64,
-		},
 		email: {
 			type: String,
 			required: true,
@@ -25,7 +19,7 @@ const UserSchema = new Schema(
 				},
 				{
 					validator: async function (email) {
-						const user = await (this.constructor).findOne({ email });
+						const user = await this.constructor.findOne({ email });
 						if (user && user.id !== this.id) {
 							return false;
 						}
@@ -54,18 +48,45 @@ const UserSchema = new Schema(
 				message: "Passwords do not match",
 			},
 		},
-
 		isAdmin: {
 			type: Boolean,
 			default: false,
 		},
+		birthYear: {
+			type: Number,
+			min: [1900, "Year of birth must be after 1900"],
+			max: [new Date().getFullYear() - 13, "You must be at least 14 years old"],
+		},
+		countryCode: {
+			type: Number,
+			min: 100,
+			max: 999,
+		},
+		movieList: [
+			{
+				movie: {
+					type: Schema.Types.ObjectId,
+					ref: "Movie",
+				},
+				dateOfWatch: {
+					type: Date,
+					default: Date.now,
+				},
+				rating: {
+					type: Number,
+					min: 0,
+					max: 10,
+				},
+			},
+		],
+		aiRecomendation: [],
 	},
-	{ timestamps: true }
+	{ timestamps: true },
 );
 
 UserSchema.pre("save", async function (next) {
 	if (this.isModified("password")) {
-		this.password = await bcrypt.hash(this.password, 10);
+		this.password = await bcrypt.hash(this.password, 10); //TODO: Add salt
 		this.passwordConfirmation = undefined;
 	}
 	next();
@@ -75,15 +96,15 @@ UserSchema.methods.checkPassword = async function (password) {
 	return await bcrypt.compare(password, this.password);
 };
 
-// FighterSchema.methods.createAuthToken = function () {
-// 	return jwt.sign(
-// 		{ id: this._id.toString(), name: this.name, isAdmin: this.isAdmin },
-// 		config.JWT_SECRET,
-// 		{
-// 			expiresIn: "3h",
-// 		},
-// 	);
-// };
+UserSchema.methods.createAuthToken = function () {
+	return jwt.sign(
+		{ id: this._id.toString(), email: this.email, isAdmin: this.isAdmin, birthYear: this.birthYear, countryCode: this.countryCode },
+		JWT_SECRET,
+		{
+			expiresIn: JWT_EXPIRATION,
+		},
+	);
+};
 
 UserSchema.set("toJSON", {
 	transform: (document, returnedObject) => {
@@ -93,6 +114,6 @@ UserSchema.set("toJSON", {
 	},
 });
 
-const User = model("Fighter", UserSchema);
+const User = model("User", UserSchema);
 
 export default User;
