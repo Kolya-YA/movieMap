@@ -48,6 +48,14 @@ const UserSchema = new Schema(
 				message: "Passwords do not match",
 			},
 		},
+		tocAgreement: {
+			type: Boolean,
+			required: [true, "Terms and conditions must be accepted"],
+		},
+		dpAgreement: {
+			type: Boolean,
+			required: [true, "Data protection policy must be accepted"],
+		},
 		isAdmin: {
 			type: Boolean,
 			default: false,
@@ -88,6 +96,8 @@ UserSchema.pre("save", async function (next) {
 	if (this.isModified("password")) {
 		this.password = await bcrypt.hash(this.password, 10); //TODO: Add salt
 		this.passwordConfirmation = undefined;
+		this.tocAgreement = undefined;
+		this.dpAgreement = undefined;
 	}
 	next();
 });
