@@ -4,7 +4,7 @@ import genresList from '../../utils/genresList.js';
 
 const getSearchMovies = async (req, res, next) => {
     const { query, page } = req.query;
-    const fetchURL = `/search/movie?query=${query}&page=${page}`;
+    const fetchURL = `/search/movie?query=${query}&page=${page || 1}&include_adult=false`;
 
     try {
         const { data } = await tmdbApi.get(fetchURL);
