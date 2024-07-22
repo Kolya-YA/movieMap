@@ -10,7 +10,7 @@ const SignUpForm = () => {
         email: "",
         password: "",
         passwordConfirmation: "",
-        birthYear: null,
+        birthYear: "",
         tocAgreement: false,
         dpAgreement: false,
     })
@@ -20,9 +20,8 @@ const SignUpForm = () => {
     useEffect(() => {
         const fetchCountries = async () => {
             try {
-                // const response = await axios.get("/api/v1/config/countries");
-                // setCountries(response.data);
-                setCountries([])
+                const response = await axios.get("/api/v1/config/countries");
+                setCountries(response.data);
             } catch (error) {
                 console.error("Failed to fetch countries:", error);
             }
@@ -51,7 +50,6 @@ const SignUpForm = () => {
             alert('Sign up failed')
         }
     }
-    console.log(formData)
 
     return (
         <form onSubmit={handleSubmit}>

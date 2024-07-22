@@ -14,9 +14,11 @@ const SelectComponent = ({ id, req, label, values, onChange, value }) => {
                 className="w-full border border-gray-300 rounded-md p-1"
             >
                 <option value="">Please select</option>
-                {values?.map((value) => {
-                    return <option key={value} value={value}>{value}</option>
-                })}
+                {Object.entries(values)
+                    .sort((a, b) => a[1] > b[1] ? 1 : -1)
+                    .map(([key, value]) => {
+                        return <option key={key} value={key}>{value}</option>
+                    })}
             </select>
         </div>
     )
