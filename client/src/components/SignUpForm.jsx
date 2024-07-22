@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { toast } from 'react-toastify';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
@@ -7,6 +8,8 @@ import { CheckboxComponent, InputComponent, SelectComponent } from "./FormCompon
 
 
 const SignUpForm = () => {
+    const errNotify = (msg = 'Error!') => toast.error(msg, { autoClose: 15000 });
+
     const [formData, setFormData] = useState({
         email: "",
         password: "",
@@ -14,11 +17,11 @@ const SignUpForm = () => {
         birthYear: "",
         tocAgreement: false,
         dpAgreement: false,
-        })
-        const [error, setError] = useState(null)
-        const [isSubmitting, setIsSubitting] = useState(false)
-        const [countries, setCountries] = useState([])
-        const navigate = useNavigate();
+    })
+    const [error, setError] = useState(null)
+    const [isSubmitting, setIsSubitting] = useState(false)
+    const [countries, setCountries] = useState([])
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchCountries = async () => {
@@ -44,6 +47,7 @@ const SignUpForm = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        toast.dismiss();
         setIsSubitting(true);
         setError(null);
         try {
@@ -51,7 +55,8 @@ const SignUpForm = () => {
             console.log(data);
             navigate("/login");
         } catch (error) {
-            setError(error);
+            setError(error);            
+            errNotify(error?.message);
             console.error("Failed to sign up:", error);
         } finally {
             setIsSubitting(false);
@@ -59,20 +64,22 @@ const SignUpForm = () => {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <InputComponent type="email" id="email" req label="Email" value={formData.email} onChange={changeHandler} />
-            <InputComponent type="password" id="password" req label="Password" value={formData.password} onChange={changeHandler} />
-            <InputComponent type="password" id="passwordConfirmation" req label="Confirm password" value={formData.passwordConfirmation} onChange={changeHandler} />
-            <p>For better recommendations please add your date of birth and Location</p>
-            <InputComponent type="number" id="birthYear" label="Year of birth" value={formData.birthYear} onChange={changeHandler} />
-            <SelectComponent id="country" label="Select your country" values={countries} value={formData.country} onChange={changeHandler} />
-            <CheckboxComponent id="tocAgreement" req label="I accept the terms and conditions" value={formData.tocAgreement} onChange={changeHandler} />
-            <CheckboxComponent id="dpAgreement" req label="I accept the data protection policy" value={formData.dpAgreement} onChange={changeHandler} />
-            <button type="submit" className="btn-login">
-                {isSubmitting ? "Signing up..." : "Sign Up"}
-            </button>
-            {error && <p style={{ color: 'red' }}>!!!ERROR!!!</p>}
-        </form>
+        <>
+            <form onSubmit={handleSubmit}>
+                <InputComponent type="email" id="email" req label="Email" value={formData.email} onChange={changeHandler} />
+                <InputComponent type="password" id="password" req label="Password" value={formData.password} onChange={changeHandler} />
+                <InputComponent type="password" id="passwordConfirmation" req label="Confirm password" value={formData.passwordConfirmation} onChange={changeHandler} />
+                <p>For better recommendations please add your date of birth and Location</p>
+                <InputComponent type="number" id="birthYear" label="Year of birth" value={formData.birthYear} onChange={changeHandler} />
+                <SelectComponent id="country" label="Select your country" values={countries} value={formData.country} onChange={changeHandler} />
+                <CheckboxComponent id="tocAgreement" req label="I accept the terms and conditions" value={formData.tocAgreement} onChange={changeHandler} />
+                <CheckboxComponent id="dpAgreement" req label="I accept the data protection policy" value={formData.dpAgreement} onChange={changeHandler} />
+                <button type="submit" className="btn-login">
+                    {isSubmitting ? "Signing up..." : "Sign Up"}
+                </button>
+                {error && <p style={{ color: 'red' }}>!!!ERROR!!!</p>}
+            </form>
+        </>
     )
 }
 
