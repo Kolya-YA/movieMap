@@ -1,8 +1,11 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import { NavLink } from 'react-router-dom'
-import { LuMenu, LuX } from 'react-icons/lu'   
+
+import { UserContext } from '../contexts'
+import { LuMenu, LuX } from 'react-icons/lu'
 
 const TopNav = () => {
+    const { user } = useContext(UserContext)
     const [navOpen, setNavOpen] = useState(false)
 
     const toggleNav = () => { setNavOpen(!navOpen) }
@@ -23,7 +26,21 @@ const TopNav = () => {
                 id='main-navigation'
                 className={`${navOpen ? 'block' : 'hidden'}`}
             >
-                <li><NavLink to='/' onClick={toggleNav}>Home</NavLink></li>
+                {user
+                    ? (
+                        <>
+                            <li><NavLink to='/profile' onClick={toggleNav}>Profile</NavLink></li>
+                            <li><NavLink to='/logout' onClick={toggleNav}>Logout</NavLink></li>
+                            { user.isAdmin && <li><NavLink to='/admin' onClick={toggleNav}>Admin</NavLink></li> }
+                        </>
+                    )
+                    : (
+                        <>
+                            <li><NavLink to='/login' onClick={toggleNav}>Login</NavLink></li>
+                            <li><NavLink to='/signup' onClick={toggleNav}>Signup</NavLink></li>
+                        </>
+                    )}
+                <hr/>
                 <li><NavLink to='/search' onClick={toggleNav}>Search movies</NavLink></li>
                 <li><NavLink to='/about' onClick={toggleNav}>About</NavLink></li>
             </ul>

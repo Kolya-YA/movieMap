@@ -1,5 +1,5 @@
 import { useState, useContext } from 'react';
-import { LoginForm, SighUpForm } from '../components';
+import { LoginForm, SignUpForm } from '../components';
 import { UserContext } from '../contexts'
 
 const LoginSignUp = () => {
@@ -41,7 +41,7 @@ const LoginSignUp = () => {
                         </div>
                         {activeForm === 'login'
                             ? <LoginForm />
-                            : <SighUpForm />
+                            : <SignUpForm />
                         }
                     </>
                 )}
