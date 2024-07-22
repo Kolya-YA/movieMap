@@ -10,7 +10,10 @@
     "client": "npm run dev -w client",
     "server": "npm run dev -w server",
     "dev": "concurrently \"npm run client\" \"npm run server\"",
-    "build": "npm run build -ws"
+    "build": "npm run build -ws",
+    "lint:client": "cd client && eslint \"**/*.{js,jsx,ts,tsx}\"",
+    "lint:server": "cd server && eslint \"**/*.{js,jsx,ts,tsx}\"",
+    "lint": "npm run lint:client && npm run lint:server"
   },
   "author": "Nikolay Kolomyytsev",
   "license": "MIT",
