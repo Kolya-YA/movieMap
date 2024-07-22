@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
-// import { useNavigate } from 'react-router-dom';
-// import { UserContext } from '../contexts';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 import { CheckboxComponent, InputComponent, SelectComponent } from "./FormComponents"
-import axios from 'axios';
+
+
 
 const SignUpForm = () => {
     const [formData, setFormData] = useState({
@@ -13,9 +14,11 @@ const SignUpForm = () => {
         birthYear: "",
         tocAgreement: false,
         dpAgreement: false,
-    })
-
-    const [countries, setCountries] = useState([])
+        })
+        const [error, setError] = useState(null)
+        const [isSubmitting, setIsSubitting] = useState(false)
+        const [countries, setCountries] = useState([])
+        const navigate = useNavigate();
 
     useEffect(() => {
         const fetchCountries = async () => {
@@ -30,8 +33,6 @@ const SignUpForm = () => {
         fetchCountries();
     }, []);
 
-    // const { setUser, testUser } = useContext(UserContext)
-    // const navigate = useNavigate();
 
     const changeHandler = ({ target }) => {
         const { id, value, type, checked } = target;
@@ -41,13 +42,19 @@ const SignUpForm = () => {
         }));
     }
 
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        const signUpSuccessful = true
-        if (signUpSuccessful) {
-            alert("Sigh isn't implemented yet")
-        } else {
-            alert('Sign up failed')
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setIsSubitting(true);
+        setError(null);
+        try {
+            const { data } = await axios.post("/api/v1/users", formData);
+            console.log(data);
+            navigate("/login");
+        } catch (error) {
+            setError(error);
+            console.error("Failed to sign up:", error);
+        } finally {
+            setIsSubitting(false);
         }
     }
 
@@ -61,7 +68,10 @@ const SignUpForm = () => {
             <SelectComponent id="country" label="Select your country" values={countries} value={formData.country} onChange={changeHandler} />
             <CheckboxComponent id="tocAgreement" req label="I accept the terms and conditions" value={formData.tocAgreement} onChange={changeHandler} />
             <CheckboxComponent id="dpAgreement" req label="I accept the data protection policy" value={formData.dpAgreement} onChange={changeHandler} />
-            <button type="submit" className="btn-login">Sign Up</button>
+            <button type="submit" className="btn-login">
+                {isSubmitting ? "Signing up..." : "Sign Up"}
+            </button>
+            {error && <p style={{ color: 'red' }}>!!!ERROR!!!</p>}
         </form>
     )
 }
