@@ -7,7 +7,7 @@ const TopNav = () => {
 
     const toggleNav = () => { setNavOpen(!navOpen) }
     return (
-        <nav className='grid'>
+        <nav className='grid text-white'>
             <button type='button'
                 onClick={toggleNav}
                 aria-label='Toggle navigation menu'

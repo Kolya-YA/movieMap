@@ -2,21 +2,11 @@ import classNames from 'classnames';
 
 
 const Button = ({ text, onClick, className }) => {
-    const [isClicked, setIsClicked] = useState(false);
-
-    const handleClick = (e) => {
-      setIsClicked(true);
-      onClick(e);
-    };
   return (
     <button
-      onClick={handleClick}
+      onClick={onClick}
       className={classNames(
-      "rounded-md border border-white border-opacity-70 bg-black bg-opacity-70 shadow-diffused text-white py-2 px-4 hover:bg-black hover:text-gray-400 hover:bg-opacity-100 transition duration-300  ",
-      {
-        "bg-white bg-opacity-80 transition duration-400": isClicked,
-      },
-      className
+      "rounded-md border border-white border-opacity-70 bg-black bg-opacity-70 shadow-diffused text-white py-2 px-4 hover:bg-black hover:text-gray-400 hover:bg-opacity-100 transition duration-200  ", className
       )}
     >
       {text}
