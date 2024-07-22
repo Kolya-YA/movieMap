@@ -39,7 +39,7 @@ function shapeMovieDetails(movie) {
             name: director.name
         })),
         trailers: movie.videos.results.filter(((video) => video.type === 'Trailer' && video.official && video.site === 'YouTube')).map((video) => ({
-            key: `https://youtu.be/${video.key}`,
+            url: `https://youtu.be/${video.key}`,
             name: video.name,
             type: video.type,
         }))
