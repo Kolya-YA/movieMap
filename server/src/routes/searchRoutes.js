@@ -1,6 +1,6 @@
 import express from "express";
 
-import getSearchMovies from "../controllers/search/getSearchMovies";
+import getSearchMovies from "../controllers/search/getSearchMovies.js";
 
 const searchRoutes = express.Router();
 

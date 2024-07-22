@@ -1,4 +1,4 @@
-const genresList: { [key: number]: string } = {
+const genresList = {
     28: "Action",
     12: "Adventure",
     16: "Animation",

@@ -1,11 +1,10 @@
-import type { Request, Response, NextFunction } from 'express';
-import { tmdbApi } from '../../utils/axiosInstances';
-import { TMDB_IMAGE_API, POSTER_SIZES } from '../../utils/config';
-import genresList from '../../utils/genresList';
+import { tmdbApi } from '../../utils/axiosInstances.js';
+import { TMDB_IMAGE_API, POSTER_SIZES } from '../../utils/config.js';
+import genresList from '../../utils/genresList.js';
 
-const getSearchMovies = async (req: Request, res: Response, next: NextFunction) => {
+const getSearchMovies = async (req, res, next) => {
     const { query, page } = req.query;
-    const fetchURL = `/search/movie?query=${query}&page=${page}`;
+    const fetchURL = `/search/movie?query=${query}&page=${page || 1}&include_adult=false`;
 
     try {
         const { data } = await tmdbApi.get(fetchURL);
@@ -20,13 +19,13 @@ export default getSearchMovies;
 
 // https://api.themoviedb.org/3/search/movie?language=en-US&query=${query}&page=${page}&include_adult=false
 
-function shapeMovieList(movies: MovieList) {
+function shapeMovieList(movies) {
 
     return {
     page: movies.page,
     total_pages: movies.total_pages,
     total_results: movies.total_results,
-    results: movies.results.map((movie: Movie) => ({
+    results: movies.results.map((movie) => ({
         id: movie.id,
         genres_list: movie.genre_ids.map((id) => genresList[id]),
         title: movie.title,
@@ -39,23 +38,3 @@ function shapeMovieList(movies: MovieList) {
     }))
     }
 };
-
-interface MovieList {
-    page: number;
-    total_pages: number;
-    total_results: number;
-    results: Movie[];
-
-}
-
-interface Movie {
-    id: number;
-    genre_ids: number[];
-    title: string;
-    original_title: string;
-    overview: string;
-    release_date: string;
-    poster_path: string;
-    vote_average: number;
-    vote_count: number;
-}
