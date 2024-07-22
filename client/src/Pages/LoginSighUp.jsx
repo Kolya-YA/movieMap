@@ -23,13 +23,13 @@ const LoginSignUp = () => {
       ) : (
         <div className="flex justify-center items-center min-h-full ">
           <div className=" w-full max-w-md p-8 space-y-6 bg-transparent">
-            <h2 className="text-2xl font-bold text-center text-white">Login</h2>
+            <h2 className="text-2xl font-bold text-center text-white ">Login</h2>
             <form className="space-y-6">
               <div className="relative">
                 <input
                   type="email"
                   id="email"
-                  className="w-full px-4 py-2 pl-10 border border-white border-opacity-70 shadow-diffused bg-black bg-opacity-70 text-white rounded focus:outline-none focus:ring-2 focus:ring-gray-400 duration-900 "
+                  className="w-full px-4 py-2 pl-10 border border-white border-opacity-70 shadow-diffused bg-black bg-opacity-70 text-white rounded focus:outline-none focus:ring-2 focus:ring-gray-200 duration-900  hover:border-gray-600"
                   placeholder="Email"
                 />
                 <span className="absolute inset-y-0 left-0 flex items-center pl-3">
@@ -46,7 +46,7 @@ const LoginSignUp = () => {
                 <input
                   type="password"
                   id="password"
-                  className="w-full px-4 py-2 pl-10 border border-white border-opacity-70 shadow-diffused bg-black bg-opacity-70 text-white rounded focus:outline-none focus:ring-2 focus:ring-gray-400 duration-900 "
+                  className="w-full px-4 py-2 pl-10 border border-white border-opacity-70 shadow-diffused bg-black bg-opacity-70 text-white rounded focus:outline-none focus:ring-2 focus:ring-gray-200 duration-900  hover:border-gray-600"
                   placeholder="Password"
                 />
                 <span className="absolute inset-y-0 left-0 flex items-center pl-3">
