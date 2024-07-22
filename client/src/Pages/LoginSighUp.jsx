@@ -5,7 +5,6 @@ import { LuMail, LuKeyRound } from "react-icons/lu";
 
 const LoginSignUp = () => {
   const { user, setUser } = useContext(UserContext);
-  const [activeForm, setActiveForm] = useState("login");
 
   return (
     <>
