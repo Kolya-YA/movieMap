@@ -53,8 +53,6 @@ const SignUpForm = () => {
 
     return (
         <form onSubmit={handleSubmit}>
-            <h1 className="text-lg font-semibold">Sign up</h1>
-            <p>To access all features, register on our website</p>
             <InputComponent type="email" id="email" req label="Email" value={formData.email} onChange={changeHandler} />
             <InputComponent type="password" id="password" req label="Password" value={formData.password} onChange={changeHandler} />
             <InputComponent type="password" id="passwordConfirmation" req label="Confirm password" value={formData.passwordConfirmation} onChange={changeHandler} />
