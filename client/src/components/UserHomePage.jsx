@@ -1,17 +1,18 @@
 import { useContext } from 'react';
 
 import { UserContext } from '../contexts';
-import { HomeHistoryList, HomeWaitingList, RecomendationsForToday } from '../components'
+import { HomeHistoryList, HomeWaitingList, HomePageMovieList } from '../components'
 
-const UserHomePage = () => {
+const UserHomePage = ({ dailyRecs }) => {
     const { user } = useContext(UserContext)
 
     return (
         <>
             <h1>Personal home page for {user.name}</h1>
-            <RecomendationsForToday />
             <HomeWaitingList />
             <HomeHistoryList />
+
+            <HomePageMovieList movieList={dailyRecs?.find(r => r.title === "Popular")} />
         </>
     );
 }

@@ -2,8 +2,7 @@ import Footer from "./Footer";
 import Header from "./Header";
 import TopNav from "./TopNav";
 import UserInfo from "./UserInfo";
-import TopMovieList from "./TopMovieList";
-import RecomendationsForToday from "./RecomendationsForToday";
+import HomePageMovieList from "./HomePageMovieList";
 import HomeWaitingList from "./HomeWaitingList";
 import HomeHistoryList from "./HomeHistoryList";
 import HomeMovieCard from "./HomeMovieCard";
@@ -17,13 +16,12 @@ export {
 	Header,
 	TopNav,
 	UserInfo,
-    UserHomePage,
-    GuestHomePage,
-	TopMovieList,
-	RecomendationsForToday,
-    HomeWaitingList,
-    HomeHistoryList,
-    HomeMovieCard,
-    LoginForm,
-    SignUpForm,
+	UserHomePage,
+	GuestHomePage,
+	HomePageMovieList,
+	HomeWaitingList,
+	HomeHistoryList,
+	HomeMovieCard,
+	LoginForm,
+	SignUpForm,
 };
