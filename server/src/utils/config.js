@@ -20,8 +20,10 @@ const POSTER_SIZES = {
     original: "original",
 };
 
+const DAILY_CACHE_DURATION = 24 * 60 * 60; // 24 hours
+
 // const corsOptions = {
     // 	origin: process.env.ORIGINS.split(", "),
     // };
     
-export { PORT, TMDB_URL, TMDB_AUTH_TOKEN, TMDB_IMAGE_API, TMDB_API_KEY, MONGODB_URI, JWT_SECRET, JWT_EXPIRATION, POSTER_SIZES };
+export { PORT, TMDB_URL, TMDB_AUTH_TOKEN, TMDB_IMAGE_API, TMDB_API_KEY, MONGODB_URI, JWT_SECRET, JWT_EXPIRATION, POSTER_SIZES, DAILY_CACHE_DURATION };
