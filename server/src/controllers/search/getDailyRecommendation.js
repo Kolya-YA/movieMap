@@ -1,7 +1,7 @@
 import { tmdbApi } from "../../utils/axiosInstances.js";
 import movieListShaper from "./movieListShaper.js";
 
-const getDailyRecomendations = async (req, res, next) => {
+const getDailyRecommendations = async (req, res, next) => {
 	const { location: region } = req.query;
 	const sources = {
 		"Top rated": "/movie/top_rated",
@@ -22,6 +22,4 @@ const getDailyRecomendations = async (req, res, next) => {
 	}
 };
 
-export default getDailyRecomendations;
-
-// https://api.themoviedb.org/3/search/movie?language=en-US&query=${query}&page=${page}&include_adult=false
+export default getDailyRecommendations;

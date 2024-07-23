@@ -1,12 +1,12 @@
 import express from "express";
 
 import getSearchMovies from "../controllers/search/getSearchMovies.js";
-import getDailyRecomendations from "../controllers/search/getDailyRecomendation.js";
+import getDailyRecommendations from "../controllers/search/getDailyRecommendation.js";
 import cacheMiddleware from "../middleware/cacheMiddleware.js";
 
 const searchRoutes = express.Router();
 
 searchRoutes.get("/movies", getSearchMovies);
-searchRoutes.get("/daily", cacheMiddleware, getDailyRecomendations);
+searchRoutes.get("/daily", cacheMiddleware, getDailyRecommendations);
 
 export default searchRoutes;
