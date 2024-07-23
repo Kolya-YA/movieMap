@@ -13,7 +13,7 @@ const getDailyRecomendations = async (req, res, next) => {
 	try {
 		const promises = Object.entries(sources).map(async ([name, url]) => {
 			const { data } = await tmdbApi.get(`${url}?region=${region || "DE"}`);
-			return { [name]: movieListShaper(data) };
+			return { title: name, list: movieListShaper(data) };
 		});
 		const data = await Promise.all(promises);
 		res.status(200).json(data);
