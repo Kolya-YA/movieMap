@@ -14,9 +14,9 @@ const StarRating = ({ rating }) => {
         
         return (
           <div key={index} className="relative">
-            <LuStar className="text-gray-300" size={24} />
+            <LuStar />
             <div className="absolute top-0 left-0 overflow-hidden" style={{ width: `${fillPercentage}%` }}>
-              <LuStar className="text-yellow-400" size={24} fill="currentColor" />
+              <LuStar className="text-yellow-400" fill="currentColor" />
             </div>
           </div>
         );

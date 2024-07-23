@@ -29,7 +29,7 @@ const RatingCommentModal = () => {
         onClick={openModal} 
         className="rounded-sm p-2"
       >
-        <LuPencil className="text-2xl" />
+        <LuPencil className="text-xl"/>
       </button>
 
       {isOpen && (
