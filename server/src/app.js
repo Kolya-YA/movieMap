@@ -7,6 +7,7 @@ import connectDB from "./utils/database.js";
 import searchRoutes from "./routes/searchRoutes.js";
 import detailsRoutes from "./routes/detailsRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
+import configRoutes from "./routes/configRoutes.js";
 
 // import errorHandler from "./middleware/errorHandler.js";
 // import { requestLogger, unknownEndpoint } from "./utils/middleware.js";
@@ -25,6 +26,7 @@ app.get("/api", (req, res) => {
 app.use("/api/v1/search", searchRoutes);
 app.use("/api/v1/details",detailsRoutes);
 app.use("/api/v1/users", userRoutes);
+app.use("/api/v1/config", configRoutes);
 
 // app.use(errorHandler);
 app.use((_req, res) => {

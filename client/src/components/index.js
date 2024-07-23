@@ -10,7 +10,7 @@ import HomeMovieCard from "./HomeMovieCard";
 import UserHomePage from "./UserHomePage";
 import GuestHomePage from "./GuestHomePage";
 import LoginForm from "./LoginForm";
-import SighUpForm from "./SighUpForm";
+import SignUpForm from "./SignUpForm";
 
 export {
 	Footer,
@@ -25,5 +25,5 @@ export {
     HomeHistoryList,
     HomeMovieCard,
     LoginForm,
-    SighUpForm,
+    SignUpForm,
 };

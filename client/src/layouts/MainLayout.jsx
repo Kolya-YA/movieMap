@@ -1,6 +1,8 @@
 import { UserProvider } from "../contexts";
 import { Outlet } from "react-router-dom";
 import backgroundImg from "../components/movie-theater-Black.png";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
 
 import { Header, Footer } from "../components";
 
@@ -20,6 +22,7 @@ const MainLayout = () => {
                 </main>
             </div>
       <Footer />
+            <ToastContainer />
     </UserProvider>
   );
 };
