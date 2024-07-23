@@ -132,7 +132,7 @@ const Movie = () => {
                 <div className="flex text-lg justify-center">
                     {detail.trailers && detail.trailers.length > 0 && (
                         <a
-                            href={`${detail.trailers[0].key}`}
+                            href={`${detail.trailers[0].url}`}
                             className="w-52 h-10 border-white-hover-gray flex justify-center items-center"
                         >
                             <LuYoutube className="mr-2 text-2xl" />

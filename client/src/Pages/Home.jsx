@@ -1,19 +1,18 @@
 import { useState, useEffect, useContext } from 'react'
 import axios from 'axios'
 import { UserContext } from '../contexts'
-import { UserHomePage, TopMovieList, GuestHomePage } from '../components'
+import { UserHomePage, GuestHomePage } from '../components'
 
 const Home = () => {
-    const { user } = useContext(UserContext)
+    const { user } = useContext(UserContext)    
+    const [dailyRecs, setDailyRecs] = useState([])
     
-    // This useState and useEffect just for testing server connection
-    const [serverResponse, setServerResponse] = useState({ hello: '' })
+
     useEffect(() => {
         const fetchServer = async () => {
             try {
-                const { data: hello } = await axios.get('/api')
-
-                setServerResponse(prev => ({ ...prev, hello }))
+                const { data } = await axios.get('/api/v1/search/daily')
+                setDailyRecs(data)
             } catch (error) {
                 console.error(error)
             }
@@ -21,15 +20,15 @@ const Home = () => {
         fetchServer()
     }, [])
 
+
+    console.log(dailyRecs)
     return (
-        <>
+        <div className="bg-white/40">
             {user
-                ? <UserHomePage />
-                : <GuestHomePage />
+                ? <UserHomePage dailyRecs={dailyRecs} />
+                : <GuestHomePage dailyRecs={dailyRecs} />
             }
-            <TopMovieList />
-            <p>Server say: {serverResponse.hello}</p>
-        </>
+        </div>
     );
 }
 

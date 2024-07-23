@@ -2,8 +2,8 @@ import Footer from './Footer';
 import Header from './Header';
 import TopNav from './TopNav';
 import UserInfo from './UserInfo';
-import TopMovieList from './TopMovieList';
 import RecomendationsForToday from './RecomendationsForToday';
+import HomePageMovieList from './HomePageMovieList';
 import HomeWaitingList from './HomeWaitingList';
 import HomeHistoryList from './HomeHistoryList';
 import HomeMovieCard from './HomeMovieCard';
@@ -17,18 +17,18 @@ import StarRating from './StarRating';
 import RatingCommentModal from './RatingCommentModal';
 
 export {
-    RatingCommentModal,
     Loading,
     FormatNumber,
     StarRating,
+    RatingCommentModal,
     Footer,
     Header,
     TopNav,
     UserInfo,
     UserHomePage,
     GuestHomePage,
-    TopMovieList,
     RecomendationsForToday,
+    HomePageMovieList,
     HomeWaitingList,
     HomeHistoryList,
     HomeMovieCard,
