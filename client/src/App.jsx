@@ -7,9 +7,9 @@ function App() {
         <BrowserRouter>
             <Routes>
                 <Route element={<MainLayout />}>
-                    <Route index element={<Home />} />
-                    <Route path="/login" element={<LoginSignUp />}/>
-                    <Route path="/signup" element={<SignUp />}/>
+                    <Route index path="/" element={<Home />} />
+                    <Route path="/login" element={<LoginSignUp />} />
+                    <Route path="/signup" element={<SignUp />} />
                     <Route path="/about" element={<About />} />
                     <Route path="/search" element={<SearchMovies />} />
                     <Route path="/movie/:id" element={<Movie />} />

@@ -1,10 +1,12 @@
 import { useState, useContext } from 'react'
 import { NavLink } from 'react-router-dom'
 
+import { useLogout } from '../hooks'
 import { UserContext } from '../contexts'
 import { LuMenu, LuX } from 'react-icons/lu'
 
 const TopNav = () => {
+    const handleLogout = useLogout()
     const { user } = useContext(UserContext)
     const [navOpen, setNavOpen] = useState(false)
 
@@ -22,27 +24,29 @@ const TopNav = () => {
                     : <LuMenu size={24} aria-hidden='true' className='ms-auto' />
                 }
             </button>
+            {/* biome-ignore lint/a11y/useKeyWithClickEvents: <explanation> */}
             <ul
                 id='main-navigation'
+                onClick={toggleNav}
                 className={`${navOpen ? 'block' : 'hidden'}`}
             >
                 {user
                     ? (
                         <>
-                            <li><NavLink to='/profile' onClick={toggleNav}>Profile</NavLink></li>
-                            <li><NavLink to='/logout' onClick={toggleNav}>Logout</NavLink></li>
-                            { user.isAdmin && <li><NavLink to='/admin' onClick={toggleNav}>Admin</NavLink></li> }
+                            <li><NavLink to='/profile' >Profile</NavLink></li>
+                            <li><NavLink onClick={handleLogout}>Logout</NavLink></li>
+                            {user.isAdmin && <li><NavLink to='/admin' >Admin</NavLink></li>}
                         </>
                     )
                     : (
                         <>
-                            <li><NavLink to='/login' onClick={toggleNav}>Login</NavLink></li>
-                            <li><NavLink to='/signup' onClick={toggleNav}>Signup</NavLink></li>
+                            <li><NavLink to='/login'>Login</NavLink></li>
+                            <li><NavLink to='/signup' >Signup</NavLink></li>
                         </>
                     )}
-                <hr/>
-                <li><NavLink to='/search' onClick={toggleNav}>Search movies</NavLink></li>
-                <li><NavLink to='/about' onClick={toggleNav}>About</NavLink></li>
+                <hr />
+                <li><NavLink to='/search'>Search movies</NavLink></li>
+                <li><NavLink to='/about'>About</NavLink></li>
             </ul>
         </nav>
     )
