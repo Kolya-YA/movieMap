@@ -2,7 +2,6 @@ import { useState, useCallback, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { LuBookmark, LuBookmarkPlus, LuEye, LuEyeOff, LuYoutube } from 'react-icons/lu';
-import { Link } from 'react-router-dom';
 import { FormatNumber, StarRating, RatingCommentModal, Loading } from '../components';
 
 const useMovieDetail = id => {
