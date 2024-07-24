@@ -1,15 +1,17 @@
 import { useContext } from "react"
 import { Link } from "react-router-dom"
 import { UserContext } from '../contexts'
+import { useLogout } from "../hooks"
 import TopNav from "./TopNav"
 
 const Header = () => {
-    const { user, setUser } = useContext(UserContext)
+    const { user } = useContext(UserContext);
+    const handleLogout = useLogout();
 
     return (
         <header className="flex justify-between items-start gap-2 p-2 bg-black">
             {user ? (
-                <button className="btn-login" type="button" onClick={() => setUser(null)}>Logout</button>
+                <button className="btn-login" type="button" onClick={handleLogout}>Logout</button>
             ) : (
                 <Link to="/login" className="btn-login" type="button">Login</Link>
             )}
