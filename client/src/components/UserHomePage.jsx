@@ -8,7 +8,7 @@ const UserHomePage = ({ dailyRecs }) => {
 
     return (
         <>
-            <h1>Personal home page for {user.name}</h1>
+            <h1>Personal home page for {user.email}</h1>
             <HomeWaitingList />
             <HomeHistoryList />
 

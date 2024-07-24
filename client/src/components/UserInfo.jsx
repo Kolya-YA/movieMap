@@ -1,12 +1,10 @@
 const UserInfo = ({ user }) => {
     return (
-        <>
-            <hr />
-            <h2>User info</h2>
-            <p>Welcome, {user.name}</p>
-            <p>Index: {user.id}</p>
+        <section>
+            <h2>Current User info:</h2>
+            <p>ID: {user.id}</p>
             <p>Email: {user.email}</p>
-            {user.movieList.length > 0 && (
+            {user.movieList?.length > 0 && (
                 <>
                     <h3>User movie list:</h3>
                     <ul>
@@ -16,8 +14,7 @@ const UserInfo = ({ user }) => {
                     </ul>
                 </>
             )}
-            <hr />
-        </>
+        </section>
     )
 }
 

@@ -8,11 +8,10 @@ const useLogout = () => {
 	const { setUser } = useContext(UserContext);
 
 	const handleLogout = () => {
-		console.log("Logging out");
+		navigate("/", { replace: true });
 		localStorage.clear();
 		axios.defaults.headers.common.Authorization = undefined;
 		setUser(null);
-		navigate("/", { replace: true }); //TODO: Fix this
 	};
 
 	return handleLogout;

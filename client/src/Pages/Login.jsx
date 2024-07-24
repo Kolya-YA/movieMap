@@ -1,16 +1,18 @@
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 
-import { useContext, useState } from "react";
+import { useContext, useState, useRef, useEffect, forwardRef } from "react";
 import { useNavigate } from "react-router-dom";
-
-import { UserContext } from "../contexts";
-import Button from '../components/Button';
 import { LuMail, LuKeyRound } from "react-icons/lu";
+
 import { useLogout } from "../hooks";
+import { UserContext } from "../contexts";
+import { LoginInputField } from "../components/FormComponents";
+import Button from '../components/Button';
 
 const Login = () => {
   const navigate = useNavigate();
+  const focusedInputRef = useRef(null);
   const handleLogout = useLogout();
   const { user, setUser } = useContext(UserContext);
   const [formData, setFormData] = useState({
@@ -18,7 +20,14 @@ const Login = () => {
     password: "",
   });
   const [loginError, setLoginError] = useState(null);
-  
+
+  useEffect(() => {
+    if (focusedInputRef.current) {
+      focusedInputRef.current?.focus();
+    }
+  }, []);
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -49,7 +58,7 @@ const Login = () => {
       <div className="max-w-md p-8 grid gap-6 text-white">
         <h1>Welcome back {user.email}</h1>
         <p>You are already logged in</p>
-        <Button text="Logout" onClick={handleLogout}/>      
+        <Button text="Logout" onClick={handleLogout} />
       </div>
     )
   }
@@ -60,21 +69,22 @@ const Login = () => {
       <form onSubmit={handleSubmit} className="grid gap-6">
         <label htmlFor="email" className="sr-only">Email</label>
 
-        <InputField
+        <LoginInputField
           id="email"
           type="email"
+          ref={focusedInputRef}
           value={formData.email}
-          onCahnge={handleChange}
+          onChange={handleChange}
           Icon={LuMail}
           placeholder="Email"
           required
           autoComplete="email"
         />
-        <InputField
+        <LoginInputField
           id="password"
           type="password"
           value={formData.password}
-          onCahnge={handleChange}
+          onChange={handleChange}
           Icon={LuKeyRound}
           placeholder="Password"
           required
@@ -82,9 +92,9 @@ const Login = () => {
         />
         {loginError && <p className="text-red-200">{loginError}</p>}
 
-        <div className="grid grid-cols-2 gap-6">
-          <Button text="Sign Up" />
-          <Button text="Login" />
+        <div className="flex justify-between flex-row-reverse gap-6">
+          <Button text="Login" className="flex-1" />
+          <Button text="Sign Up" className="flex-1" />
         </div>
       </form>
     </div>
@@ -92,25 +102,3 @@ const Login = () => {
 };
 
 export default Login;
-
-function InputField({ id, type, value, onCahnge, Icon, placeholder, required, autoComplete }) {
-  return (
-    <div className="relative">
-      <label htmlFor={id} className="sr-only">{placeholder}</label>
-      <input
-        id={id}
-        type={type}
-        value={value}
-        onChange={onCahnge}
-        minLength="8"
-        required={required}
-        autoComplete={autoComplete}
-        placeholder={placeholder}
-        className="
-                    w-full ps-10 pe-4 py-2 border border-current shadow-diffused bg-black/70 rounded
-                    focus:outline-none focus:ring-2 focus:ring-gray-200 hover:border-gray-600 transition"
-      />
-      <Icon size={20} aria-hidden="true" className="absolute inset-y-0 left-3 my-auto stroke-current" />
-    </div>
-  )
-}
