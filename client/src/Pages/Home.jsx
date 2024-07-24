@@ -5,8 +5,7 @@ import { UserHomePage, GuestHomePage } from '../components'
 
 const Home = () => {
     const { user } = useContext(UserContext)    
-    const [dailyRecs, setDailyRecs] = useState([])
-    
+    const [dailyRecs, setDailyRecs] = useState([])    
 
     useEffect(() => {
         const fetchServer = async () => {
@@ -20,8 +19,6 @@ const Home = () => {
         fetchServer()
     }, [])
 
-
-    console.log(dailyRecs)
     return (
         <div className="bg-white/40">
             {user
