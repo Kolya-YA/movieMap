@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { LuMail, LuKeyRound } from "react-icons/lu";
 
 import { CheckboxComponent, InputComponent, SelectComponent } from "./FormComponents"
 
@@ -65,8 +66,18 @@ const SignUpForm = () => {
 
     return (
         <>
+        <div className="flex justify-center items-center min-h-full text-white">
+        <div className=" w-full max-w-md p-8 space-y-6 bg-transparent">
             <form onSubmit={handleSubmit}>
-                <InputComponent type="email" id="email" req label="Email" value={formData.email} onChange={changeHandler} />
+                <InputComponent  
+                type="email" 
+                id="email" 
+                req label="Email" 
+                icon={<LuMail size={24} aria-hidden="true" className="ms-auto color-white" />} 
+                placeholder="Email" 
+                value={formData.email} 
+                onChange={changeHandler} 
+                />
                 <InputComponent type="password" id="password" req label="Password" value={formData.password} onChange={changeHandler} />
                 <InputComponent type="password" id="passwordConfirmation" req label="Confirm password" value={formData.passwordConfirmation} onChange={changeHandler} />
                 <p>For better recommendations please add your date of birth and Location</p>
@@ -79,6 +90,8 @@ const SignUpForm = () => {
                 </button>
                 {error && <p style={{ color: 'red' }}>!!!ERROR!!!</p>}
             </form>
+        </div>
+        </div>
         </>
     )
 }

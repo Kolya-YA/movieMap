@@ -43,11 +43,12 @@ const LoginSignUp = () => {
                 </span>
               </div>
               <div className="relative">
+                <label htmlFor="password" className="text-white sr-only">Password:</label>
                 <input
-                  type="password"
-                  id="password"
-                  className="w-full px-4 py-2 pl-10 border border-white border-opacity-70 shadow-diffused bg-black bg-opacity-70 text-white rounded focus:outline-none focus:ring-2 focus:ring-gray-200 duration-900  hover:border-gray-600"
-                  placeholder="Password"
+                type="password"
+                id="password"
+                className="w-full px-4 py-2 pl-10 border border-white border-opacity-70 shadow-diffused bg-black bg-opacity-70 text-white rounded focus:outline-none focus:ring-2 focus:ring-gray-200 duration-900  hover:border-gray-600"
+                placeholder="Password"
                 />
                 <span className="absolute inset-y-0 left-0 flex items-center pl-3">
                   <svg
