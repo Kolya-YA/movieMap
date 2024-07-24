@@ -1,7 +1,7 @@
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 
-import { useContext, useState, useRef, useEffect, forwardRef } from "react";
+import { useContext, useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { LuMail, LuKeyRound } from "react-icons/lu";
 
@@ -39,7 +39,7 @@ const Login = () => {
       localStorage.setItem("token", data.token);
       const decodedToken = jwtDecode(data.token);
       setUser(decodedToken);
-      axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+      axios.defaults.headers.common.Authorization = `Bearer ${data.token}`;
       const from = location.state?.from || { pathname: "/" };
       navigate(from, { replace: true });
     } catch (error) {

@@ -1,6 +1,6 @@
 import { forwardRef } from "react";
 
-const LoginInputField = forwardRef(({ onChange, Icon, ...props }, ref) => {
+const LoginInputField = forwardRef(function LoginInputField({ onChange, Icon, ...props }, ref) {
 
     return (
         <div className="relative">
