@@ -7,17 +7,17 @@ const UserButtons = ({ movie }) => {
     const movieInUserList = user?.movieList?.find(m => m.tmdbMovieId === movie.id);
     const movieUserViewedDate = movieInUserList?.vievedDate;
     // const movieUserRating = movieInUserList?.rating;
-
+console.log("User: ", user) 
     const handleBookmark = async () => {
-        if (!checkAuth(user)) return; // user is not logged in or token has expired
+        if (!checkAuth()) return; // user is not logged in or token has expired
         if (movieInUserList) return; // movie is already in user list
         const movieToAdd = {
             tmdbMovieId: movie.id,
-            waitlistAddedDate: new Date(),
+            dateOfAdded: new Date(),
         };
         if (!user.movieList) user.movieList = [];
         try {
-            await updateUser((prevUser) => ({ ...prevUser, movieList: [...prevUser.movieList, movieToAdd] }));
+            await updateUser({ ...user, movieList: [...user.movieList, movieToAdd] });
         } catch (error) {
             console.error("User updete error: ", error);
         }

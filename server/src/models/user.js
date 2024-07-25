@@ -76,19 +76,23 @@ const UserSchema = new Schema(
 					type: Number,
 					ref: "Movie",
 					required: true,
+					unqiue: true,
 				},
-				waitlistAddedDate: {
+				dateOfAdded: {
 					type: Date,
 					default: Date.now,
 				},
 				dateOfWatch: {
-					type: Date,
-					default: Date.now,
+					type: Date
 				},
 				rating: {
 					type: Number,
 					min: 0,
 					max: 10,
+				},
+				comment: {
+					type: String,
+					maxlength: 512,
 				},
 			},
 		],
@@ -123,9 +127,15 @@ UserSchema.methods.createAuthToken = function () {
 
 UserSchema.set("toJSON", {
 	transform: (document, returnedObject) => {
+		returnedObject.movieList = returnedObject.movieList.map((movie) => {
+			movie.id = movie._id?.toString();
+			movie._id = undefined;
+			return movie;
+		});
 		returnedObject.id = returnedObject._id?.toString();
 		returnedObject._id = undefined;
 		returnedObject.__v = undefined;
+		returnedObject.password = undefined;
 	},
 });
 

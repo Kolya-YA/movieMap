@@ -12,7 +12,7 @@ const verifyToken = (req, res, next) => {
 
 	try {
 		const decodedToken = jwt.verify(token, JWT_SECRET);
-		logger.info("Token verified: ", decodedToken);
+		// logger.info("Token verified: ", decodedToken);
 		req.userId = decodedToken.id;
 		req.userRole = decodedToken.isAdmin ? "admin" : undefined;
 
