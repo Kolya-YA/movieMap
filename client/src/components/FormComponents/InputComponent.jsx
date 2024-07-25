@@ -1,7 +1,7 @@
 const InputComponent = ({ type, id, req, label, onChange, value, placeholder, icon }) => {
 
     return (
-        <div  className=''>
+        <div>
             <label htmlFor={id} className="block text-white sr-only">
                 {label}
                 {req && <span className="text-red-500">*</span>}

@@ -2,13 +2,13 @@ import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 
 import { useContext, useState, useRef, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { LuMail, LuKeyRound } from "react-icons/lu";
 
 import { useLogout } from "../hooks";
 import { UserContext } from "../contexts";
 import { LoginInputField } from "../components/FormComponents";
-import Button from '../components/Button';
+import Button from "../components/Button";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -26,7 +26,6 @@ const Login = () => {
       focusedInputRef.current?.focus();
     }
   }, []);
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -46,12 +45,12 @@ const Login = () => {
       const errMsg = error.response?.data?.message || "Failed to login";
       setLoginError(errMsg);
     }
-  }
+  };
 
   const handleChange = (e) => {
     const { id, value } = e.target;
     setFormData((prev) => ({ ...prev, [id]: value }));
-  }
+  };
 
   if (user) {
     return (
@@ -60,14 +59,16 @@ const Login = () => {
         <p>You are already logged in</p>
         <Button text="Logout" onClick={handleLogout} />
       </div>
-    )
+    );
   }
 
   return (
-    <div className="max-w-md p-8 grid gap-6 text-white">
+    <div className="w-full max-w-md p-8 grid gap-6 text-white">
       <h2 className="text-2xl font-bold text-center">Login</h2>
-      <form onSubmit={handleSubmit} className="grid gap-6">
-        <label htmlFor="email" className="sr-only">Email</label>
+      <form onSubmit={handleSubmit} className="grid gap-4">
+        <label htmlFor="email" className="sr-only">
+          Email
+        </label>
 
         <LoginInputField
           id="email"
@@ -93,12 +94,14 @@ const Login = () => {
         {loginError && <p className="text-red-200">{loginError}</p>}
 
         <div className="flex justify-between flex-row-reverse gap-6">
-          <Button text="Login" className="flex-1" />
-          <Button text="Sign Up" className="flex-1" />
+          <Button text="Login" className=" w-24" />
+          <Link to="/Signup">
+            <Button text="Sign Up" className="w-24" />
+          </Link>
         </div>
       </form>
     </div>
-  )
+  );
 };
 
 export default Login;
