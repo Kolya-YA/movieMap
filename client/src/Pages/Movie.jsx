@@ -11,11 +11,9 @@ const useMovieDetail = id => {
 
     const fetchDetail = useCallback(async () => {
         if (!id) return;
-
         const url = `/api/v1/details/movie/${id}`;
         setIsLoading(true);
         setError(null);
-
         try {
             const response = await axios.get(url);
             setDetail(response.data);
@@ -43,20 +41,16 @@ const useToggle = (initialState = false) => {
 const Movie = () => {
     const { id } = useParams();
     const { detail, isLoading: isDataLoading, error } = useMovieDetail(id);
-
     const [isBookmarked, toggleBookmark] = useToggle(false);
     const [isWatchlisted, toggleWatchlist] = useToggle(false);
     const [isMore, toggleMore] = useToggle(false);
-
     const saveData = useCallback((state, type) => {
         console.log(`${type} state saved:`, state);
     }, []);
-
     const handleBookmark = useCallback(() => {
         toggleBookmark();
         saveData(!isBookmarked, 'Bookmark');
     }, [isBookmarked, toggleBookmark, saveData]);
-
     const handleWatchlist = useCallback(() => {
         toggleWatchlist();
         saveData(!isWatchlisted, 'Watchlist');
@@ -77,19 +71,18 @@ const Movie = () => {
             </div>
             <div className="row-start-2 -mt-40 col-start-1 bg-black bg-opacity-70 p-4">
                 <h1 className="text-3xl text-center font-semibold font-black-ops-one">{detail.title}</h1>
-                <div className="flex justify-center">
-                    <p className="mr-5 mb-2">{detail.release_date}</p>
+                <div className="flex justify-center mb-2">
+                    <p className="ml-5">{detail.release_date}</p>
                     {detail.genres_list && detail.genres_list.length > 0 && (
                         <p className="text-center">Genres: {detail.genres_list.join(', ')}</p>
                     )}
                 </div>
-
                 <div className="flex justify-center items-center mb-4">
                     <div>
                         <div className="flex text-2xl items-center mr-4">
                             <StarRating rating={detail.vote_average} />
                             <p className="text-sm ml-2">
-                                <FormatNumber number={detail.vote_count} />
+                                (<FormatNumber number={detail.vote_count} />)
                             </p>
                         </div>
                         <div className="flex text-2xl items-center mr-4">
@@ -127,11 +120,12 @@ const Movie = () => {
                         )}
                     </div>
                 )}
-
                 <div className="flex text-lg justify-center">
                     {detail.trailers && detail.trailers.length > 0 && (
                         <a
                             href={`${detail.trailers[0].url}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
                             className="w-52 h-10 border-white-hover-gray flex justify-center items-center"
                         >
                             <LuYoutube className="mr-2 text-2xl" />
