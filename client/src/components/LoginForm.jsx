@@ -1,9 +1,8 @@
-import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { UserContext } from '../contexts';
+import { useUserContext } from '../hooks';
 
 const LoginForm = () => {
-    const { setUser, testUser } = useContext(UserContext)
+    const { setUser, testUser } = useUserContext()
     const navigate = useNavigate();
 
     const handleSubmit = (e) => {

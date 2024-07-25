@@ -1,10 +1,10 @@
-import { useState, useEffect, useContext } from 'react'
+import { useState, useEffect } from 'react'
 import axios from 'axios'
-import { UserContext } from '../contexts'
+import { useUserContext } from '../hooks'
 import { UserHomePage, GuestHomePage } from '../components'
 
 const Home = () => {
-    const { user } = useContext(UserContext)    
+    const { user } = useUserContext()    
     const [dailyRecs, setDailyRecs] = useState([])    
 
     useEffect(() => {

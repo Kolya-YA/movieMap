@@ -1,10 +1,8 @@
-import { useContext } from 'react';
-
-import { UserContext } from '../contexts';
+import { useUserContext } from '../hooks';
 import { HomeHistoryList, HomeWaitingList, HomePageMovieList } from '../components'
 
 const UserHomePage = ({ dailyRecs }) => {
-    const { user } = useContext(UserContext)
+    const { user } = useUserContext()
 
     return (
         <>

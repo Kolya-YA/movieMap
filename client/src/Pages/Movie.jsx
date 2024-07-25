@@ -29,8 +29,8 @@ const Movie = () => {
                         <p className="text-center">{detail.genres_list.join(', ')}</p>
                     )}
                 </div>
-                <Rating movie={detail} user={null} />
-                <UserButtons movie={detail} user={null} />
+                <Rating movie={detail} />
+                <UserButtons movie={detail} />
                 <AdditionalDetails movie={detail} />
             </div>
         </div>
