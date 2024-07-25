@@ -5,9 +5,9 @@ const UserButtons = ({ movie }) => {
     const { user, updateUser } = useUserContext();
     const checkAuth = useAuthCheck();
     const movieInUserList = user?.movieList?.find(m => m.tmdbMovieId === movie.id);
-    const movieUserViewedDate = movieInUserList?.vievedDate;
+    const userDateOfWatch = movieInUserList?.dateOfWatch;
     // const movieUserRating = movieInUserList?.rating;
-console.log("User: ", user) 
+
     const handleBookmark = async () => {
         if (!checkAuth()) return; // user is not logged in or token has expired
         if (movieInUserList) return; // movie is already in user list
@@ -41,12 +41,12 @@ console.log("User: ", user)
                 }
             </button>
             <button type="button" onClick={handleWatchlist} className="rounded-sm px-2 border bg-white/30">
-                {movieUserViewedDate
+                {userDateOfWatch
                     ? (<>
-                        <LuEyeOff size={20} className="inline" aria-hidden="true" /> Add to history
+                        <LuEye size={20} className="inline" aria-hidden="true" /> In my history
                     </>)
                     : (<>
-                        <LuEye size={20} className="inline" aria-hidden="true" /> In my history
+                        <LuEyeOff size={20} className="inline" aria-hidden="true" /> Add to history
                     </>)
                 }
             </button>
