@@ -2,9 +2,11 @@ import { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { LuMail, LuKeyRound } from "react-icons/lu";
-
+import DateOfBirthPicker from './FormComponents/BirthDateSelector';
 import { CheckboxComponent, InputComponent, SelectComponent } from "./FormComponents"
+import Button from "./Button";
+import { LuMail, LuKeyRound, LuCake, LuMapPin, LuSquare, LuCheckSquare, LuPin } from "react-icons/lu";
+
 
 
 
@@ -22,6 +24,9 @@ const SignUpForm = () => {
     const [error, setError] = useState(null)
     const [isSubmitting, setIsSubitting] = useState(false)
     const [countries, setCountries] = useState([])
+    const [birthDate, setBirthDate] = useState(null)
+    // Added state for birthDate
+    
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -46,6 +51,15 @@ const SignUpForm = () => {
         }));
     }
 
+    // aded date change handler
+    const handleDateChange = (date) => { 
+        setBirthDate(date);
+        setFormData(prev => ({
+            ...prev,
+            birthYear: date ? date.getFullYear() : ""
+        }));
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         toast.dismiss();
@@ -66,9 +80,11 @@ const SignUpForm = () => {
 
     return (
         <>
-        <div className="flex justify-center items-center min-h-full text-white">
-        <div className=" w-full max-w-md p-8 space-y-6 bg-transparent">
-            <form onSubmit={handleSubmit}>
+
+        <div
+        className="w-full max-w-md p-8 bg-transparent flex flex-col items-center text-center"
+        >
+            <form onSubmit={handleSubmit} className="flex flex-col w-full gap-4">
                 <InputComponent  
                 type="email" 
                 id="email" 
@@ -78,19 +94,37 @@ const SignUpForm = () => {
                 value={formData.email} 
                 onChange={changeHandler} 
                 />
-                <InputComponent type="password" id="password" req label="Password" value={formData.password} onChange={changeHandler} />
-                <InputComponent type="password" id="passwordConfirmation" req label="Confirm password" value={formData.passwordConfirmation} onChange={changeHandler} />
-                <p>For better recommendations please add your date of birth and Location</p>
-                <InputComponent type="number" id="birthYear" label="Year of birth" value={formData.birthYear} onChange={changeHandler} />
-                <SelectComponent id="country" label="Select your country" values={countries} value={formData.country} onChange={changeHandler} />
+                <InputComponent type="password" id="password"
+                icon={<LuKeyRound size={24} aria-hidden="true" className="ms-auto color-white" />}
+                placeholder={"Password"}
+                req label="Password" value={formData.password} onChange={changeHandler} />
+                <InputComponent type="password" id="passwordConfirmation" 
+                icon={<LuKeyRound size={24} aria-hidden="true" className="ms-auto color-white" />}
+                placeholder="Confirm password"
+                req label="Confirm password" value={formData.passwordConfirmation} onChange={changeHandler} />
+                <p>
+                To provide you with more personalized recommendations, we need your year of birth and general area (city or region). <br /> Your privacy is important to us, and this data will be used solely for recommendation purposes.
+                </p>
+                <DateOfBirthPicker
+          selectedDate={birthDate}
+          onChange={handleDateChange}
+          label="Date of Birth"
+          icon={<LuMapPin size={24} aria-hidden="true" className="ms-auto color-white color-opacity-100" />}
+          required
+        />
+                {/* <InputComponent type="number" id="birthYear" label="Year of birth" value={formData.birthYear} onChange={changeHandler} /> */}
+                <SelectComponent id="country" 
+                icon={<LuPin size={24} aria-hidden="true" className="ms-auto color-white" />}
+                label="Select your country" values={countries} value={formData.country} onChange={changeHandler} />
                 <CheckboxComponent id="tocAgreement" req label="I accept the terms and conditions" value={formData.tocAgreement} onChange={changeHandler} />
                 <CheckboxComponent id="dpAgreement" req label="I accept the data protection policy" value={formData.dpAgreement} onChange={changeHandler} />
-                <button type="submit" className="btn-login">
+                {/* <button type="submit" className="btn-login">
                     {isSubmitting ? "Signing up..." : "Sign Up"}
-                </button>
+                </button> */}
+                <Button type="submit" text="Sign Up" className="btn-login mx-auto w-24 ">
+                {isSubmitting ? "Signing up..." : "Sign Up"}</Button>
                 {error && <p style={{ color: 'red' }}>!!!ERROR!!!</p>}
             </form>
-        </div>
         </div>
         </>
     )

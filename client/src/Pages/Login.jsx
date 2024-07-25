@@ -63,7 +63,7 @@ const Login = () => {
   }
 
   return (
-    <div className="w-full max-w-md p-8 grid gap-6 text-white">
+    <div className="max-w-md p-8 grid gap-6 text-white">
       <h2 className="text-2xl font-bold text-center">Login</h2>
       <form onSubmit={handleSubmit} className="grid gap-4">
         <label htmlFor="email" className="sr-only">
