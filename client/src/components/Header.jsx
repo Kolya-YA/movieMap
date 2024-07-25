@@ -3,12 +3,12 @@ import { useUserContext } from "../hooks"
 import TopNav from "./TopNav"
 
 const Header = () => {
-    const { user, userLogout } = useUserContext();
+    const { user, logoutUser } = useUserContext();
 
     return (
         <header className="flex justify-between items-start gap-2 p-2 bg-black">
             {user ? (
-                <button className="btn-login" type="button" onClick={userLogout}>Logout</button>
+                <button className="btn-login" type="button" onClick={logoutUser}>Logout</button>
             ) : (
                 <Link to="/login" className="btn-login" type="button">Login</Link>
             )}

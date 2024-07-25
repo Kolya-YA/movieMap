@@ -1,9 +1,9 @@
 import { createContext } from "react";
 import { useUser } from "../hooks";
 
-export const UserContext = createContext();
+const UserContext = createContext();
 
-export const UserProvider = ({ children }) => {
+const UserProvider = ({ children }) => {
     const userState = useUser();
 
     return (
@@ -12,3 +12,5 @@ export const UserProvider = ({ children }) => {
         </UserContext.Provider>
     );
 };
+
+export { UserProvider, UserContext };

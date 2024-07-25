@@ -20,13 +20,14 @@ const useUser = () => {
 		}
 	}, []);
 
-	const updateLocalUser = ({ token }) => {
+	const updateLocalUser = (data) => {
+		console.log("data", data);
+		const { token, user } = data;
 		if (!token) {
 			throw new Error("No token in response");
 		}
 		localStorage.setItem("token", token);
-		const decodedToken = jwtDecode(token);
-		setUser(decodedToken);
+		setUser(user);
 		axios.defaults.headers.common.Authorization = `Bearer ${token}`;
 	};
 
@@ -37,6 +38,7 @@ const useUser = () => {
 	};
 
 	const logoutUser = ({ login }) => {
+		console.log("logoutUser");
 		const path = login ? "/login" : "/";
 		navigate(path, { replace: !login });
 		localStorage.removeItem("token");

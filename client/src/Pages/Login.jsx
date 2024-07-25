@@ -7,7 +7,7 @@ import Button from '../components/Button';
 
 const Login = () => {
   const focusedInputRef = useRef(null);
-  const { user, loginUser, userLogout } = useUserContext();
+  const { user, loginUser, logoutUser } = useUserContext();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -42,7 +42,7 @@ const Login = () => {
       <div className="max-w-md p-8 grid gap-6 text-white">
         <h1>Welcome back {user.email}</h1>
         <p>You are already logged in</p>
-        <Button text="Logout" onClick={userLogout} />
+        <Button text="Logout" onClick={logoutUser} />
       </div>
     )
   }

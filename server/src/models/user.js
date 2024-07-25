@@ -72,9 +72,14 @@ const UserSchema = new Schema(
 		},
 		movieList: [
 			{
-				movie: {
-					type: Schema.Types.ObjectId,
+				tmdbMovieId: {
+					type: Number,
 					ref: "Movie",
+					required: true,
+				},
+				waitlistAddedDate: {
+					type: Date,
+					default: Date.now,
 				},
 				dateOfWatch: {
 					type: Date,
@@ -87,7 +92,7 @@ const UserSchema = new Schema(
 				},
 			},
 		],
-		aiRecomendation: [],
+		movAIRecs: [],
 	},
 	{ timestamps: true },
 );
@@ -108,7 +113,7 @@ UserSchema.methods.checkPassword = async function (password) {
 
 UserSchema.methods.createAuthToken = function () {
 	return jwt.sign(
-		{ id: this._id.toString(), email: this.email, isAdmin: this.isAdmin, birthYear: this.birthYear, countryCode: this.countryCode },
+		{ id: this._id.toString(), email: this.email, isAdmin: this.isAdmin },
 		JWT_SECRET,
 		{
 			expiresIn: JWT_EXPIRATION,
