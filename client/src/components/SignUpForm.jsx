@@ -8,6 +8,7 @@ import {
   InputComponent,
   SelectComponent,
 } from "./FormComponents";
+import PasswordToggleButton from './FormComponents/PasswordToggleButton';
 import Button from "./Button";
 import {
   LuMail,
@@ -68,6 +69,9 @@ const SignUpForm = () => {
     }));
   };
 
+  // Password toggle handler
+ 
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     toast.dismiss();
@@ -115,13 +119,16 @@ const SignUpForm = () => {
                 aria-hidden="true"
                 className="ms-auto color-white"
               />
+              
             }
             placeholder={"Password"}
             req
             label="Password"
             value={formData.password}
             onChange={changeHandler}
+            endButton={<PasswordToggleButton />}
           />
+          
           <InputComponent
             type="password"
             id="passwordConfirmation"

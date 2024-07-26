@@ -18,7 +18,9 @@ const DateOfBirthPicker = ({ selectedDate, onChange, label, required, icon }) =>
             <DatePicker
                 selected={selectedDate}
                 onChange={onChange}
-                className="w-96 min-w-full px-10  py-2 border border-white border-opacity-70 shadow-diffused bg-black bg-opacity-70 text-white text-opacity-70 rounded focus:outline-none focus:ring-2 focus:ring-gray-200 transition duration-300 hover:border-gray-600"
+                className="w-96 min-w-full px-4  py-2 border border-white border-opacity-70  bg-black bg-opacity-70 text-white text-opacity-70 rounded 
+                focus:shadow-diffused
+                 transition duration-300 hover:border-gray-600"
                 dateFormat="dd/MM/yyyy"
                 placeholderText="      Date of birth"
                 showYearDropdown
