@@ -1,8 +1,4 @@
-import { useUserContext } from '../hooks'
-import { UserInfo } from '../components'
-
 const About = () => {
-    const { user } = useUserContext()
 
     return (
         <section className="bg-white/40">
@@ -12,7 +8,6 @@ const About = () => {
                 <li>Jack Doe</li>
                 <li>John Smith</li>
             </ol>
-            {user && <UserInfo user={user} />}
         </section>
     )
 }
