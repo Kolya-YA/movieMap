@@ -1,19 +1,24 @@
-const SelectComponent = ({ id, req, label, values, onChange, value }) => {
+const SelectComponent = ({ id, req, label, values, onChange, value, icon, }) => {
 
     return (
-        <div>
-            <label htmlFor={id} className="block">
+        <div className="">
+            <label htmlFor={id} className="block sr-only">
                 {label}
                 {req && <span className="text-red-500">*</span>}
             </label>
-            <select
+            {icon && <span className="absolute flex items-center pl-2 pt-2 ">{icon}</span>}
+            <select className="w-full px-4 py-2 pl-10 border border-white border-opacity-70 bg-black bg-opacity-70 text-white text-opacity-70 hover:border-gray-600
+            focus:shadow-diffused
+            rounded
+            select:ease-in-out select:hover:scale-105 select:
+                 transition duration-300"
                 value={value}
                 onChange={onChange}
                 id={id}
-                required={req}
-                className="w-full border border-gray-300 rounded-md p-1"
-            >
-                <option value="">Please select</option>
+                required={req}>
+                
+
+                <option value="" className="" >Country</option>
                 {Object.entries(values)
                     .sort((a, b) => a[1] > b[1] ? 1 : -1)
                     .map(([key, value]) => {

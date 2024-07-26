@@ -4,9 +4,14 @@ const SignUp = () => {
 
     return (
         <>
-            <h1 className="text-lg font-semibold">Sign up</h1>
-            <p>To access all features, register on our website</p>
+        <div className='flex flex-col items-center text-white'>
+
+            <h1 className="text-lg font-semibold p-8">Sign up</h1>
+            <p className='px-10 text-center'>
+                Sign up to get access to all features of our website.
+            </p>
              <SignUpForm />
+        </div>
         </>
     )
 }
