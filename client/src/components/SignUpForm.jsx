@@ -141,25 +141,13 @@ const SignUpForm = () => {
         selectedDate={birthDate}
         onChange={handleDateChange}
         label="Date of Birth"
-        icon={
-          <LuMapPin
-            size={24}
-            aria-hidden="true"
-            className="ms-auto color-white color-opacity-100"
-          />
-        }
+        Icon={LuMapPin}
         required
       />
       {/* <InputComponent type="number" id="birthYear" label="Year of birth" value={formData.birthYear} onChange={changeHandler} /> */}
       <SelectComponent
         id="country"
-        icon={
-          <LuPin
-            size={24}
-            aria-hidden="true"
-            className="ms-auto color-white"
-          />
-        }
+        Icon={LuPin}
         label="Select your country"
         values={countries}
         value={formData.country}
