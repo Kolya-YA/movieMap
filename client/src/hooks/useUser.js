@@ -30,10 +30,11 @@ const useUser = () => {
 		navigate(-1, { fallback: "/", replace: true });
 	};
 
-	const logoutUser = ({ login }) => {
-		console.log("logoutUser");
-		const path = login ? "/login" : "/";
-		navigate(path, { replace: !login });
+	const logoutUser = ({ login, noNav }) => {
+		if (!noNav) {
+			const path = login ? "/login" : "/";
+			navigate(path, { replace: !login });
+		}
 		localStorage.removeItem("token");
 		axios.defaults.headers.common.Authorization = undefined;
 		setUser(null);
@@ -59,7 +60,7 @@ const useUser = () => {
 		localStorage.setItem("token", token);
 		setUser(user);
 		axios.defaults.headers.common.Authorization = `Bearer ${token}`;
-	};
+	}
 
 	return { user, updateUser, loginUser, logoutUser };
 };
