@@ -1,10 +1,8 @@
-import { useContext } from 'react'
-
-import { UserContext } from '../contexts'
+import { useUserContext } from '../hooks'
 import { UserInfo } from '../components'
 
 const About = () => {
-    const { user } = useContext(UserContext)
+    const { user } = useUserContext()
 
     return (
         <section className="bg-white/40">

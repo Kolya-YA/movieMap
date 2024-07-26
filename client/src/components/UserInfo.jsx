@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const UserInfo = ({ user }) => {
     return (
         <section>
@@ -9,7 +11,11 @@ const UserInfo = ({ user }) => {
                     <h3>User movie list:</h3>
                     <ul>
                         {user.movieList.map((movie, index) => (
-                            <li key={movie.id}>{index + 1}. id: {movie.id} Date: {movie.viewedDate} Rating: {movie.rating}</li>
+                            <li key={movie.id}>
+                                <Link to={`/movie/${movie.tmdbMovieId}`} className="text-blue-900 hover:underline">
+                                {index + 1}. id: {movie.tmdbMovieId} viewed: {movie.dateOfWatch ? 'yes' : 'no'}   
+                                </Link>
+                            </li>
                         ))}
                     </ul>
                 </>
