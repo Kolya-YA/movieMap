@@ -2,14 +2,14 @@ import { jwtDecode } from "jwt-decode";
 import { useUserContext } from "./";
 
 const useAuthCheck = () => {
-	const { userLogout } = useUserContext();
+	const { logoutUser } = useUserContext();
 
 	const checkAuth = () => {
 		const token = localStorage.getItem("token");
 
 		if (!token) {
 			console.log("Token is not present");
-			userLogout({ login: true });
+			logoutUser({ login: true });
 			return false;
 		}
 
@@ -17,12 +17,12 @@ const useAuthCheck = () => {
 
 		if (!user) {
 			console.log("User is not logged in");
-			userLogout({ login: true });
+			logoutUser({ login: true });
 			return false;
 		}
 		if (user.exp * 1000 < Date.now()) {
 			console.log("Token has expired");
-			userLogout({ login: true });
+			logoutUser({ login: true });
 			return false;
 		}
 
