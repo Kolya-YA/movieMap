@@ -52,7 +52,6 @@ const useUser = () => {
 	};
 
 	function updateLocalUser(data) {
-		console.log("data", data);
 		const { token, user } = data;
 		if (!token) {
 			throw new Error("No token in response");

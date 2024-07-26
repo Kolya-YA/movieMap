@@ -1,7 +1,7 @@
 import { BrowserRouter, Navigate, Outlet, Route, Routes } from 'react-router-dom'
 import { useAuthCheck } from './hooks'
 import { MainLayout } from './layouts'
-import { About, Home, Login, Movie, SearchMovies, SignUp } from './Pages'
+import { About, Home, Login, Movie, SearchMovies, SignUp, UserProfile } from './Pages'
 
 const UserProtectedRoute = () => {
     const checkAuth = useAuthCheck();
@@ -22,7 +22,7 @@ function App() {
                     <Route path="/movie/:id" element={<Movie />} />
                     <Route path="/*" element={<div className='text-white'>404</div>} />
                     <Route element={<UserProtectedRoute />} >
-                        <Route path="/profile" element={<div className='text-white'>User profile</div>} />
+                        <Route path="/profile" element={<UserProfile />} />
                     </Route>
                 </Route>
             </Routes>
