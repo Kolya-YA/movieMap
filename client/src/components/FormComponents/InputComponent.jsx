@@ -8,7 +8,7 @@ const InputComponent = ({ type, id, req, label, onChange, value, placeholder, ic
             </label>
             {icon && <span className="absolute flex items-center pl-2 pt-2 ">{icon}</span>}
             <input className=" ${endButton ? 'pr-10' : ''} w-full px-4 py-2 pl-10 border border-white border-opacity-70 bg-black bg-opacity-70 text-white rounded hover:border-gray-600
-            focus:shadow-diffused
+            focus:shadow-diffused focus:outline-none focus:border-gray-600
                  transition duration-300"
                 placeholder={placeholder}
                 autocomplete={autocomplete}
