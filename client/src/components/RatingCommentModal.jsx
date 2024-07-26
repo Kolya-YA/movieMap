@@ -24,12 +24,13 @@ const RatingCommentModal = () => {
   };
 
   return (
-    <>
+    <div className='text-center'>
       <button 
+        type="button"
         onClick={openModal} 
-        className="rounded-sm p-2"
+        className="rounded-sm px-2 border bg-white/30"
       >
-        <LuPencil className="text-xl"/>
+        <LuPencil size={20} className="inline" aria-hidden="true" /> My rate
       </button>
 
       {isOpen && (
@@ -65,12 +66,14 @@ const RatingCommentModal = () => {
             </div>
             <div className="mt-6 flex justify-center space-x-3">
               <button
+                type="button"
                 onClick={closeModal}
                 className="px-5 py-2 border border-gray-300 rounded-md text-sm text-white bg-gray-600 hover:bg-black"
               >
                 cancel
               </button>
               <button
+                type="button"
                 onClick={handleSubmit}
                 className="px-5 py-2 border border-gray-300 rounded-md text-sm text-white bg-gray-600 hover:bg-black"
               >
@@ -80,7 +83,7 @@ const RatingCommentModal = () => {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 };
 

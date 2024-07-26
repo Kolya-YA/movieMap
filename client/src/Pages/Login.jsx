@@ -5,16 +5,13 @@ import { useContext, useState, useRef, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { LuMail, LuKeyRound } from "react-icons/lu";
 
-import { useLogout } from "../hooks";
-import { UserContext } from "../contexts";
+import { useUserContext } from "../hooks";
 import { LoginInputField } from "../components/FormComponents";
 import Button from "../components/Button";
 
 const Login = () => {
-  const navigate = useNavigate();
   const focusedInputRef = useRef(null);
-  const handleLogout = useLogout();
-  const { user, setUser } = useContext(UserContext);
+  const { user, loginUser, logoutUser } = useUserContext();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -31,17 +28,9 @@ const Login = () => {
     e.preventDefault();
     try {
       setLoginError(null);
-      const { data } = await axios.post("/api/v1/users/login", formData);
-      if (!data.token) {
-        throw new Error("No token in response");
-      }
-      localStorage.setItem("token", data.token);
-      const decodedToken = jwtDecode(data.token);
-      setUser(decodedToken);
-      axios.defaults.headers.common.Authorization = `Bearer ${data.token}`;
-      const from = location.state?.from || { pathname: "/" };
-      navigate(from, { replace: true });
+      await loginUser(formData)
     } catch (error) {
+      console.log(error)
       const errMsg = error.response?.data?.message || "Failed to login";
       setLoginError(errMsg);
     }
@@ -57,7 +46,7 @@ const Login = () => {
       <div className="max-w-md p-8 grid gap-6 text-white">
         <h1>Welcome back {user.email}</h1>
         <p>You are already logged in</p>
-        <Button text="Logout" onClick={handleLogout} />
+        <Button text="Logout" onClick={logoutUser} />
       </div>
     );
   }

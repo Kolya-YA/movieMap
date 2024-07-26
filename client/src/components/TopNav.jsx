@@ -1,13 +1,11 @@
-import { useState, useContext } from 'react'
+import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 
-import { useLogout } from '../hooks'
-import { UserContext } from '../contexts'
+import { useUserContext } from '../hooks'
 import { LuMenu, LuX } from 'react-icons/lu'
 
 const TopNav = () => {
-    const handleLogout = useLogout()
-    const { user } = useContext(UserContext)
+    const { user, logoutUser } = useUserContext()
     const [navOpen, setNavOpen] = useState(false)
 
     const toggleNav = () => { setNavOpen(!navOpen) }
@@ -34,7 +32,7 @@ const TopNav = () => {
                     ? (
                         <>
                             <li><NavLink to='/profile' >Profile</NavLink></li>
-                            <li><NavLink onClick={handleLogout}>Logout</NavLink></li>
+                            <li><NavLink onClick={logoutUser}>Logout</NavLink></li>
                             {user.isAdmin && <li><NavLink to='/admin' >Admin</NavLink></li>}
                         </>
                     )

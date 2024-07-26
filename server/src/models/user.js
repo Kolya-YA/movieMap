@@ -72,22 +72,31 @@ const UserSchema = new Schema(
 		},
 		movieList: [
 			{
-				movie: {
-					type: Schema.Types.ObjectId,
+				tmdbMovieId: {
+					type: Number,
 					ref: "Movie",
+					required: true,
+					unqiue: true,
 				},
-				dateOfWatch: {
+				dateOfAdded: {
 					type: Date,
 					default: Date.now,
+				},
+				dateOfWatch: {
+					type: Date
 				},
 				rating: {
 					type: Number,
 					min: 0,
 					max: 10,
 				},
+				comment: {
+					type: String,
+					maxlength: 512,
+				},
 			},
 		],
-		aiRecomendation: [],
+		movAIRecs: [],
 	},
 	{ timestamps: true },
 );
@@ -108,7 +117,7 @@ UserSchema.methods.checkPassword = async function (password) {
 
 UserSchema.methods.createAuthToken = function () {
 	return jwt.sign(
-		{ id: this._id.toString(), email: this.email, isAdmin: this.isAdmin, birthYear: this.birthYear, countryCode: this.countryCode },
+		{ id: this._id.toString(), email: this.email, isAdmin: this.isAdmin },
 		JWT_SECRET,
 		{
 			expiresIn: JWT_EXPIRATION,
@@ -118,9 +127,15 @@ UserSchema.methods.createAuthToken = function () {
 
 UserSchema.set("toJSON", {
 	transform: (document, returnedObject) => {
+		returnedObject.movieList = returnedObject.movieList.map((movie) => {
+			movie.id = movie._id?.toString();
+			movie._id = undefined;
+			return movie;
+		});
 		returnedObject.id = returnedObject._id?.toString();
 		returnedObject._id = undefined;
 		returnedObject.__v = undefined;
+		returnedObject.password = undefined;
 	},
 });
 

@@ -11,7 +11,7 @@ const loginUser = async (req, res) => {
 			return res.status(401).send({ message: "Invalid email or password" });
 		}
 
-		return res.status(200).json({ token: user.createAuthToken() });
+		return res.status(200).json({ user, token: user.createAuthToken() });
 	} catch (error) {
 		res.status(500).json({ errorMsg: "Authentification error", error });
 	}
