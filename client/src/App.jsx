@@ -1,6 +1,13 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Navigate, Outlet, Route, Routes } from 'react-router-dom'
+import { useAuthCheck } from './hooks'
 import { MainLayout } from './layouts'
-import { About, Home, Login, Movie, SearchMovies, SignUp } from './Pages'
+import { About, Home, Login, Movie, SearchMovies, SignUp, UserProfile } from './Pages'
+
+const UserProtectedRoute = () => {
+    const checkAuth = useAuthCheck();
+    if (checkAuth({ noNav: true })) return <Outlet />
+    return <Navigate to="/login" />
+}
 
 function App() {
     return (
@@ -13,7 +20,10 @@ function App() {
                     <Route path="/about" element={<About />} />
                     <Route path="/search" element={<SearchMovies />} />
                     <Route path="/movie/:id" element={<Movie />} />
-                    <Route path="/*" element={<div>404</div>} />
+                    <Route path="/*" element={<div className='text-white'>404</div>} />
+                    <Route element={<UserProtectedRoute />} >
+                        <Route path="/profile" element={<UserProfile />} />
+                    </Route>
                 </Route>
             </Routes>
         </BrowserRouter>

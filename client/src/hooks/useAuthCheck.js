@@ -2,32 +2,34 @@ import { jwtDecode } from "jwt-decode";
 import { useUserContext } from "./";
 
 const useAuthCheck = () => {
-	const { logoutUser } = useUserContext();
+	const { user, logoutUser } = useUserContext();
 
-	const checkAuth = () => {
+	const checkAuth = (param) => {
+
 		const token = localStorage.getItem("token");
 
 		if (!token) {
 			console.log("Token is not present");
-			logoutUser({ login: true });
+			logoutUser({ login: true, noNav: param.noNav });
 			return false;
 		}
 
-		const user = jwtDecode(token);
+		const userFromToken = jwtDecode(token);
 
-		if (!user) {
+		if (!userFromToken || userFromToken.email !== user?.email) {
 			console.log("User is not logged in");
-			logoutUser({ login: true });
+			logoutUser({ login: true, noNav: param.noNav });
 			return false;
 		}
-		if (user.exp * 1000 < Date.now()) {
+
+		if (userFromToken.exp * 1000 < Date.now()) {
 			console.log("Token has expired");
-			logoutUser({ login: true });
+			logoutUser({ login: true, noNav: param.noNav });
 			return false;
 		}
 
 		console.log(
-			`User is already logged in. ${Math.floor((user.exp * 1000 - Date.now()) / 1000 / 60)} mins left`,
+			`User is already logged in. ${Math.floor((userFromToken.exp * 1000 - Date.now()) / 1000 / 60)} mins left`,
 		);
 		return true;
 	};
