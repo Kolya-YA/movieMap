@@ -15,7 +15,7 @@ const SelectComponent = ({ id, req, label, values, onChange, value, Icon }) => {
                 value={value}
                 onChange={onChange}
                 id={id}
-                required={req}>                
+                required={req}>
 
                 <option value="">——— Select your country ———</option>
                 {Object.entries(values)
@@ -27,9 +27,12 @@ const SelectComponent = ({ id, req, label, values, onChange, value, Icon }) => {
             <span className="absolute end-2 inset-y-0 block my-auto max-h-fit pointer-events-none">
                 {<LuChevronsDown size={24} aria-hidden="true" />}
             </span>
-            {Icon && <span className="absolute start-2 inset-y-0 block my-auto max-h-fit">
-                {<Icon size={24} aria-hidden="true" />}
-            </span>}
+            {
+                Icon &&
+                <span className="absolute start-2 inset-y-0 block my-auto max-h-fit">
+                    {<Icon size={24} aria-hidden="true" />}
+                </span>
+            }
         </div>
     )
 }

@@ -23,7 +23,6 @@
   },
   "dependencies": {
     "jwt-decode": "^4.0.0",
-    "react-datepicker": "^7.3.0",
     "simplebar-react": "^3.2.6"
   }
 }

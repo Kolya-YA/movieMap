@@ -12,7 +12,7 @@ const InputComponent = ({ type, id, req, label, onChange, value, placeholder, Ic
                 transition duration-300"
                 placeholder={placeholder}
                 autoComplete={autocomplete}
-                type={psdwShow? 'text' : type}
+                type={psdwShow ? 'text' : type}
                 value={value}
                 onChange={onChange}
                 id={id}
@@ -21,11 +21,15 @@ const InputComponent = ({ type, id, req, label, onChange, value, placeholder, Ic
             // TODO: Add autocomplete attributes
             />
 
-            {Icon && <span className="absolute start-2 inset-y-0 block my-auto max-h-fit">
-                {<Icon size={24} aria-hidden="true" />}
-            </span>}
-            {PswdToggler
-                && <PswdToggler psdwShow={psdwShow} togglePsdwShow={togglePsdwShow} />
+            {
+                Icon &&
+                <span className="absolute start-2 inset-y-0 block my-auto max-h-fit">
+                    {<Icon size={24} aria-hidden="true" />}
+                </span>
+            }
+            {
+                PswdToggler &&
+                <PswdToggler psdwShow={psdwShow} togglePsdwShow={togglePsdwShow} />
             }
         </div>
     )

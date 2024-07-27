@@ -1,10 +1,15 @@
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
-const DateOfBirthPicker = ({ selectedDate, onChange, label, Icon }) => {
+const dateMinusXYears = x => {
+    const curDate = new Date();
+    return new Date(curDate.setFullYear(curDate.getFullYear() - x));
+}
+
+const DateOfBirthPicker = ({ id, selectedDate, onChange, label, Icon }) => {
     return (
-        <div className="relative has-[.react-datepicker-wrapper]:w-full">
-            <label htmlFor="birthDate" className="block sr-only">{label}</label>
+        <div className="relative">
+            <label htmlFor={id} className="block sr-only">{label}</label>
 
             <DatePicker
                 wrapperClassName="w-full"
@@ -14,17 +19,21 @@ const DateOfBirthPicker = ({ selectedDate, onChange, label, Icon }) => {
                 hover:border-gray-600
                 focus:shadow-diffused focus:outline-none focus:border-gray-600
                 transition duration-300"
+                id={id}
                 selected={selectedDate}
-                onChange={onChange}
-                dateFormat="dd/MM/yyyy"
-                placeholderText="Date of birth"
-                showYearDropdown
-                yearDropdownItemNumber={100}
-                scrollableYearDropdown
+                onChange={onChangeDate => onChange({ target: { id, value: onChangeDate } })}
+                showYearPicker
+                dateFormat="yyyy"
+                maxDate={dateMinusXYears(12)}
+                placeholderText="Year of birth"
             />
-            {Icon && <span className="absolute start-2 inset-y-0 block my-auto max-h-fit">
-                {<Icon size={24} aria-hidden="true" />}
-            </span>}
+
+            {
+                Icon &&
+                <span className="absolute start-2 inset-y-0 block my-auto max-h-fit">
+                    {<Icon size={24} aria-hidden="true" />}
+                </span>
+            }
         </div>
     );
 };

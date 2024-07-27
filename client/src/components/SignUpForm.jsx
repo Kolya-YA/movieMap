@@ -1,25 +1,14 @@
 import { useState, useEffect } from "react";
+// import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+
+import { useToggle } from "../hooks";
 import DateOfBirthPicker from "./FormComponents/BirthDateSelector";
-import {
-  CheckboxComponent,
-  InputComponent,
-  SelectComponent,
-} from "./FormComponents";
+import { CheckboxComponent, InputComponent, SelectComponent, } from "./FormComponents";
 import PasswordToggleButton from './FormComponents/PasswordToggleButton';
 import Button from "./Button";
-import {
-  LuMail,
-  LuKeyRound,
-  LuMapPin,
-  LuPin,
-  // LuCake,
-  // LuSquare,
-  // LuCheckSquare,
-} from "react-icons/lu";
-import { useToggle } from "../hooks";
+import { LuMail, LuKeyRound, LuMapPin, LuPin, } from "react-icons/lu";
 
 const SignUpForm = () => {
   const errNotify = (msg = "Error!") => toast.error(msg, { autoClose: 15000 });
@@ -28,6 +17,7 @@ const SignUpForm = () => {
     email: "",
     password: "",
     passwordConfirmation: "",
+    country: "",
     birthYear: "",
     tocAgreement: false,
     dpAgreement: false,
@@ -36,10 +26,8 @@ const SignUpForm = () => {
   const [error, setError] = useState(null);
   const [isSubmitting, setIsSubitting] = useState(false);
   const [countries, setCountries] = useState([]);
-  const [birthDate, setBirthDate] = useState(null);
-  // Added state for birthDate
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCountries = async () => {
@@ -50,7 +38,6 @@ const SignUpForm = () => {
         console.error("Failed to fetch countries:", error);
       }
     };
-
     fetchCountries();
   }, []);
 
@@ -62,27 +49,16 @@ const SignUpForm = () => {
     }));
   };
 
-  // aded date change handler
-  const handleDateChange = (date) => {
-    setBirthDate(date);
-    setFormData((prev) => ({
-      ...prev,
-      birthYear: date ? date.getFullYear() : "",
-    }));
-  };
-
-  // Password toggle handler
-
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     toast.dismiss();
     setIsSubitting(true);
     setError(null);
     try {
-      const { data } = await axios.post("/api/v1/users", formData);
+      // const { data } = await axios.post("/api/v1/users", formData);
+      const data = formData;
       console.log(data);
-      navigate("/login");
+      // navigate("/login");
     } catch (error) {
       setError(error);
       errNotify(error?.message);
@@ -138,8 +114,9 @@ const SignUpForm = () => {
         recommendation purposes.
       </p>
       <DateOfBirthPicker
-        selectedDate={birthDate}
-        onChange={handleDateChange}
+        id="birthYear"
+        selectedDate={formData.birthYear}
+        onChange={changeHandler}
         label="Date of Birth"
         Icon={LuMapPin}
         required
