@@ -3,6 +3,11 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { JWT_EXPIRATION, JWT_SECRET } from "../utils/config.js";
 
+const dateMinusXYears = (x) => {
+	const curDate = new Date();
+	return new Date(curDate.setFullYear(curDate.getFullYear() - x));
+};
+
 const UserSchema = new Schema(
 	{
 		email: {
@@ -10,23 +15,20 @@ const UserSchema = new Schema(
 			required: true,
 			trim: true,
 			lowercase: true,
+			unqiue: true,
 			validate: [
 				{
 					validator: (email) => {
 						return /^[\w-]+@([\w-]+\.)+[\w-]{2,4}$/.test(email);
 					},
 					message: (props) => `${props.value} is not a valid email address`,
-				},
-				{
+				}, {
 					validator: async function (email) {
 						const user = await this.constructor.findOne({ email });
-						if (user && user.id !== this.id) {
-							return false;
-						}
-						return true;
+						return !user;
 					},
-					message: (props) => `The email ${props.value} is already taken`,
-				},
+					message: (props) => `${props.value} is already in use`,
+				}
 			],
 		},
 		password: {
@@ -61,9 +63,9 @@ const UserSchema = new Schema(
 			default: false,
 		},
 		birthYear: {
-			type: Number,
+			type: String,
 			min: [1900, "Year of birth must be after 1900"],
-			max: [new Date().getFullYear() - 13, "You must be at least 14 years old"],
+			max: [dateMinusXYears(13), "You must be at least 14 years old"],
 		},
 		countryCode: {
 			type: Number,
@@ -83,7 +85,7 @@ const UserSchema = new Schema(
 					default: Date.now,
 				},
 				dateOfWatch: {
-					type: Date
+					type: Date,
 				},
 				rating: {
 					type: Number,

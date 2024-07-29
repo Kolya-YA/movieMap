@@ -2,7 +2,7 @@ import { jwtDecode } from "jwt-decode";
 import { useUserContext } from "./";
 
 const useAuthCheck = () => {
-	const { user, logoutUser } = useUserContext();
+	const { logoutUser } = useUserContext();
 
 	const checkAuth = (param) => {
 
@@ -16,7 +16,7 @@ const useAuthCheck = () => {
 
 		const userFromToken = jwtDecode(token);
 
-		if (!userFromToken || userFromToken.email !== user?.email) {
+		if (!userFromToken) {
 			console.log("User is not logged in");
 			logoutUser({ login: true, noNav: param.noNav });
 			return false;
