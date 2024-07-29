@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "axios";
 
@@ -11,7 +11,8 @@ import Button from "./Button";
 import { LuMail, LuKeyRound, LuMapPin, LuPin, } from "react-icons/lu";
 
 const SignUpForm = () => {
-  const errNotify = (msg = "Error!") => toast.error(msg, { autoClose: 15000 });
+  const showErrorToast = (msg = "Error!") => toast.error(msg, { autoClose: 15000 });
+  const showSuccessToast = (msg = "Success!") => toast.success(msg, { autoClose: 10000 });
 
   const [formData, setFormData] = useState({
     email: "",
@@ -27,7 +28,7 @@ const SignUpForm = () => {
   const [isSubmitting, setIsSubitting] = useState(false);
   const [countries, setCountries] = useState([]);
 
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCountries = async () => {
@@ -49,19 +50,34 @@ const SignUpForm = () => {
     }));
   };
 
+  const formErrors = (error) => {
+    const errDetails = error?.response?.data?.details;
+    if (errDetails) {
+      console.log(errDetails);
+      for (const err in errDetails) {
+        console.log(err);
+        const { name, message } = errDetails[err];
+        showErrorToast(`${name}. ${message}`);
+      }
+    } else {
+      showErrorToast(error?.message);
+      }
+    setError(error?.message);
+
+  }
   const handleSubmit = async (e) => {
     e.preventDefault();
     toast.dismiss();
     setIsSubitting(true);
     setError(null);
     try {
-      // const { data } = await axios.post("/api/v1/users", formData);
-      const data = formData;
+      const { data } = await axios.post("/api/v1/users", formData);
+      showSuccessToast("User created successfully");
       console.log(data);
-      // navigate("/login");
+      navigate("/login", { replace: true });
     } catch (error) {
+      formErrors(error);
       setError(error);
-      errNotify(error?.message);
       console.error("Failed to sign up:", error);
     } finally {
       setIsSubitting(false);
@@ -152,7 +168,7 @@ const SignUpForm = () => {
       >
         {isSubmitting ? "Signing up..." : "Sign Up"}
       </Button>
-      {error && <p style={{ color: "red" }}>!!!ERROR!!!</p>}
+      {error && <p style={{ color: "red" }}>{(error?.message)?.toString()|| "!!!ERROR!!!"}</p>}
     </form>
   );
 };
