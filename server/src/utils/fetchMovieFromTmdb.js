@@ -1,7 +1,7 @@
 import { tmdbApi } from '../../utils/axiosInstances.js';
 import { TMDB_IMAGE_API, POSTER_SIZES } from '../../utils/config.js';
 
-const getMovieDetails = async (req, res, next) => {
+const fetchMovieFromTmdb = async (req, res, next) => {
     const { movieId } = req.params;
     const fetchURL = `/movie/${movieId}?append_to_response=casts,videos`;
 
@@ -9,14 +9,14 @@ const getMovieDetails = async (req, res, next) => {
         const { data } = await tmdbApi.get(fetchURL);
         // shapeMovieDetails(data);
         // res.status(200).json(data);
-        res.status(200).json(shapeMovieDetails(data));
+        // res.status(200).json(shapeMovieDetails(data));
+        return shapeMovieDetails(data);
     } catch (error) {
         next(error);
     }
 };
 
-export default getMovieDetails;
-// https://api.themoviedb.org/3/movie/608201?append_to_response=casts
+export default fetchMovieFromTmdb;
 
 function shapeMovieDetails(movie) {
     return {
