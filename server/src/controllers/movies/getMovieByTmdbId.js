@@ -5,17 +5,25 @@ const getMovieByTmdbId = async (req, res, next) => {
 	const { movieId } = req.params;
 
 	try {
-		let movie = await Movie.findOne({ tmdb_id: movieId });
+		let movie = await Movie.findOneAndUpdate(
+			{ tmdb_id: movieId },
+			{ $inc: { req_count: 1 } },
+			{ new: true, upsert: false },
+		);
 
 		if (!movie) {
 			console.log(`Call TMDB API for ${movieId}`);
-
 			const externalMovie = await fetchMovieFromTmdb(movieId);
-			movie = new Movie(externalMovie);
+			const movieData = new Movie(externalMovie);
+
+
+			movie = await Movie.findOneAndUpdate(
+				{ tmdb_id: movieId },
+				{ $setOnInsert: movieData },
+				{ upsert: true, new: true },
+			);
 		}
 
-		movie.req_count += 1;
-		await movie.save();
 		res.status(200).json(movie);
 	} catch (error) {
 		next(error);
