@@ -3,24 +3,32 @@ import { LuYoutube } from 'react-icons/lu';
 
 const AdditionalDetails = ({ movie }) => {
     const [isMore, toggleMore] = useToggle(false);
-
+    const castList = movie.cast?.slice(0, 10).map(cast => `${cast.name} / ${cast.character}`).join(', ');
     return (
         <>
             <p className={`text-pretty ${isMore ? '' : 'line-clamp-4'}`}>{movie.overview}</p>
 
             {isMore && (
                 <>
-                    {movie.casts?.length > 0 && (
+                    {castList && (
                         <p>
                             <span className="font-semibold">Cast: </span>
-                            {movie.casts.map(cast => cast.name).join(', ')}
+                            {castList}
                         </p>
                     )}
 
-                    {movie.directors?.length > 0 && (
+                    {movie.crew?.length && (
                         <p>
-                            <span className="font-semibold">Directors: </span>
-                            {movie.directors.map(director => director.name).join(', ')}
+                            {movie.crew?.map(crewMember => {
+                                console.log(crewMember)
+                                return (
+                                    <span key={crewMember.tmdb_id}>
+                                        <span className="font-semibold">{crewMember.job}: </span>
+                                        {crewMember.name}
+                                        <br />
+                                    </span>
+                                )
+                            })}
                         </p>
                     )}
                 </>

@@ -35,7 +35,7 @@ const MovieSchema = new Schema({
 	},
     req_count: {
         type: Number,
-        default: 0,
+        default: 1,
     },
     add_waitng_list_count: {
         type: Number,
@@ -102,6 +102,8 @@ const MovieSchema = new Schema({
         },
     ],
 }, { timestamps: true });
+
+MovieSchema.index({ tmdb_id: 1 });
 
 const Movie = model("Movie", MovieSchema);
 
