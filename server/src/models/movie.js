@@ -105,6 +105,14 @@ const MovieSchema = new Schema({
 
 MovieSchema.index({ tmdb_id: 1 });
 
+MovieSchema.set("toJSON", {
+	transform: (document, returnedObject) => {
+		returnedObject.id = returnedObject._id?.toString();
+		returnedObject._id = undefined;
+		returnedObject.__v = undefined;
+	},
+});
+
 const Movie = model("Movie", MovieSchema);
 
 export default Movie;

@@ -43,11 +43,18 @@ const useUser = () => {
 	const updateUser = async (updatedUser) => {
 		try {
 			const { data } = await axios.put("/api/v1/users/", updatedUser);
-			console.log("upUser: ", data);
 			updateLocalUser(data);
-			// setUser(updatedUser);
 		} catch (error) {
 			console.error("Failed to update user: ", error);
+		}
+	};
+
+	const addMovieToUserList = async (movie) => {
+		try {
+			const { data } = await axios.post("/api/v1/users/add-movie", { id: user.id, movie });
+			updateLocalUser(data);
+		} catch (error) {
+			console.error("Failed to add movie to user list: ", error);
 		}
 	};
 
@@ -61,7 +68,7 @@ const useUser = () => {
 		axios.defaults.headers.common.Authorization = `Bearer ${token}`;
 	}
 
-	return { user, updateUser, loginUser, logoutUser };
+	return { user, updateUser, loginUser, logoutUser, addMovieToUserList };
 };
 
 export default useUser;

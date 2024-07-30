@@ -22,13 +22,14 @@ const UserSchema = new Schema(
 						return /^[\w-]+@([\w-]+\.)+[\w-]{2,4}$/.test(email);
 					},
 					message: (props) => `${props.value} is not a valid email address`,
-				}, {
+				},
+				{
 					validator: async function (email) {
 						const user = await this.constructor.findOne({ email });
 						return !user;
 					},
 					message: (props) => `${props.value} is already in use`,
-				}
+				},
 			],
 		},
 		password: {
@@ -144,8 +145,11 @@ UserSchema.set("toJSON", {
 	},
 });
 
-UserSchema.pre("findById", function (next) {
-	this.populate('movieList.movie');
+UserSchema.pre(/^find/, function (next) {
+	this.populate({
+		path: "movieList.movie",
+		select: "id title release_date poster_path runtime genres_list.name vote_average vote_count",
+	});
 	next();
 });
 
