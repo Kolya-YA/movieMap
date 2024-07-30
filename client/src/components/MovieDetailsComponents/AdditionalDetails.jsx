@@ -19,16 +19,13 @@ const AdditionalDetails = ({ movie }) => {
 
                     {movie.crew?.length && (
                         <p>
-                            {movie.crew?.map(crewMember => {
-                                console.log(crewMember)
-                                return (
-                                    <span key={crewMember.tmdb_id}>
-                                        <span className="font-semibold">{crewMember.job}: </span>
-                                        {crewMember.name}
-                                        <br />
-                                    </span>
-                                )
-                            })}
+                            {movie.crew?.map(crewMember => (
+                                <span key={crewMember.tmdb_id}>
+                                    <span className="font-semibold">{crewMember.job}: </span>
+                                    {crewMember.name}
+                                    <br />
+                                </span>
+                            ))}
                         </p>
                     )}
                 </>
