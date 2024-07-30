@@ -1,30 +1,17 @@
 import { Link } from "react-router-dom";
-import { LuEye, LuEyeOff } from "react-icons/lu";
 
 const UserInfo = ({ user }) => {
     return (
         <section>
-            <h1>Current User info:</h1>
+            <h2 className="text-lg font-semibold">Current User info:</h2>
             <p>ID: {user.id}</p>
             <p>Email: {user.email}</p>
-            {user.movieList?.length > 0 && (
-                <>
-                    <h3>User movie list:</h3>
-                    <ol className="list-decimal list-inside">
-                        {user.movieList.map((movie) => (
-                            <li key={movie.id}>
-                                {movie.tmdbMovieId}:
-                                <Link to={`/movie/${movie.tmdbMovieId}`} className="text-blue-900 hover:underline">
-                                    Details
-                                </Link>
-                                {movie.dateOfWatch
-                                    ? <LuEye size={20} className="inline" aria-hidden="true" />
-                                    : <LuEyeOff size={20} className="inline" aria-hidden="true" />}
-                            </li>
-                        ))}
-                    </ol>
-                </>
-            )}
+            <p>Admin: {user.isAdmin ? "Yes" : "No"}</p>
+            <div className="flex justify-evenly">
+                <Link to='/waiting-list' className="text-blue-800 underline">Waiting list</Link>
+                <Link to='/history-list' className="text-blue-800 underline">History list</Link>
+            </div>
+
         </section>
     )
 }

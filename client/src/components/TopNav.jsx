@@ -32,6 +32,8 @@ const TopNav = () => {
                     ? (
                         <>
                             <li><NavLink to='/profile' >Profile</NavLink></li>
+                            <li><NavLink to='/waiting-list' >Waiting list</NavLink></li>
+                            <li><NavLink to='/history-list' >History list</NavLink></li>
                             <li><NavLink onClick={logoutUser}>Logout</NavLink></li>
                             {user.isAdmin && <li><NavLink to='/admin' >Admin</NavLink></li>}
                         </>
