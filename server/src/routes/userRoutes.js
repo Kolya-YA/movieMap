@@ -4,8 +4,9 @@ import {
 	createNewUser,
 	getAllUsers,
 	loginUser,
-    updateUser,
+	updateUser,
 	getUser,
+	postMovieToUserList,
 } from "../controllers/users/index.js";
 
 import { verifyToken, isAdmin, isOwner } from "../middleware/index.js";
@@ -17,6 +18,8 @@ userRoutes.post("/login", loginUser);
 
 userRoutes.get("/", verifyToken, getUser);
 userRoutes.put("/", verifyToken, isOwner, updateUser);
+userRoutes.post("/add-movie", verifyToken, isOwner, postMovieToUserList);
+
 // userRoutes.delete("/:userId", verifyToken, isOwner, getAllUsers);
 
 userRoutes.get("/:userId", verifyToken, isAdmin, getAllUsers);
