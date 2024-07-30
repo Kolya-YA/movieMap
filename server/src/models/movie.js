@@ -1,7 +1,7 @@
 import { Schema, model } from "mongoose";
 
 const MovieSchema = new Schema({
-	tmdbId: {
+	tmdb_id: {
 		type: Number,
 		required: [true, "TMDB ID is required"],
 		unique: true,
@@ -11,42 +11,38 @@ const MovieSchema = new Schema({
 		required: [true, "Title is required"],
 		trim: true,
 	},
-	originalTitle: {
+	original_title: {
 		type: String,
 		trim: true,
 	},
 	runtime: {
 		type: Number,
 	},
-	releaseDate: {
+	release_date: {
 		type: String,
 	},
-	posterPath: {
+	poster_path: {
 		type: String,
 	},
-	voteAverage: {
+	vote_average: {
 		type: Number,
 	},
-	voteCount: {
+	vote_count: {
 		type: Number,
 	},
 	overview: {
 		type: String,
 	},
-    reqCount: {
+    req_count: {
         type: Number,
         default: 0,
     },
-    inWaitngListCounter: {
+    add_waitng_list_count: {
         type: Number,
         default: 0,
     },
-	genresList: [
+	genres_list: [
 		{
-			tmdbId: {
-				type: Number,
-				required: true,
-			},
 			name: {
 				type: String,
 				required: true,
@@ -55,7 +51,7 @@ const MovieSchema = new Schema({
 	],
 	cast: [
 		{
-			tmdbId: {
+			tmdb_id: {
 				type: Number,
 				required: true,
 			},
@@ -70,14 +66,14 @@ const MovieSchema = new Schema({
 			order: {
 				type: Number,
 			},
-			proflilePath: {
+			profile_path: {
 				type: String,
 			},
 		},
 	],
 	crew: [
 		{
-			tmdbId: {
+			tmdb_id: {
 				type: Number,
 				required: true,
 			},
@@ -96,25 +92,13 @@ const MovieSchema = new Schema({
 	],
     trailers: [
         {
-            key: {
+            url: {
                 type: String,
                 required: true,
             },
             name: {
                 type: String
-            },
-            type: {
-                type: String,
-                required: true,
-            },
-            official: {
-                type: Boolean,
-                required: true,
-            },
-            site: {
-                type: String,
-                required: true,
-            },
+            }
         },
     ],
 }, { timestamps: true });

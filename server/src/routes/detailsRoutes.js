@@ -1,9 +1,9 @@
 import express from "express";
 
-import getMovieById from "../controllers/movies/getMovieById.js";
+import getMovieByTmdbId from "../controllers/movies/getMovieByTmdbId.js";
 
 const detailsRoutes = express.Router();
 
-detailsRoutes.get("/movie/:movieId", getMovieById);
+detailsRoutes.get("/movie/:movieId", getMovieByTmdbId);
 
 export default detailsRoutes;
