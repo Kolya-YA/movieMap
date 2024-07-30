@@ -3,12 +3,8 @@ import { tmdbApi } from "./axiosInstances.js";
 const fetchMovieFromTmdb = async (movieId) => {
 	const fetchURL = `/movie/${movieId}?append_to_response=casts,videos`;
 
-	try {
-		const { data } = await tmdbApi.get(fetchURL);
-		return shapeMovieDetails(data);
-	} catch (error) {
-		next(error);
-	}
+	const { data } = await tmdbApi.get(fetchURL);
+	return shapeMovieDetails(data);
 };
 
 export default fetchMovieFromTmdb;
