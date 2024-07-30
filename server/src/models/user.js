@@ -74,9 +74,12 @@ const UserSchema = new Schema(
 		},
 		movieList: [
 			{
+				movie: {
+					type: Schema.Types.ObjectId,
+					ref: "Movie",
+				},
 				tmdbMovieId: {
 					type: Number,
-					ref: "Movie",
 					required: true,
 					unqiue: true,
 				},
@@ -139,6 +142,11 @@ UserSchema.set("toJSON", {
 		returnedObject.__v = undefined;
 		returnedObject.password = undefined;
 	},
+});
+
+UserSchema.pre("findById", function (next) {
+	this.populate('movieList.movie');
+	next();
 });
 
 const User = model("User", UserSchema);

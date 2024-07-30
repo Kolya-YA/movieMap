@@ -14,7 +14,7 @@ const Movie = () => {
     if (isDataLoading) return <Loading />;
     if (!detail) return <div>No data</div>;
 
-
+console.log(detail);
 
     return (
         <div className="text-white grid grid-cols-1 grid-rows-[1fr_auto] p-2 font-playfair">
