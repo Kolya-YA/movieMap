@@ -11,6 +11,7 @@ const connectDB = async () => {
 		if (MONGODB_URI === undefined) {
 			throw new Error("MONGODB_URI is not	defined");
 		}
+		// mongoose.set("debug", true);
 		const conn = await mongoose.connect(MONGODB_URI, clientOptions);
 		await mongoose.connection.db.admin().command({ ping: 1 });
 		logger.info(`MongoDB Connected: ${conn.connection.host}`);
