@@ -1,6 +1,14 @@
+import { Navigate } from 'react-router-dom';
 import { SignUpForm } from '../components';
+import { useUserContext } from '../hooks';
+
 
 const SignUp = () => {
+    const { user } = useUserContext();
+
+    if (user) {
+        return <Navigate to="/" replace={true} />
+    }
 
     return (
         <section className='grid gap-8 py-8 px-4 text-white'>

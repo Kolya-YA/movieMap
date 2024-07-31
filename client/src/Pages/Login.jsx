@@ -1,8 +1,5 @@
-import axios from "axios";
-import { jwtDecode } from "jwt-decode";
-
-import { useContext, useState, useRef, useEffect } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useState, useRef, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { LuMail, LuKeyRound } from "react-icons/lu";
 
 import { useUserContext } from "../hooks";
