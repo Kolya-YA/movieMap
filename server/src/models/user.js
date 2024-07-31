@@ -101,8 +101,8 @@ const UserSchema = new Schema(
 					maxlength: 512,
 				},
 				deleted: {
-					type: Boolean,
-					default: false,
+					type: Number,
+					default: 0,
 				},
 			},
 		],

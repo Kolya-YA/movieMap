@@ -4,7 +4,7 @@ import { HomeUserList, HomePageMovieList } from '../components'
 const UserHomePage = ({ dailyRecs }) => {
     const { user } = useUserContext()
     console.log(user)
-    const waitingList = user?.movieList.filter(m => !m.dateOfWatch).toReversed()
+    const waitingList = user?.movieList.filter(m => !m.dateOfWatch && !m.deleted).toReversed()
     const historyList = user?.movieList.filter(m => m.dateOfWatch).toSorted((a, b) => a.dateOfWatch - b.dateOfWatch)
     const aiList = false
 
