@@ -10,7 +10,7 @@ const useAuthCheck = () => {
 
 		if (!token) {
 			console.log("Token is not present");
-			logoutUser({ login: true, noNav: param.noNav });
+			logoutUser({ login: true, noNav: param?.noNav });
 			return false;
 		}
 
@@ -18,7 +18,7 @@ const useAuthCheck = () => {
 
 		if (!userFromToken) {
 			console.log("User is not logged in");
-			logoutUser({ login: true, noNav: param.noNav });
+			logoutUser({ login: true, noNav: param?.noNav });
 			return false;
 		}
 
