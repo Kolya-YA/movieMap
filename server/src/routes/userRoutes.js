@@ -7,6 +7,7 @@ import {
 	updateUser,
 	getUser,
 	postMovieToUserList,
+	toggleMovieInUserList,
 } from "../controllers/users/index.js";
 
 import { verifyToken, isAdmin, isOwner } from "../middleware/index.js";
@@ -19,6 +20,7 @@ userRoutes.post("/login", loginUser);
 userRoutes.get("/", verifyToken, getUser);
 userRoutes.put("/", verifyToken, isOwner, updateUser);
 userRoutes.post("/add-movie", verifyToken, isOwner, postMovieToUserList);
+userRoutes.post("/toggle-movie", verifyToken, isOwner, toggleMovieInUserList);
 
 // userRoutes.delete("/:userId", verifyToken, isOwner, getAllUsers);
 
