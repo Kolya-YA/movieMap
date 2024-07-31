@@ -1,11 +1,19 @@
 import { Link } from "react-router-dom";
 
-const HomeUserMovieCard = ({ movie }) => {
-    const posterUrl = movie?.movie?.poster_path && `https://image.tmdb.org/t/p/w154${movie.movie.poster_path}`
-    const cardTitle = movie?.movie?.title || 'To full waiting list'
-    const cardLink = movie?.tmdbMovieId ? `/movie/${movie.tmdbMovieId}` : '/waiting-list'
-    const lastCard = !movie?.tmdbMovieId
-    
+const HomeUserMovieCard = ({ movie, type }) => {
+    let posterUrl = movie?.movie?.poster_path && `https://image.tmdb.org/t/p/w154${movie.movie.poster_path}`
+    let cardTitle = movie?.movie?.title || 'To full waiting list'
+    let cardLink = movie?.tmdbMovieId ? `/movie/${movie.tmdbMovieId}` : '/waiting-list'
+    let lastCard = !movie?.tmdbMovieId
+
+    if (type === 'R') {
+        posterUrl = movie?.poster_path && `https://image.tmdb.org/t/p/w154${movie.poster_path}`
+        cardTitle = movie?.title || 'To full waiting list'
+        cardLink = movie?.id ? `/movie/${movie.id}` : '/waiting-list'
+        lastCard = !movie?.id
+    }
+
+
     return (
         <li className="bg-slate-300 text-end rounded overflow-hidden aspect-[2/3] snap-always snap-start">
             <Link

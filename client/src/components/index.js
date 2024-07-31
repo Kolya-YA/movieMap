@@ -1,10 +1,8 @@
 import Header from "./Header";
 import TopNav from "./TopNav";
 import UserInfo from "./UserInfo";
-import RecomendationsForToday from "./RecomendationsForToday";
 import HomePageMovieList from "./HomePageMovieList";
 import HomeUserList from "./HomeUserList";
-import HomeMovieCard from "./HomeMovieCard";
 import HomeUserMovieCard from "./HomeUserMovieCard";
 import UserHomePage from "./UserHomePage";
 import GuestHomePage from "./GuestHomePage";
@@ -26,10 +24,8 @@ export {
 	UserInfo,
 	UserHomePage,
 	GuestHomePage,
-	RecomendationsForToday,
 	HomePageMovieList,
 	HomeUserList,
-	HomeMovieCard,
 	HomeUserMovieCard,
 	LoginForm,
 	SignUpForm,

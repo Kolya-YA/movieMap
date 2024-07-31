@@ -6,7 +6,6 @@ const UserButtons = ({ movie }) => {
 
     const checkAuth = useAuthCheck();
     const movieInUserList = user?.movieList?.find(m => m.tmdbMovieId === movie.tmdb_id)
-    console.log('movieInUserList: ', movieInUserList);
     const movieIsDeleted = movieInUserList?.deleted;
     const userDateOfWatch = movieInUserList?.dateOfWatch;
     // const movieUserRating = movieInUserList?.rating;
