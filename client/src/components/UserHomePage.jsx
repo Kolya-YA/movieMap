@@ -1,15 +1,18 @@
-import { useUserContext } from '../hooks';
-import { HomeHistoryList, HomeWaitingList, HomePageMovieList } from '../components'
+import { useUserContext } from "../hooks";
+import { HomeUserList, HomePageMovieList } from '../components'
 
 const UserHomePage = ({ dailyRecs }) => {
     const { user } = useUserContext()
+    console.log(user)
+    const waitingList = user?.movieList.filter(m => !m.dateOfWatch).toReversed()
+    const historyList = user?.movieList.filter(m => m.dateOfWatch).toSorted((a, b) => a.dateOfWatch - b.dateOfWatch)
+    const aiList = false
 
     return (
         <>
-            <h1>Personal home page for {user.email}</h1>
-            <HomeWaitingList />
-            <HomeHistoryList />
-
+            <HomeUserList movieList={waitingList} title="My waiting list" />
+            <HomeUserList movieList={aiList} title="My AI list" />
+            <HomeUserList movieList={historyList} title="My history list" />
             <HomePageMovieList movieList={dailyRecs?.find(r => r.title === "Popular")} />
         </>
     );
