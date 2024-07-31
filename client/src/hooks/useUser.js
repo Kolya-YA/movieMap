@@ -58,6 +58,18 @@ const useUser = () => {
 		}
 	};
 
+	const toggleMovieInUserList = async (movieId) => {
+		try {
+			const { data } = await axios.post("/api/v1/users/toggle-movie", {
+				id: user.id,
+				movieId,
+			});
+			updateLocalUser(data);
+		} catch (error) {
+			console.error("Failed to remove movie from user list: ", error);
+		}
+	};
+
 	function updateLocalUser(data) {
 		const { token, user } = data;
 		if (!token) {
@@ -68,7 +80,14 @@ const useUser = () => {
 		axios.defaults.headers.common.Authorization = `Bearer ${token}`;
 	}
 
-	return { user, updateUser, loginUser, logoutUser, addMovieToUserList };
+	return {
+		user,
+		updateUser,
+		loginUser,
+		logoutUser,
+		addMovieToUserList,
+		toggleMovieInUserList,
+	};
 };
 
 export default useUser;

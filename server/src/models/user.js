@@ -100,6 +100,10 @@ const UserSchema = new Schema(
 					type: String,
 					maxlength: 512,
 				},
+				deleted: {
+					type: Boolean,
+					default: false,
+				},
 			},
 		],
 		movAIRecs: [],
