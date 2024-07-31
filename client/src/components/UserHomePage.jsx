@@ -3,7 +3,7 @@ import { HomeUserList, HomePageMovieList } from '../components'
 
 const UserHomePage = ({ dailyRecs }) => {
     const { user } = useUserContext()
-    console.log(user)
+
     const waitingList = user?.movieList.filter(m => !m.dateOfWatch && !m.deleted).toReversed()
     const historyList = user?.movieList.filter(m => m.dateOfWatch).toSorted((a, b) => a.dateOfWatch - b.dateOfWatch)
     const aiList = false
@@ -14,6 +14,9 @@ const UserHomePage = ({ dailyRecs }) => {
             <HomeUserList movieList={aiList} title="My AI list" />
             <HomeUserList movieList={historyList} title="My history list" />
             <HomePageMovieList movieList={dailyRecs?.find(r => r.title === "Popular")} />
+            <HomePageMovieList movieList={dailyRecs?.find(r => r.title === "Now playing")} />
+            <HomePageMovieList movieList={dailyRecs?.find(r => r.title === "Upcoming")} />
+            <HomePageMovieList movieList={dailyRecs?.find(r => r.title === "Top rated")} />
         </>
     );
 }
