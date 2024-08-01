@@ -1,11 +1,18 @@
 import User from "../../models/user.js";
 
-const updateUser = async (req, res, next) => {
-	const user = req.body;
+const updateUserMovie = async (req, res, next) => {
+	const dataForUpdate = req.body;
 	try {
-		const updatedUser = await User.findByIdAndUpdate(req.userId, user, {
-			new: true,
-		});
+		const updateObject = {};
+		for (const [key, value] of Object.entries(dataForUpdate)) {
+			updateObject[`movies.${key}`] = value;
+		}
+		
+		const updatedUser = await User.findByIdAndUpdate(
+			req.userId,
+			{ $set: updateObject },
+			{ new: true }
+		);
 
 		if (!updatedUser) {
 			return res.status(404).json({ error: "User not found" });
@@ -18,4 +25,4 @@ const updateUser = async (req, res, next) => {
 	}
 };
 
-export default updateUser;
+export default updateUserMovie;
