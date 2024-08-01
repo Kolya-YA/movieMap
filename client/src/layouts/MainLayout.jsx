@@ -1,28 +1,22 @@
 import { UserProvider } from "../contexts";
 import { Outlet } from "react-router-dom";
-import backgroundImg from "../components/movie-theater-Black.png";
+import backgroundImg from "../assets/movie-theater.webp";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
 
-import { Header, Footer } from "../components";
+import { Header } from "../components";
 
 const MainLayout = () => {
   return (
     <UserProvider>
       <Header />
-      <div className="relative ">
-                <main className="flex justify-center items-center bg-cover bg-center relative min-h-full "
-                      style={{
-                          backgroundImage: `url(${backgroundImg})`
-                      }}>
-                    <div className="absolute inset-0 bg-black opacity-60 z-10"></div>
-                    <div className="relative z-20">
-                        <Outlet />
-                    </div>
-                </main>
-            </div>
-      <Footer />
-            <ToastContainer />
+      <main className="grid place-content-center bg-cover bg-center bg-fixed"
+        style={{
+          backgroundImage: `url(${backgroundImg})`
+        }}>
+          <Outlet />
+      </main>
+      <ToastContainer />
     </UserProvider>
   );
 };

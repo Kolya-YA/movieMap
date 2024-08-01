@@ -3,6 +3,11 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { JWT_EXPIRATION, JWT_SECRET } from "../utils/config.js";
 
+const dateMinusXYears = (x) => {
+	const curDate = new Date();
+	return new Date(curDate.setFullYear(curDate.getFullYear() - x));
+};
+
 const UserSchema = new Schema(
 	{
 		email: {
@@ -10,6 +15,7 @@ const UserSchema = new Schema(
 			required: true,
 			trim: true,
 			lowercase: true,
+			unqiue: true,
 			validate: [
 				{
 					validator: (email) => {
@@ -20,12 +26,9 @@ const UserSchema = new Schema(
 				{
 					validator: async function (email) {
 						const user = await this.constructor.findOne({ email });
-						if (user && user.id !== this.id) {
-							return false;
-						}
-						return true;
+						return !user;
 					},
-					message: (props) => `The email ${props.value} is already taken`,
+					message: (props) => `${props.value} is already in use`,
 				},
 			],
 		},
@@ -61,9 +64,9 @@ const UserSchema = new Schema(
 			default: false,
 		},
 		birthYear: {
-			type: Number,
+			type: String,
 			min: [1900, "Year of birth must be after 1900"],
-			max: [new Date().getFullYear() - 13, "You must be at least 14 years old"],
+			max: [dateMinusXYears(13), "You must be at least 14 years old"],
 		},
 		countryCode: {
 			type: Number,
@@ -72,9 +75,12 @@ const UserSchema = new Schema(
 		},
 		movieList: [
 			{
+				movie: {
+					type: Schema.Types.ObjectId,
+					ref: "Movie",
+				},
 				tmdbMovieId: {
 					type: Number,
-					ref: "Movie",
 					required: true,
 					unqiue: true,
 				},
@@ -83,7 +89,7 @@ const UserSchema = new Schema(
 					default: Date.now,
 				},
 				dateOfWatch: {
-					type: Date
+					type: Date,
 				},
 				rating: {
 					type: Number,
@@ -93,6 +99,10 @@ const UserSchema = new Schema(
 				comment: {
 					type: String,
 					maxlength: 512,
+				},
+				deleted: {
+					type: Number,
+					default: 0,
 				},
 			},
 		],
@@ -137,6 +147,14 @@ UserSchema.set("toJSON", {
 		returnedObject.__v = undefined;
 		returnedObject.password = undefined;
 	},
+});
+
+UserSchema.pre(/^find/, function (next) {
+	this.populate({
+		path: "movieList.movie",
+		select: "id title release_date poster_path runtime genres_list.name vote_average vote_count",
+	});
+	next();
 });
 
 const User = model("User", UserSchema);

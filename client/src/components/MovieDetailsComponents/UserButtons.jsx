@@ -1,25 +1,35 @@
 import { useAuthCheck, useUserContext } from '../../hooks';
-import { LuBookmark, LuBookmarkPlus, LuEye, LuEyeOff } from 'react-icons/lu';
+import { LuBookmarkMinus, LuBookmarkPlus, LuEye, LuEyeOff } from 'react-icons/lu';
 
 const UserButtons = ({ movie }) => {
-    const { user, updateUser } = useUserContext();
+    const { user, addMovieToUserList, toggleMovieInUserList } = useUserContext();
+
     const checkAuth = useAuthCheck();
-    const movieInUserList = user?.movieList?.find(m => m.tmdbMovieId === movie.id);
+    const movieInUserList = user?.movieList?.find(m => m.tmdbMovieId === movie.tmdb_id)
+    const movieIsDeleted = movieInUserList?.deleted;
     const userDateOfWatch = movieInUserList?.dateOfWatch;
     // const movieUserRating = movieInUserList?.rating;
 
     const handleBookmark = async () => {
         if (!checkAuth()) return; // user is not logged in or token has expired
-        if (movieInUserList) return; // movie is already in user list
-        const movieToAdd = {
-            tmdbMovieId: movie.id,
-            dateOfAdded: new Date(),
-        };
-        if (!user.movieList) user.movieList = [];
-        try {
-            await updateUser({ ...user, movieList: [...user.movieList, movieToAdd] });
-        } catch (error) {
-            console.error("User updete error: ", error);
+        if (movieInUserList || movieIsDeleted) {
+            try {
+                await toggleMovieInUserList(movieInUserList.id);
+            } catch (error) {
+                console.error("Movie delete error: ", error);
+            }
+        } else {
+            const movieToAdd = {
+                movie: movie.id,
+                tmdbMovieId: movie.tmdb_id,
+                dateOfAdded: new Date(),
+            };
+            if (!user.movieList) user.movieList = [];
+            try {
+                await addMovieToUserList(movieToAdd);
+            } catch (error) {
+                console.error("User update error: ", error);
+            }
         }
     }
 
@@ -31,12 +41,12 @@ const UserButtons = ({ movie }) => {
     return (
         <div className="grid grid-cols-2 gap-4">
             <button type="button" onClick={handleBookmark} className="rounded-sm px-2 border bg-white/30">
-                {movieInUserList
+                {movieInUserList && !movieIsDeleted
                     ? (<>
-                        <LuBookmark size={20} className="inline" aria-hidden="true" /> In my list
+                        <LuBookmarkMinus size={20} className="inline" aria-hidden="true" /> Remove
                     </>)
                     : (<>
-                        <LuBookmarkPlus size={20} className="inline" aria-hidden="true" /> Add to list
+                        <LuBookmarkPlus size={20} className="inline" aria-hidden="true" /> Add
                     </>)
                 }
             </button>

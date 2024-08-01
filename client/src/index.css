@@ -4,7 +4,7 @@
 
 @layer components {
     .btn-login {
-        @apply py-1 px-5 bg-violet-500 text-white font-semibold rounded-full shadow-md hover:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-400 focus:ring-opacity-75;
+        @apply p-2 bg-violet-500 text-white font-semibold rounded-full shadow-md hover:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-400 focus:ring-opacity-75;
     }
     .border-white-hover-gray {
         @apply border border-white border-opacity-70 shadow-diffused bg-black bg-opacity-70 text-white rounded focus:outline-none focus:ring-2 focus:ring-gray-200 duration-200 hover:border-gray-600;

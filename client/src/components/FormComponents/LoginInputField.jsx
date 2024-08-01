@@ -3,7 +3,7 @@ import { forwardRef } from "react";
 const LoginInputField = forwardRef(function LoginInputField({ onChange, Icon, ...props }, ref) {
 
     return (
-        <div className="relative">
+        <div className="relative max-w-xl">
             <label htmlFor={props.id} className="sr-only">{props.placeholder}</label>
             <input
                 ref={ref}

@@ -20,7 +20,7 @@ const Home = () => {
     }, [])
 
     return (
-        <div className="bg-white/40">
+        <div className="grid gap-4 text-white">
             {user
                 ? <UserHomePage dailyRecs={dailyRecs} />
                 : <GuestHomePage dailyRecs={dailyRecs} />

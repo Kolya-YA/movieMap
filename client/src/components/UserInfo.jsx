@@ -3,23 +3,15 @@ import { Link } from "react-router-dom";
 const UserInfo = ({ user }) => {
     return (
         <section>
-            <h2>Current User info:</h2>
+            <h2 className="text-lg font-semibold">Current User info:</h2>
             <p>ID: {user.id}</p>
             <p>Email: {user.email}</p>
-            {user.movieList?.length > 0 && (
-                <>
-                    <h3>User movie list:</h3>
-                    <ul>
-                        {user.movieList.map((movie, index) => (
-                            <li key={movie.id}>
-                                <Link to={`/movie/${movie.tmdbMovieId}`} className="text-blue-900 hover:underline">
-                                {index + 1}. id: {movie.tmdbMovieId} viewed: {movie.dateOfWatch ? 'yes' : 'no'}   
-                                </Link>
-                            </li>
-                        ))}
-                    </ul>
-                </>
-            )}
+            <p>Admin: {user.isAdmin ? "Yes" : "No"}</p>
+            <div className="flex justify-evenly">
+                <Link to='/waiting-list' className="text-blue-800 underline">Waiting list</Link>
+                <Link to='/history-list' className="text-blue-800 underline">History list</Link>
+            </div>
+
         </section>
     )
 }

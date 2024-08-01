@@ -13,6 +13,7 @@ const createNewUser = async (req, res, next) => {
 			},
 		});
 	} catch (error) {
+		// console.error("Failed to create new user:", error);
 		next(error);
 	}
 };
