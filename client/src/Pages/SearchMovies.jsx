@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState, useCallback, useRef } from 'react';
-import { FormatNumber, StarRating, Button } from '../components';
-import { Link } from 'react-router-dom';
+import { SearchComponent, LandscapeCard } from '../components/FormComponents';
 
 const limit_Page = 10;
 
@@ -11,6 +10,13 @@ const SearchMovies = () => {
     const [movies, setMovies] = useState(null);
     const [loading, setLoading] = useState(false);
     const containerRef = useRef(null);
+
+    const [input, setInput] = useState('');
+    const handleSubmit = e => {
+        e.preventDefault();
+        setPage(1);
+        setQuery(input);
+    };
 
     const searchMovies = useCallback(async () => {
         if (!query) return;
@@ -55,7 +61,7 @@ const SearchMovies = () => {
 
     return (
         <div className="text-white flex flex-col h-screen">
-            <style jsx>{`
+            <style jsx="true">{`
                 .custom-scrollbar::-webkit-scrollbar {
                     width: 12px;
                 }
@@ -66,22 +72,33 @@ const SearchMovies = () => {
                 }
             `}</style>
             <div className="mt-5 mb-3 px-8">
-                <div className="flex items-center gap-4">
-                    <SearchMovieForm setPage={setPage} setQuery={setQuery} />
+                <div className="flex items-center flex-col">
+                    <div className="flex items-center">
+                        <SearchComponent
+                            input={input}
+                            setInput={setInput}
+                            handleSubmit={handleSubmit}
+                            placeholder="e.g Jurassic World"
+                        />
+                    </div>
+                    <p className="mt-1">Total results: {movies?.total_results}</p>
                 </div>
-                <p className="mt-1">Total results: {movies?.total_results}</p>
             </div>
 
             <div ref={containerRef} className="flex-grow overflow-auto custom-scrollbar">
                 <div className="card-list p-4">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 align-middle items-center gap-4">
                         {movies?.results
                             ?.filter(movie => movie.poster_path)
                             .map((movie, index) => (
-                                <MovieCard movie={movie} key={index} />
+                                <LandscapeCard movie={movie} key={index} />
                             ))}
                     </div>
-                    {loading && <p className="text-center py-4">Loading more movies...</p>}
+                    {loading ? (
+                        <p className="text-center py-4">Loading more movies...</p>
+                    ) : (
+                        <p className="text-center py-4">All data has been loaded</p>
+                    )}
                 </div>
             </div>
         </div>
@@ -89,55 +106,3 @@ const SearchMovies = () => {
 };
 
 export default SearchMovies;
-
-function SearchMovieForm({ setPage, setQuery }) {
-    const [input, setInput] = useState('');
-    const handleSubmit = e => {
-        e.preventDefault();
-        setPage(1);
-        setQuery(input);
-    };
-
-    return (
-        <form className="flex items-center gap-4" onSubmit={handleSubmit}>
-            <input
-                type="text"
-                name="query"
-                className="border border-gray-300 rounded-md border-white-hover-gray p-2"
-                placeholder="i.e. Jurassic Park"
-                value={input}
-                onChange={e => setInput(e.target.value)}
-            />
-            <Button text="Search"></Button>
-        </form>
-    );
-}
-
-function MovieCard({ movie }) {
-    return (
-        <Link to={`../movie/${movie.id}`} className="h-40 text-white mb-4 px-4">
-            <div className="flex h-40 items-center rounded-xl gap-4 mb-4 px-4 bg-opacity-50 bg-gray-500">
-                <img
-                    width="4rem"
-                    height="10rem"
-                    className="w-16"
-                    src={movie.poster_path}
-                    alt={`${movie.title} poster`}
-                    loading="lazy"
-                />
-                <div>
-                    <h3 className="font-bold line-clamp-1 ">{movie.title}</h3>
-                    <p className="text-sm flex gap-2 line-clamp-1">
-                        <span className="font-semibold">{movie.release_date.split('-')[0]}</span>
-                        <span className="line-clamp-1">{movie.genres_list.join(', ')}</span>
-                    </p>
-                    <div className="flex gap-2 text-sm ">
-                        <StarRating rating={movie.vote_average} />
-                        (<FormatNumber number={movie.vote_count} />)
-                    </div>
-                    <p className="text-sm line-clamp-3">{movie.overview}</p>
-                </div>
-            </div>
-        </Link>
-    );
-}

@@ -1,6 +1,6 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import { MainLayout } from './layouts'
-import { About, Home, Login, Movie, SearchMovies, SignUp } from './Pages'
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { MainLayout } from './layouts';
+import { About, Home, Login, Movie, SearchMovies, SignUp } from './Pages';
 
 function App() {
     return (
@@ -17,7 +17,7 @@ function App() {
                 </Route>
             </Routes>
         </BrowserRouter>
-    )
+    );
 }
 
-export default App
+export default App;
