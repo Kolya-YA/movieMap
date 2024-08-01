@@ -1,17 +1,17 @@
 import User from "../../models/user.js";
 
-const updateUserMovie = async (req, res, next) => {
-	const dataForUpdate = req.body;
+const updateMovieInUserList = async (req, res, next) => {
+	const {dataForUpdate, movieId} = req.body;
 	try {
 		const updateObject = {};
 		for (const [key, value] of Object.entries(dataForUpdate)) {
-			updateObject[`movies.${key}`] = value;
+			updateObject[`movieList.$.${key}`] = value;
 		}
-		
-		const updatedUser = await User.findByIdAndUpdate(
-			req.userId,
+
+		const updatedUser = await User.findOneAndUpdate(
+			{ _id: req.userId, 'movieList._id': movieId },
 			{ $set: updateObject },
-			{ new: true }
+			{ new: true },
 		);
 
 		if (!updatedUser) {
@@ -25,4 +25,4 @@ const updateUserMovie = async (req, res, next) => {
 	}
 };
 
-export default updateUserMovie;
+export default updateMovieInUserList;

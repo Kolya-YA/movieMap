@@ -16,14 +16,15 @@ const RatingCommentBtn = ({ movieToAdd }) => {
             >
                 {movieDateOfWatch
                     ? (<>
-                        <LuPencil size={20} className="inline" aria-hidden="true" /> Change my history
+                        <LuPencil size={20} className="inline" aria-hidden="true" /> Edit review
                     </>)
                     : (<>
-                        <LuEye size={20} className="inline" aria-hidden="true" /> Add to history
+                        <LuEye size={20} className="inline" aria-hidden="true" /> Watched
                     </>)
                 }
             </button>
             <RatingCommentDialog
+                movieToEdit={movieToAdd}
                 isOpen={isDialogOpen}
                 onClose={() => setIsDialogOpen(false)}
             />
