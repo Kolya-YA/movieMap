@@ -1,5 +1,6 @@
+import { LuBookmarkMinus, LuBookmarkPlus } from 'react-icons/lu';
+import { RatingCommentBtn } from "./";
 import { useAuthCheck, useUserContext } from '../../hooks';
-import { LuBookmarkMinus, LuBookmarkPlus, LuEye, LuEyeOff } from 'react-icons/lu';
 
 const UserButtons = ({ movie }) => {
     const { user, addMovieToUserList, toggleMovieInUserList } = useUserContext();
@@ -7,7 +8,6 @@ const UserButtons = ({ movie }) => {
     const checkAuth = useAuthCheck();
     const movieInUserList = user?.movieList?.find(m => m.tmdbMovieId === movie.tmdb_id)
     const movieIsDeleted = movieInUserList?.deleted;
-    const userDateOfWatch = movieInUserList?.dateOfWatch;
     // const movieUserRating = movieInUserList?.rating;
 
     const handleBookmark = async () => {
@@ -33,11 +33,6 @@ const UserButtons = ({ movie }) => {
         }
     }
 
-    const handleWatchlist = () => {
-        if (!checkAuth(user)) return;
-        alert('Functionality not implemented yet');
-    };
-
     return (
         <div className="grid grid-cols-2 gap-4">
             <button type="button" onClick={handleBookmark} className="rounded-sm px-2 border bg-white/30">
@@ -50,16 +45,11 @@ const UserButtons = ({ movie }) => {
                     </>)
                 }
             </button>
-            <button type="button" onClick={handleWatchlist} className="rounded-sm px-2 border bg-white/30">
-                {userDateOfWatch
-                    ? (<>
-                        <LuEye size={20} className="inline" aria-hidden="true" /> In my history
-                    </>)
-                    : (<>
-                        <LuEyeOff size={20} className="inline" aria-hidden="true" /> Add to history
-                    </>)
-                }
-            </button>
+            {
+                movieInUserList
+                && !movieIsDeleted
+                && <RatingCommentBtn movieToAdd={movieInUserList} user={user} />
+            }
         </div>
     )
 }

@@ -6,7 +6,6 @@ const toggleMovieInUserList = async (req, res) => {
 	const movieId = req.body.movieId;
 
 	try {
-		console.log("rum", req.userId, req.body.movieId);
 		const user = await User.findOneAndUpdate(
 			{ _id: userId, "movieList._id": movieId },
 			{ $bit: { "movieList.$.deleted": { xor: 1 } } },
