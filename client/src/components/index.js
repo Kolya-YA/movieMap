@@ -11,14 +11,12 @@ import SignUpForm from "./SignUpForm";
 import Loading from "./Loading";
 import FormatNumber from "./FormatNumber";
 import StarRating from "./StarRating";
-import RatingCommentModal from "./RatingCommentModal";
 import Button from "./Button";
 
 export {
 	Loading,
 	FormatNumber,
 	StarRating,
-	RatingCommentModal,
 	Header,
 	TopNav,
 	UserInfo,
