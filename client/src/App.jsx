@@ -2,6 +2,9 @@ import { BrowserRouter, Navigate, Outlet, Route, Routes } from 'react-router-dom
 import { useAuthCheck } from './hooks'
 import { MainLayout } from './layouts'
 import { About, Home, Login, Movie, SearchMovies, SignUp, UserMovieList, UserProfile } from './Pages'
+import axios from 'axios'
+
+axios.defaults.baseURL = import.meta.env.VITE_API_URL;
 
 const UserProtectedRoute = () => {
     const checkAuth = useAuthCheck();
