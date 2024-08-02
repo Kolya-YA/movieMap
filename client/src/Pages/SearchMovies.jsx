@@ -5,8 +5,7 @@ import { SearchComponent, LandscapeCard } from '../components/FormComponents';
 const limit_Page = 10;
 
 const SearchMovies = () => {
-    const [searchParams] = useSearchParams();
-    const [query, setQuery] = useState(searchParams.get('query') || '');
+    const [query, setQuery] = useState('');
     const [page, setPage] = useState(1);
     const [movies, setMovies] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -58,7 +57,7 @@ const SearchMovies = () => {
 
         container.addEventListener('scroll', handleScroll);
         return () => container.removeEventListener('scroll', handleScroll);
-    }, [loading, movies, page]);
+    }, [loading, movies]);
 
     return (
         <div className="text-white flex flex-col h-screen">
@@ -107,55 +106,3 @@ const SearchMovies = () => {
 };
 
 export default SearchMovies;
-
-function SearchMovieForm({ setPage, setQuery }) {
-    const [input, setInput] = useState('');
-    const handleSubmit = e => {
-        e.preventDefault();
-        setPage(1);
-        setQuery(input);
-    };
-
-    return (
-        <form className="flex items-center gap-4" onSubmit={handleSubmit}>
-            <input
-                type="text"
-                name="query"
-                className="border border-gray-300 rounded-md border-white-hover-gray p-2"
-                placeholder="i.e. Jurassic Park"
-                value={input}
-                onChange={e => setInput(e.target.value)}
-            />
-            <Button text="Search"></Button>
-        </form>
-    );
-}
-
-function MovieCard({ movie }) {
-    return (
-        <Link to={`../movie/${movie.id}`} className="h-40 text-white mb-4 px-4">
-            <div className="flex h-40 items-center rounded-xl gap-4 mb-4 px-4 bg-opacity-50 bg-gray-500">
-                <img
-                    width="4rem"
-                    height="10rem"
-                    className="w-16"
-                    src={movie.poster_path}
-                    alt={`${movie.title} poster`}
-                    loading="lazy"
-                />
-                <div>
-                    <h3 className="font-bold line-clamp-1 ">{movie.title}</h3>
-                    <p className="text-sm flex gap-2 line-clamp-1">
-                        <span className="font-semibold">{movie.release_date.split('-')[0]}</span>
-                        <span className="line-clamp-1">{movie.genres_list.join(', ')}</span>
-                    </p>
-                    <div className="flex gap-2 text-sm ">
-                        <StarRating rating={movie.vote_average} />
-                        (<FormatNumber number={movie.vote_count} />)
-                    </div>
-                    <p className="text-sm line-clamp-3">{movie.overview}</p>
-                </div>
-            </div>
-        </Link>
-    );
-}

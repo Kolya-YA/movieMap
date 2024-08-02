@@ -16,7 +16,7 @@ const LandscapeCard = ({ movie }) => {
                     alt={`${movie.title} poster`}
                     loading="lazy"
                 />
-                <div className="bg-black">
+                <div>
                     <h3 className="font-bold line-clamp-1 ">{movie.title}</h3>
                     <p className="text-sm flex gap-2 line-clamp-1">
                         <span className="font-semibold">{movie.release_date.split('-')[0]}</span>
