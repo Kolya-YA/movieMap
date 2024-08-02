@@ -1,5 +1,3 @@
-
-import { TMDB_IMAGE_API, POSTER_SIZES } from "../../utils/config.js";
 import genresList from "../../utils/genresList.js";
 
 const shapeMovieList = (movies) => {
@@ -14,9 +12,7 @@ const shapeMovieList = (movies) => {
 			original_title: movie.original_title,
 			overview: movie.overview,
 			release_date: movie.release_date,
-			poster_path: movie.poster_path
-				? `${TMDB_IMAGE_API}${POSTER_SIZES.w92px}${movie.poster_path}`
-				: null,
+			poster_path: movie.poster_path,
 			vote_average: Math.round(movie.vote_average * 10) / 10,
 			vote_count: movie.vote_count,
 		})),

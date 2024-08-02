@@ -51,10 +51,38 @@ const useUser = () => {
 
 	const addMovieToUserList = async (movie) => {
 		try {
-			const { data } = await axios.post("/api/v1/users/add-movie", { id: user.id, movie });
+			const { data } = await axios.post("/api/v1/users/add-movie", {
+				id: user.id,
+				movie,
+			});
 			updateLocalUser(data);
 		} catch (error) {
 			console.error("Failed to add movie to user list: ", error);
+		}
+	};
+
+	const toggleMovieInUserList = async (movieId) => {
+		try {
+			const { data } = await axios.post("/api/v1/users/toggle-movie", {
+				id: user.id,
+				movieId,
+			});
+			updateLocalUser(data);
+		} catch (error) {
+			console.error("Failed to remove movie from user list: ", error);
+		}
+	};
+
+	const updateMovieInUserList = async (movieId, dataForUpdate) => {
+		try {
+			const { data } = await axios.put("/api/v1/users/update-movie", {
+				id: user.id,
+				movieId,
+				dataForUpdate,
+			});
+			updateLocalUser(data);
+		} catch (error) {
+			console.error("Failed to update movie in user list: ", error);
 		}
 	};
 
@@ -68,7 +96,15 @@ const useUser = () => {
 		axios.defaults.headers.common.Authorization = `Bearer ${token}`;
 	}
 
-	return { user, updateUser, loginUser, logoutUser, addMovieToUserList };
+	return {
+		user,
+		updateUser,
+		loginUser,
+		logoutUser,
+		addMovieToUserList,
+		toggleMovieInUserList,
+		updateMovieInUserList,
+	};
 };
 
 export default useUser;

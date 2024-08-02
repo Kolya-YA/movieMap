@@ -19,7 +19,7 @@ const HomeUserList = ({ title, movieList }) => {
                     ? <p>No movies in your list</p>
                     : (
                         <>
-                            <ul className="grid gap-2 grid-flow-col overflow-x-auto auto-cols-[154px] snap-x snap-mandatory overscroll-contain">
+                            <ul className="grid gap-2 grid-flow-col overflow-x-auto auto-cols-[154px] snap-x snap-mandatory">
                                 {movieList.map((movie) => (
                                     <HomeUserMovieCard key={movie.id} movie={movie} />
                                 ))}
