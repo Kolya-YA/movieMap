@@ -1,7 +1,6 @@
 import express from "express";
-
-// import cors from "cors";
-// import config from "./utils/config.js";
+import cors from "cors";
+import { CORS_OPTIONS } from "./utils/config.js";
 import connectDB from "./utils/database.js";
 
 import searchRoutes from "./routes/searchRoutes.js";
@@ -15,7 +14,7 @@ import errorHandler from "./middleware/errorHandler.js";
 const app = express();
 await connectDB();
 
-// app.use(cors(config.corsOptions));
+app.use(cors(CORS_OPTIONS));
 app.use(express.json());
 // app.use(requestLogger);
 
