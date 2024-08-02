@@ -11,14 +11,23 @@ const TopNav = () => {
   };
   const dropdownRef = useRef(null);
 
+  const handleItemClick = (event) => {
+    // Close the dropdown on item click
+    setNavOpen(false);
+  };
+
   const handleClickOutside = (event) => {
+    // Close the dropdown if the user clicks outside of it
     if (dropdownRef.current && !dropdownRef.current.contains(event.target))   
  {
       setNavOpen(false);
     }
   };
 
+
+
   useEffect(() => {
+    // Add event listener to handle clicks outside of the dropdown
     document.addEventListener('mousedown', handleClickOutside);
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);   
@@ -39,43 +48,43 @@ const TopNav = () => {
       <ul
         ref={dropdownRef}
         id="main-navigation"
-        className={`absolute top-full right-0 bg-black bg-opacity-80 text-white text-xl text-right w-[200px] p-6 flex flex-col space-y-4 rounded-b-2xl z-10 transition-opacity duration-300 ease-in-out ${navOpen ? 'opacity-100' : 'opacity-0'}`}
+        className={`absolute ${navOpen ? '' : 'hidden'} top-full right-0 bg-black bg-opacity-80 text-white text-xl text-right w-[200px] p-6 flex flex-col space-y-4 rounded-b-2xl z-10 transition-opacity duration-300 ease-in-out ${navOpen ? 'opacity-100' : 'opacity-0'}`}
       >
         {user ? (
           <>
-            <li>
-              <NavLink to="/profile">Profile</NavLink>
+            <li onClick={handleItemClick}>
+              <NavLink to="/profile ">Profile</NavLink>
             </li>
-            <li>
+            <li onClick={handleItemClick}>
               <NavLink to="/waiting-list">Watch list</NavLink>
             </li>
-            <li>
+            <li onClick={handleItemClick}>
               <NavLink to="/history-list">History</NavLink>
             </li>
-            <li>
+            <li onClick={handleItemClick}>
               <NavLink onClick={logoutUser}>Logout</NavLink>
             </li>
             {user.isAdmin && (
-              <li>
+              <li onClick={handleItemClick}>
                 <NavLink to="/admin">Admin</NavLink>
               </li>
             )}
           </>
         ) : (
           <>
-            <li>
+            <li onClick={handleItemClick}>
               <NavLink to="/login">Login</NavLink>
             </li>
-            <li>
+            <li onClick={handleItemClick}>
               <NavLink to="/signup">Signup</NavLink>
             </li>
           </>
         )}
         <hr />
-        <li>
+        <li onClick={handleItemClick}>
           <NavLink to="/search">Search</NavLink>
         </li>
-        <li>
+        <li onClick={handleItemClick}>
           <NavLink to="/about">About</NavLink>
         </li>
       </ul>
