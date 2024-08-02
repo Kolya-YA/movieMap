@@ -11,19 +11,31 @@ const JWT_SECRET = process.env.JWT_SECRET;
 const JWT_EXPIRATION = 3 * 60 * 60; // 3 hours
 
 const POSTER_SIZES = {
-    w92px: "w92",
-    w154px: "w154",
-    w185px: "w185",
-    w342px: "w342",
-    w500px: "w500",
-    w780px: "w780",
-    original: "original",
+	w92px: "w92",
+	w154px: "w154",
+	w185px: "w185",
+	w342px: "w342",
+	w500px: "w500",
+	w780px: "w780",
+	original: "original",
 };
 
 const DAILY_CACHE_DURATION = 24 * 60 * 60; // 24 hours
 
-// const corsOptions = {
-    // 	origin: process.env.ORIGINS.split(", "),
-    // };
-    
-export { PORT, TMDB_URL, TMDB_AUTH_TOKEN, TMDB_IMAGE_API, TMDB_API_KEY, MONGODB_URI, JWT_SECRET, JWT_EXPIRATION, POSTER_SIZES, DAILY_CACHE_DURATION };
+const CORS_OPTIONS = {
+	// origin: process.env.ORIGINS.split(", "),
+};
+
+export {
+	PORT,
+	TMDB_URL,
+	TMDB_AUTH_TOKEN,
+	TMDB_IMAGE_API,
+	TMDB_API_KEY,
+	MONGODB_URI,
+	JWT_SECRET,
+	JWT_EXPIRATION,
+	POSTER_SIZES,
+	DAILY_CACHE_DURATION,
+	CORS_OPTIONS,
+};
