@@ -1,18 +1,22 @@
 import axios from 'axios';
 import { useEffect, useState, useCallback, useRef } from 'react';
-import { FormatNumber, StarRating, Button } from '../components';
-import { Link, useSearchParams } from 'react-router-dom';
+import { SearchComponent, LandscapeCard } from '../components/FormComponents';
 
 const limit_Page = 10;
 
 const SearchMovies = () => {
-    const [searchParams] = useSearchParams();
-    const [query, setQuery] = useState(searchParams.get('query') || '');
+    const [query, setQuery] = useState('');
     const [page, setPage] = useState(1);
     const [movies, setMovies] = useState(null);
     const [loading, setLoading] = useState(false);
     const containerRef = useRef(null);
 
+    const [input, setInput] = useState('');
+    const handleSubmit = e => {
+        e.preventDefault();
+        setPage(1);
+        setQuery(input);
+    };
 
     const searchMovies = useCallback(async () => {
         if (!query) return;
@@ -53,11 +57,11 @@ const SearchMovies = () => {
 
         container.addEventListener('scroll', handleScroll);
         return () => container.removeEventListener('scroll', handleScroll);
-    }, [loading, movies, page]);
+    }, [loading, movies]);
 
     return (
         <div className="text-white flex flex-col h-screen">
-            <style>{`
+            <style jsx="true">{`
                 .custom-scrollbar::-webkit-scrollbar {
                     width: 12px;
                 }
@@ -68,22 +72,33 @@ const SearchMovies = () => {
                 }
             `}</style>
             <div className="mt-5 mb-3 px-8">
-                <div className="flex items-center gap-4">
-                    <SearchMovieForm setPage={setPage} setQuery={setQuery} />
+                <div className="flex items-center flex-col">
+                    <div className="flex items-center">
+                        <SearchComponent
+                            input={input}
+                            setInput={setInput}
+                            handleSubmit={handleSubmit}
+                            placeholder="e.g Jurassic World"
+                        />
+                    </div>
+                    <p className="mt-1">Total results: {movies?.total_results}</p>
                 </div>
-                <p className="mt-1">Total results: {movies?.total_results}</p>
             </div>
 
             <div ref={containerRef} className="flex-grow overflow-auto custom-scrollbar">
                 <div className="card-list p-4">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 align-middle items-center gap-4">
                         {movies?.results
                             ?.filter(movie => movie.poster_path)
-                            .map((movie) => (
-                                <MovieCard movie={movie} key={movie.id} />
+                            .map((movie, index) => (
+                                <LandscapeCard movie={movie} key={index} />
                             ))}
                     </div>
-                    {loading && <p className="text-center py-4">Loading more movies...</p>}
+                    {loading ? (
+                        <p className="text-center py-4">Loading more movies...</p>
+                    ) : (
+                        <p className="text-center py-4">All data has been loaded</p>
+                    )}
                 </div>
             </div>
         </div>
@@ -91,56 +106,3 @@ const SearchMovies = () => {
 };
 
 export default SearchMovies;
-
-function SearchMovieForm({ setPage, setQuery }) {
-    const [searchParams, setSearchParams] = useSearchParams()
-    const [input, setInput] = useState(searchParams.get('query') || '');
-
-    const handleSubmit = e => {
-        e.preventDefault();
-        setSearchParams({ query: input });
-        setPage(1);
-        setQuery(input);
-    };
-
-    return (
-        <form className="flex items-center gap-4" onSubmit={handleSubmit}>
-            <input
-                type="text"
-                name="query"
-                className="border border-gray-300 rounded-md border-white-hover-gray p-2"
-                placeholder="i.e. Jurassic Park"
-                value={input}
-                onChange={e => setInput(e.target.value)}
-            />
-            <Button text="Search" />
-        </form>
-    );
-}
-
-function MovieCard({ movie }) {
-    return (
-        <Link to={`../movie/${movie.id}`} className="grid grid-cols-[92px_1fr] items-center  gap-2 bg-gray-500/50 text-white rounded-xl overflow-hidden">
-            <img
-                // width="4rem"
-                // height="10rem"
-                className="w-[92px] aspect-[2/3]"
-                src={`https://image.tmdb.org/t/p/w92${movie.poster_path}`}
-                alt={`${movie.title} poster`}
-                loading="lazy"
-            />
-            <div className="px-2 py-1">
-                <h3 className="font-bold line-clamp-1 ">{movie.title}</h3>
-                <p className="text-sm flex gap-2 line-clamp-1">
-                    <span className="font-semibold">{movie.release_date.split('-')[0]}</span>
-                    <span className="line-clamp-1">{movie.genres_list.join(', ')}</span>
-                </p>
-                <div className="flex gap-2 text-sm ">
-                    <StarRating rating={movie.vote_average} />
-                    (<FormatNumber number={movie.vote_count} />)
-                </div>
-                <p className="text-sm line-clamp-3">{movie.overview}</p>
-            </div>
-        </Link>
-    );
-}
