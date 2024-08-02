@@ -23,7 +23,7 @@ return(
       </button>
       <ul
         id="main-navigation"
-        className={`absolute top-full right-0 bg-black bg-opacity-80 text-white w-[300px] py-4 flex flex-col space-y-4 rounded-b-2xl z-10 transition-opacity duration-400 ease-in-out ${navOpen ? 'opacity-100' : 'opacity-0'}`}
+        className={`absolute top-full right-0 bg-black bg-opacity-80 text-white text-xl text-right w-[200px] p-6 flex flex-col space-y-4 rounded-b-2xl z-10 transition-opacity duration-400 ease-in-out ${navOpen ? 'opacity-100' : 'opacity-0'}`}
 >
         {user ? (
           <>
@@ -31,10 +31,10 @@ return(
               <NavLink to="/profile">Profile</NavLink>
             </li>
             <li>
-              <NavLink to="/waiting-list">Waiting list</NavLink>
+              <NavLink to="/waiting-list">Watch list</NavLink>
             </li>
             <li>
-              <NavLink to="/history-list">History list</NavLink>
+              <NavLink to="/history-list">History</NavLink>
             </li>
             <li>
               <NavLink onClick={logoutUser}>Logout</NavLink>
@@ -57,7 +57,7 @@ return(
         )}
         <hr />
         <li>
-          <NavLink to="/search">Search movies</NavLink>
+          <NavLink to="/search">Search</NavLink>
         </li>
         <li>
           <NavLink to="/about">About</NavLink>
