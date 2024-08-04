@@ -22,6 +22,8 @@ const POSTER_SIZES = {
 
 const DAILY_CACHE_DURATION = 24 * 60 * 60; // 24 hours
 
+const AI_REQ_DAILY_LIMIT = 3;
+
 const CORS_OPTIONS = {
 	// origin: process.env.ORIGINS.split(", "),
 };
@@ -37,5 +39,6 @@ export {
 	JWT_EXPIRATION,
 	POSTER_SIZES,
 	DAILY_CACHE_DURATION,
+	AI_REQ_DAILY_LIMIT,
 	CORS_OPTIONS,
 };

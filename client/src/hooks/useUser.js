@@ -86,6 +86,16 @@ const useUser = () => {
 		}
 	};
 
+	const getAiRecs = async () => {
+		try {
+			console.log("AI request clicked");
+			const { data } = await axios.get("/api/v1/users/ai-recs");
+			updateLocalUser(data);
+		} catch (error) {
+			console.error("Failed to get AI recommendations: ", error);
+		}
+	};
+
 	function updateLocalUser(data) {
 		const { token, user } = data;
 		if (!token) {
@@ -104,6 +114,7 @@ const useUser = () => {
 		addMovieToUserList,
 		toggleMovieInUserList,
 		updateMovieInUserList,
+		getAiRecs,
 	};
 };
 

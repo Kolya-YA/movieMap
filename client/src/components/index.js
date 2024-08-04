@@ -12,6 +12,7 @@ import Loading from "./Loading";
 import FormatNumber from "./FormatNumber";
 import StarRating from "./StarRating";
 import Button from "./Button";
+import AiReq from "./AiReq";
 
 export {
 	Loading,
@@ -28,4 +29,5 @@ export {
 	LoginForm,
 	SignUpForm,
 	Button,
+	AiReq,
 };
