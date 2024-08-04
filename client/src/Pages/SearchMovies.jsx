@@ -2,23 +2,26 @@ import axios from 'axios';
 import { useEffect, useState, useCallback, useRef } from 'react';
 import { FormatNumber, StarRating, Button } from '../components';
 import { Link, useSearchParams } from 'react-router-dom';
+import { useTapHandler } from '../hooks';
 
 const limit_Page = 10;
 
 const SearchMovies = () => {
     const [searchParams] = useSearchParams();
-    const [query, setQuery] = useState(searchParams.get('query') || '');
+    const [query, setQuery] = useState(searchParams.get('query'));
     const [page, setPage] = useState(1);
     const [movies, setMovies] = useState(null);
     const [loading, setLoading] = useState(false);
+    const [hasSearched, setHasSearched] = useState(false);
     const containerRef = useRef(null);
-
 
     const searchMovies = useCallback(async () => {
         if (!query) return;
 
         setLoading(true);
+        setHasSearched(true);
         const url = `/api/v1/search/movies?query=${query}&page=${page}`;
+        console.log(query);
 
         try {
             const { data } = await axios.get(url);
@@ -69,9 +72,9 @@ const SearchMovies = () => {
             `}</style>
             <div className="mt-5 mb-3 px-8">
                 <div className="flex items-center gap-4">
-                    <SearchMovieForm setPage={setPage} setQuery={setQuery} />
+                    <SearchMovieForm setPage={setPage} setQuery={setQuery} setHasSearched={setHasSearched} />
                 </div>
-                <p className="mt-1">Total results: {movies?.total_results}</p>
+                {hasSearched && <p className="mt-1">Total results: {movies?.total_results}</p>}
             </div>
 
             <div ref={containerRef} className="flex-grow overflow-auto custom-scrollbar">
@@ -79,11 +82,18 @@ const SearchMovies = () => {
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         {movies?.results
                             ?.filter(movie => movie.poster_path)
-                            .map((movie) => (
+                            .map(movie => (
                                 <MovieCard movie={movie} key={movie.id} />
                             ))}
                     </div>
-                    {loading && <p className="text-center py-4">Loading more movies...</p>}
+                    {hasSearched &&
+                        (loading ? (
+                            <p className="text-center py-4">Loading more movies...</p>
+                        ) : movies && movies.results.length > 0 ? (
+                            <p className="text-center py-4">All data has been loaded</p>
+                        ) : (
+                            <p className="text-center py-4">No movies found</p>
+                        ))}
                 </div>
             </div>
         </div>
@@ -92,8 +102,8 @@ const SearchMovies = () => {
 
 export default SearchMovies;
 
-function SearchMovieForm({ setPage, setQuery }) {
-    const [searchParams, setSearchParams] = useSearchParams()
+function SearchMovieForm({ setPage, setQuery, setHasSearched }) {
+    const [searchParams, setSearchParams] = useSearchParams();
     const [input, setInput] = useState(searchParams.get('query') || '');
 
     const handleSubmit = e => {
@@ -101,6 +111,7 @@ function SearchMovieForm({ setPage, setQuery }) {
         setSearchParams({ query: input });
         setPage(1);
         setQuery(input);
+        setHasSearched(true);
     };
 
     return (
@@ -119,28 +130,31 @@ function SearchMovieForm({ setPage, setQuery }) {
 }
 
 function MovieCard({ movie }) {
+    const cardRef = useTapHandler(movie.id);
     return (
-        <Link to={`../movie/${movie.id}`} className="grid grid-cols-[92px_1fr] items-center  gap-2 bg-gray-500/50 text-white rounded-xl overflow-hidden">
-            <img
-                // width="4rem"
-                // height="10rem"
-                className="w-[92px] aspect-[2/3]"
-                src={`https://image.tmdb.org/t/p/w92${movie.poster_path}`}
-                alt={`${movie.title} poster`}
-                loading="lazy"
-            />
-            <div className="px-2 py-1">
-                <h3 className="font-bold line-clamp-1 ">{movie.title}</h3>
-                <p className="text-sm flex gap-2 line-clamp-1">
-                    <span className="font-semibold">{movie.release_date.split('-')[0]}</span>
-                    <span className="line-clamp-1">{movie.genres_list.join(', ')}</span>
-                </p>
-                <div className="flex gap-2 text-sm ">
-                    <StarRating rating={movie.vote_average} />
-                    (<FormatNumber number={movie.vote_count} />)
+        <div className="h-40 text-white mb-4 px-4 cursor-pointer">
+            <div ref={cardRef} className="flex h-40 items-center rounded-xl gap-4 mb-4 px-4 bg-opacity-50 bg-gray-500">
+                <img
+                    // width="4rem"
+                    // height="10rem"
+                    className="w-[92px] aspect-[2/3]"
+                    src={`https://image.tmdb.org/t/p/w92${movie.poster_path}`}
+                    alt={`${movie.title} poster`}
+                    loading="lazy"
+                />
+                <div className="px-2 py-1">
+                    <h3 className="font-bold line-clamp-1 ">{movie.title}</h3>
+                    <p className="text-sm flex gap-2 line-clamp-1">
+                        <span className="font-semibold">{movie.release_date.split('-')[0]}</span>
+                        <span className="line-clamp-1">{movie.genres_list.join(', ')}</span>
+                    </p>
+                    <div className="flex gap-2 text-sm ">
+                        <StarRating rating={movie.vote_average} />
+                        (<FormatNumber number={movie.vote_count} />)
+                    </div>
+                    <p className="text-sm line-clamp-3">{movie.overview}</p>
                 </div>
-                <p className="text-sm line-clamp-3">{movie.overview}</p>
             </div>
-        </Link>
+        </div>
     );
 }
