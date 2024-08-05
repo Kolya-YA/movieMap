@@ -32,6 +32,4 @@ const MovieListItemSchema = new Schema({
 	},
 });
 
-// const MovieListItem = model("MovieListItem", MovieListItemSchema);
-
 export default MovieListItemSchema;

@@ -132,8 +132,8 @@ function MovieCard({ movie }) {
             <div className="px-2 py-1">
                 <h3 className="font-bold line-clamp-1 ">{movie.title}</h3>
                 <p className="text-sm flex gap-2 line-clamp-1">
-                    <span className="font-semibold">{movie.release_date.split('-')[0]}</span>
-                    <span className="line-clamp-1">{movie.genres_list.join(', ')}</span>
+                    <span className="font-semibold">{movie.release_date?.split('-')[0]}</span>
+                    <span className="line-clamp-1">{movie.genres_list?.join(', ')}</span>
                 </p>
                 <div className="flex gap-2 text-sm ">
                     <StarRating rating={movie.vote_average} />

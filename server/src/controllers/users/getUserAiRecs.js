@@ -1,16 +1,16 @@
 import User from "../../models/user.js";
+import aiListToMovies from "../../utils/ai/aiListToMovies.js";
+// import getAiAdvice from "../../utils/ai/getAiAdvice.js";
 import {
 	AI_REQ_DAILY_LIMIT,
 	AI_REQ_MOVIES_PER_REQ,
 } from "../../utils/config.js";
 
-const getAiAdvice = () => {
-	return [
-		{ movie: "66ad00fe34e1d18214a96173", tmdbMovieId: 903629 },
-		{ movie: "66a8dc65088d1fdeb3c0c0dd", tmdbMovieId: 786892 },
-		{ movie: "66a8dd66088d1fdeb3c0c438", tmdbMovieId: 603 },
-	];
-};
+// const fakeData = [
+// 	{ movie: "66ad00fe34e1d18214a96173", tmdbMovieId: 903629 },
+// 	{ movie: "66a8dc65088d1fdeb3c0c0dd", tmdbMovieId: 786892 },
+// 	{ movie: "66a8dd66088d1fdeb3c0c438", tmdbMovieId: 603 },
+// ];
 
 const getUserAiRecs = async (req, res) => {
 	try {
@@ -25,11 +25,21 @@ const getUserAiRecs = async (req, res) => {
 		if (user.movAIRecs.length >= AI_REQ_DAILY_LIMIT * AI_REQ_MOVIES_PER_REQ) {
 			return res.status(403).json({ error: "AI requests limit reached" });
 		}
-		const aiAdvise = getAiAdvice();
+		// const aiAdvise = await getAiAdvice(user?.movieList);
+		const aiAdvise = [
+   'The Princess Bride',
+   'Moana',
+   'How to Train Your Dragon',
+   'The Goonies',
+   'E.T. the Extra-Terrestrial'
+ ];
+		// console.log("AI advice: ", aiAdvise);
+		const aiMovieList = await aiListToMovies(aiAdvise);
+		console.log("AI movie list: ", aiMovieList);
 
 		const updatedUser = await User.findByIdAndUpdate(
 			req.userId,
-			{ $push: { movAIRecs: { $each: aiAdvise } } },
+			{ $push: { movAIRecs: { $each: aiMovieList } } },
 			{ new: true },
 		);
 
@@ -37,7 +47,7 @@ const getUserAiRecs = async (req, res) => {
 			return res.status(404).json({ error: "User not found during update" });
 		}
 
-		console.log("AI request added to user: ", updatedUser);
+		// console.log("AI request added to user: ", updatedUser);
 		// updatedUser = user;
 		return res
 			.status(200)

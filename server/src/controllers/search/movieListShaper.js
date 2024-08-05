@@ -7,7 +7,7 @@ const shapeMovieList = (movies) => {
 		total_results: movies.total_results,
 		results: movies.results.map((movie) => ({
 			id: movie.id,
-			genres_list: movie.genre_ids.map((id) => genresList[id]),
+			genres_list: movie.genre_ids?.map((id) => genresList[id]),
 			title: movie.title,
 			original_title: movie.original_title,
 			overview: movie.overview,

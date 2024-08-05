@@ -2,6 +2,8 @@ import { Schema, model } from "mongoose";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import MovieListItemSchema from "./movieListItemSchema.js";
+import AiMovieListItemSchema from "./aiMovieListItemSchema.js";
+
 import {
 	JWT_EXPIRATION,
 	JWT_SECRET,
@@ -13,12 +15,6 @@ const dateMinusXYears = (x) => {
 	const curDate = new Date();
 	return new Date(curDate.setFullYear(curDate.getFullYear() - x));
 };
-
-const AiMovieListItemSchema = new Schema(MovieListItemSchema.obj);
-AiMovieListItemSchema.add({
-	createdAt: { type: Date, default: Date.now, expires: 60 },
-	// createdAt: { type: Date, default: Date.now, expires: "1d" },
-});
 
 const UserSchema = new Schema(
 	{
@@ -92,8 +88,6 @@ const UserSchema = new Schema(
 );
 
 UserSchema.index({ email: 1 }, { unique: true });
-// UserSchema.index({ "movAIRecs.createdAt": 1 }, { expireAfterSeconds: 86400 });
-UserSchema.index({ "movAIRecs.createdAt": 1 }, { expireAfterSeconds: 60 });
 
 UserSchema.pre("save", async function (next) {
 	if (this.isModified("password")) {
@@ -136,20 +130,11 @@ UserSchema.set("toJSON", {
 });
 
 UserSchema.pre(/^find/, function (next) {
-	this.populate(
-		{
-			path: "movieList.movie",
-			select:
-				"id title release_date poster_path runtime genres_list.name vote_average vote_count",
-		}
-	);
-	this.populate(
-		{
-			path: "movAIRecs.movie",
-			select:
-				"id title release_date poster_path runtime genres_list.name vote_average vote_count",
-		},
-	);
+	this.populate({
+		path: "movieList.movie",
+		select:
+			"id title release_date poster_path runtime genres_list.name vote_average vote_count",
+	});
 	next();
 });
 
