@@ -6,12 +6,19 @@ import {
 	JWT_EXPIRATION,
 	JWT_SECRET,
 	AI_REQ_DAILY_LIMIT,
+	AI_REQ_MOVIES_PER_REQ,
 } from "../utils/config.js";
 
 const dateMinusXYears = (x) => {
 	const curDate = new Date();
 	return new Date(curDate.setFullYear(curDate.getFullYear() - x));
 };
+
+const AiMovieListItemSchema = new Schema(MovieListItemSchema.obj);
+AiMovieListItemSchema.add({
+	createdAt: { type: Date, default: Date.now, expires: 60 },
+	// createdAt: { type: Date, default: Date.now, expires: "1d" },
+});
 
 const UserSchema = new Schema(
 	{
@@ -79,10 +86,14 @@ const UserSchema = new Schema(
 			max: 999,
 		},
 		movieList: [MovieListItemSchema],
-		movAIRecs: [MovieListItemSchema],
+		movAIRecs: [AiMovieListItemSchema],
 	},
 	{ timestamps: true },
 );
+
+UserSchema.index({ email: 1 }, { unique: true });
+// UserSchema.index({ "movAIRecs.createdAt": 1 }, { expireAfterSeconds: 86400 });
+UserSchema.index({ "movAIRecs.createdAt": 1 }, { expireAfterSeconds: 60 });
 
 UserSchema.pre("save", async function (next) {
 	if (this.isModified("password")) {
@@ -116,6 +127,7 @@ UserSchema.set("toJSON", {
 			return movie;
 		});
 		returnedObject.aiRequestsLimit = AI_REQ_DAILY_LIMIT;
+		returnedObject.aiReqMoviesPerReq = AI_REQ_MOVIES_PER_REQ;
 		returnedObject.id = returnedObject._id?.toString();
 		returnedObject._id = undefined;
 		returnedObject.__v = undefined;
@@ -124,16 +136,6 @@ UserSchema.set("toJSON", {
 });
 
 UserSchema.pre(/^find/, function (next) {
-	const today = new Date();
-	today.setHours(0, 0, 0, 0);
-	this.updateMany(
-		{},
-		{
-			$pull: {
-				movAIRecs: { dateOfAdded: { $lt: today } },
-			},
-		},
-	);
 	this.populate(
 		{
 			path: "movieList.movie",

@@ -88,7 +88,6 @@ const useUser = () => {
 
 	const getAiRecs = async () => {
 		try {
-			console.log("AI request clicked");
 			const { data } = await axios.get("/api/v1/users/ai-recs");
 			updateLocalUser(data);
 		} catch (error) {
@@ -102,7 +101,7 @@ const useUser = () => {
 			throw new Error("No token in response");
 		}
 		localStorage.setItem("token", token);
-		setUser(user);
+		setUser((prevUser) => ({ ...prevUser, ...user }));
 		axios.defaults.headers.common.Authorization = `Bearer ${token}`;
 	}
 
