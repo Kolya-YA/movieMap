@@ -1,11 +1,12 @@
 import { useMemo } from "react";
 import { useUserContext } from "../hooks";
-import { HomeUserList, HomePageMovieList } from '../components'
+import { HomeUserList, HomePageMovieList, HomeUserAiList } from '../components'
 
 const UserHomePage = ({ dailyRecs }) => {
     const { user } = useUserContext();
+    console.log("UserHomePage -> user", user);
 
-    const { movieList = [], movAIRecs = [] } = user || {};
+    const { movieList = [], movieAiRecs = [] } = user || {};
 
     const waitingList = useMemo(() => (
         movieList.filter(m => !m.dateOfWatch && !m.deleted).toReversed()
@@ -16,13 +17,13 @@ const UserHomePage = ({ dailyRecs }) => {
     ), [movieList])
 
     const aiList = useMemo(() => (
-        movAIRecs
-    ), [movAIRecs])
+        movieAiRecs
+    ), [movieAiRecs])
 
     return (
         <>
             <HomeUserList movieList={waitingList} title="My waiting list" />
-            <HomeUserList movieList={aiList} title="My AI list" type='AI' user={user} />
+            <HomeUserAiList movieList={aiList} title="My AI list" />
             <HomeUserList movieList={historyList} title="My history list" />
             <HomePageMovieList movieList={dailyRecs?.find(r => r.title === "Popular")} />
             <HomePageMovieList movieList={dailyRecs?.find(r => r.title === "Now playing")} />

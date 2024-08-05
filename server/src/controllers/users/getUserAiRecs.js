@@ -1,54 +1,56 @@
+import AiMovie from "../../models/aiMovie.js";
 import User from "../../models/user.js";
 import aiListToMovies from "../../utils/ai/aiListToMovies.js";
-// import getAiAdvice from "../../utils/ai/getAiAdvice.js";
+import getAiAdvice from "../../utils/ai/getAiAdvice.js";
 import {
 	AI_REQ_DAILY_LIMIT,
 	AI_REQ_MOVIES_PER_REQ,
 } from "../../utils/config.js";
 
-// const fakeData = [
-// 	{ movie: "66ad00fe34e1d18214a96173", tmdbMovieId: 903629 },
-// 	{ movie: "66a8dc65088d1fdeb3c0c0dd", tmdbMovieId: 786892 },
-// 	{ movie: "66a8dd66088d1fdeb3c0c438", tmdbMovieId: 603 },
-// ];
-
 const getUserAiRecs = async (req, res) => {
 	try {
 		const user = await User.findById(req.userId);
-
-		// console.log("User: ", user);
 
 		if (!user) {
 			return res.status(404).json({ error: "Invalid ID" });
 		}
 
-		if (user.movAIRecs.length >= AI_REQ_DAILY_LIMIT * AI_REQ_MOVIES_PER_REQ) {
+		const userAiRecs = await AiMovie.find({ userId: req.userId });
+		if (userAiRecs.length >= AI_REQ_DAILY_LIMIT * AI_REQ_MOVIES_PER_REQ) {
 			return res.status(403).json({ error: "AI requests limit reached" });
 		}
-		// const aiAdvise = await getAiAdvice(user?.movieList);
-		const aiAdvise = [
-   'The Princess Bride',
-   'Moana',
-   'How to Train Your Dragon',
-   'The Goonies',
-   'E.T. the Extra-Terrestrial'
- ];
+		const exludeList = userAiRecs?.map((movie) => movie.title);
+
+		const aiAdvise = await getAiAdvice(user?.movieList, exludeList);
+		// const aiAdvise = [
+		// 	"The Princess Bride",
+		// 	"Moana",
+		// 	"How to Train Your Dragon",
+		// 	"The Goonies",
+		// 	"E.T. the Extra-Terrestrial",
+		// ];
+
+		// console.log("userAiRecs", userAiRecs.length);
 		// console.log("AI advice: ", aiAdvise);
 		const aiMovieList = await aiListToMovies(aiAdvise);
-		console.log("AI movie list: ", aiMovieList);
+		const aiMovieListWithUserId = aiMovieList.map((movie) => {
+			return { ...movie, userId: req.userId };
+		});
+		// console.log("AI movie list: ", aiMovieList);
 
-		const updatedUser = await User.findByIdAndUpdate(
-			req.userId,
-			{ $push: { movAIRecs: { $each: aiMovieList } } },
-			{ new: true },
-		);
+		await AiMovie.insertMany(aiMovieListWithUserId, {
+			ordered: false,
+		});
 
+		// const updatedUser = user;
+		const updatedUser = await User.findById(req.userId);
+		// console.log("updatedUser", updatedUser);
 		if (!updatedUser) {
 			return res.status(404).json({ error: "User not found during update" });
 		}
 
 		// console.log("AI request added to user: ", updatedUser);
-		// updatedUser = user;
+
 		return res
 			.status(200)
 			.json({ user: updatedUser, token: updatedUser.createAuthToken() });

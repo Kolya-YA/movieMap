@@ -11,9 +11,10 @@ const model = genAI.getGenerativeModel({
 	},
 });
 
-const getAiAdvice = async (userList) => {
-	const companion = ["romantic partner", "friend", "family", "alone"];
-	const aiPromtStr = aiPromt(userList, companion[2]);
+const getAiAdvice = async (userList, exludeList) => {
+	const companion = ["romantic partner", "friends", "family", "alone"];
+	const aiPromtStr = aiPromt(userList, companion[3], 1972, "Russia", exludeList);
+	// console.log("aiPromtStr", aiPromtStr);
 
 	async function run() {
 		// The Gemini 1.5 models are versatile and work with both text-only and multimodal prompts

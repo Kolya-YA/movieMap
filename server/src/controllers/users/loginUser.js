@@ -5,9 +5,6 @@ const loginUser = async (req, res) => {
 	try {
 		console.log("loginUser -> email", email);
 		const user = await User.findOne({ email });
-		const users = await User.find({});
-		console.log("loginUsers", user);
-		console.log("loginUsers", users);
 
 		if (!user || !(await user.checkPassword(password))) {
 			console.log("Invalid email or password");

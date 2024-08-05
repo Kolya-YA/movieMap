@@ -3,6 +3,7 @@ import TopNav from "./TopNav";
 import UserInfo from "./UserInfo";
 import HomePageMovieList from "./HomePageMovieList";
 import HomeUserList from "./HomeUserList";
+import HomeUserAiList from "./HomeUserAiList";	
 import HomeUserMovieCard from "./HomeUserMovieCard";
 import UserHomePage from "./UserHomePage";
 import GuestHomePage from "./GuestHomePage";
@@ -25,6 +26,7 @@ export {
 	GuestHomePage,
 	HomePageMovieList,
 	HomeUserList,
+	HomeUserAiList,
 	HomeUserMovieCard,
 	LoginForm,
 	SignUpForm,

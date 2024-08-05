@@ -1,4 +1,10 @@
-const aiPromt = (userList, companion) => {
+const aiPromt = (
+	userList,
+	companion,
+	birthYear = 1981,
+	country = "Germany",
+	exludeList = [],
+) => {
 	const moviesAndRateList = userList
 		.map((movie) => ({
 			title: movie.movie?.title,
@@ -24,8 +30,9 @@ const aiPromt = (userList, companion) => {
 	const currentDayName = dayNames[dayOfWeek];
 
 	return `
-I need your movie expertise! I'm looking for the perfect film for today, ${currentDayName}. I'm planning to watch it with my ${companion}.
+I need your movie expertise! I was born ${birthYear} and live in ${country} looking for the perfect film for today, ${currentDayName}. I'm planning to watch it with my ${companion}.
 To help you narrow down the options, here is the history of my watched movies and ratings: ${moviesAndRateString}
+Please exlude the following movies from your recommendations: ${exludeList.join(", ")}
 Can you recommend a movie based on my preferences and day of week? Answer should contain 5 movies not from my history and be only in JSON schema:
 [ "title" ]
 `;

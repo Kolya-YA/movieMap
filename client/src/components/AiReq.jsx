@@ -16,7 +16,7 @@ const AiReq = () => {
     return (
         <div>
             <form>
-                <p>AI advice left for today: {user.aiRequestsLimit * user.aiReqMoviesPerReq - user.movAIRecs.length} / {user.aiRequestsLimit * user.aiReqMoviesPerReq }</p>
+                <p>AI advice left for today: {user.aiRequestsLimit * user.aiReqMoviesPerReq - user.movieAiRecs?.length} / {user.aiRequestsLimit * user.aiReqMoviesPerReq }</p>
                 <Button text="Request AI advice" onClick={onClick} />
             </form>
             <p>Fake data AI functions not yet implemented</p>

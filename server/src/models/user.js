@@ -2,7 +2,7 @@ import { Schema, model } from "mongoose";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import MovieListItemSchema from "./movieListItemSchema.js";
-import AiMovieListItemSchema from "./aiMovieListItemSchema.js";
+// import AiMovieListItemSchema from "./aiMovieListItemSchema.js";
 
 import {
 	JWT_EXPIRATION,
@@ -82,7 +82,7 @@ const UserSchema = new Schema(
 			max: 999,
 		},
 		movieList: [MovieListItemSchema],
-		movAIRecs: [AiMovieListItemSchema],
+
 	},
 	{ timestamps: true },
 );
@@ -113,7 +113,24 @@ UserSchema.methods.createAuthToken = function () {
 	);
 };
 
+UserSchema.virtual('movieAiRecs', {
+	ref: 'AiMovie',
+	localField: '_id',
+	foreignField: 'userId'
+});
+
+UserSchema.pre(/^find/, function (next) {
+	this.populate({
+		path: "movieList.movie",
+		select:
+			"id title release_date poster_path runtime genres_list.name vote_average vote_count",
+	})
+	.populate("movieAiRecs");
+	next();
+});
+
 UserSchema.set("toJSON", {
+	virtuals: true,
 	transform: (document, returnedObject) => {
 		returnedObject.movieList = returnedObject.movieList.map((movie) => {
 			movie.id = movie._id?.toString();
@@ -127,15 +144,6 @@ UserSchema.set("toJSON", {
 		returnedObject.__v = undefined;
 		returnedObject.password = undefined;
 	},
-});
-
-UserSchema.pre(/^find/, function (next) {
-	this.populate({
-		path: "movieList.movie",
-		select:
-			"id title release_date poster_path runtime genres_list.name vote_average vote_count",
-	});
-	next();
 });
 
 const User = model("User", UserSchema);
