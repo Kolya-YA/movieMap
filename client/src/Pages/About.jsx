@@ -38,9 +38,14 @@ const About = () => {
             text: `we're here to help`,
             image: amelieImage,
         },
+
         {
             text: `mapping to your life's movie`,
             image: gatsbyImage,
+        },
+        {
+            text: ``,
+            image: ``,
         },
         {
             text: `Movie Map`,
@@ -59,7 +64,9 @@ const About = () => {
                                 index === currentIndex ? 'opacity-100' : 'opacity-0'
                             }`}
                         >
-                            {step.image && <img src={step.image} alt="" className="h-[25%] w-[80%]" />}
+                            {step.image && (
+                                <img src={step.image} alt="movie image" className=" w-[80%] h-1/3 object-contain" />
+                            )}
                         </div>
                     ))}
                 </div>
@@ -69,7 +76,7 @@ const About = () => {
                         <div
                             key={index}
                             ref={el => (stepRefs.current[index] = el)}
-                            className={`mb-[60vh] p-4 text-white font-bold text-2xl bg-opacity-80 rounded-lg shadow transition-opacity duration-500 ${
+                            className={`mb-[60vh] p-4 text-white font-bold text-2xl text-center font-black-ops-one rounded-lg shadow transition-opacity duration-500 ${
                                 index === currentIndex ? 'opacity-100' : 'opacity-0'
                             }`}
                         >
