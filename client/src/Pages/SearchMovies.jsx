@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState, useCallback, useRef } from 'react';
 import { FormatNumber, StarRating, Button } from '../components';
-import { Link, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { useTapHandler } from '../hooks';
 
 const limit_Page = 10;
