@@ -1,4 +1,4 @@
-const errorHandler = (err, req, res) => {
+const errorHandler = (err, req, res, next) => {
 	console.error(err.stack);
 
 	// Mongoose validation error
@@ -24,15 +24,19 @@ const errorHandler = (err, req, res) => {
 			details: err.message,
 		});
 	}
-
+	
 	// Default error
-	res.status(500).json({
-		error: "Internal Server Error",
-		details:
-			process.env.NODE_ENV === "production"
-				? "Something went wrong"
-				: err.message,
-	});
+	if (err) {
+		res.status(500).json({
+			error: "Internal Server Error",
+			details:
+				process.env.NODE_ENV === "production"
+					? "Something went wrong"
+					: err.message,
+		});
+	}
+
+	next(err);
 };
 
 export default errorHandler;
