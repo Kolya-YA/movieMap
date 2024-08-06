@@ -1,20 +1,35 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,900&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Playfair+Display,wght@1,900&display=swap'); */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+        @font-face {
+            font-display: swap;
+            font-family: 'Playfair Display';
+            font-style: normal;
+            font-weight: 900;
+            src: url('../fonts/playfair-display-v37-latin-900.woff2') format('woff2');
+        }
+    /* @font-face {
+            font-display: swap;
+            font-family: 'Playfair Display';
+            font-style: normal;
+            font-weight: 400;
+            src: url('../fonts/playfair-display-v37-latin-regular.woff2') format('woff2');
+        }
+    
+        @font-face {
+            font-display: swap;
+            font-family: 'Playfair Display';
+            font-style: italic;
+            font-weight: 400;
+            src: url('../fonts/playfair-display-v37-latin-italic.woff2') format('woff2');
+        } */
+}
 
 @layer components {
     .border-white-hover-gray {
         @apply border border-white border-opacity-70 shadow-diffused bg-black bg-opacity-70 text-white rounded focus:outline-none focus:ring-2 focus:ring-gray-200 duration-200 hover:border-gray-600;
     }
-}
-
-.custom-scrollbar::-webkit-scrollbar {
-    width: 12px;
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb {
-    border-radius: 20px;
-    border: 5px solid #c0c0c0;
-    background-color: #c0c0c0;
 }

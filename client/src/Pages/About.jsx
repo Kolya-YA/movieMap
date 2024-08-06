@@ -5,10 +5,8 @@ import amelieImage from '../assets/images/about/amelie.png';
 
 const About = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
-    const [isAutoScrolling, setIsAutoScrolling] = useState(true);
     const stepRefs = useRef([]);
     const graphicRefs = useRef([]);
-    const autoScrollIntervalRef = useRef(null);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -21,10 +19,6 @@ const About = () => {
                     break;
                 }
             }
-
-            if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-                setIsAutoScrolling(false);
-            }
         };
 
         window.addEventListener('scroll', handleScroll);
@@ -33,44 +27,28 @@ const About = () => {
 
     useEffect(() => {
         window.scrollTo(0, 0);
-        setIsAutoScrolling(true);
     }, []);
-
-    useEffect(() => {
-        if (isAutoScrolling) {
-            autoScrollIntervalRef.current = setInterval(() => {
-                window.scrollBy(0, 2);
-            }, 15);
-        } else {
-            clearInterval(autoScrollIntervalRef.current);
-        }
-
-        return () => clearInterval(autoScrollIntervalRef.current);
-    }, [isAutoScrolling]);
 
     const steps = [
         {
-            text: `The MovieMap app is a great way to find an interesting film that's perfect for you.`,
+            text: `When you're not sure what to watch`,
             image: laBoumImage,
         },
         {
-            text: `With MoviMap, you'll always be in the know about the latest cinema news`,
+            text: `we're here to help`,
             image: amelieImage,
         },
+
         {
-            text: `you’ll be ready for future premieres, and you’ll get personal recommendations from our powerful AI`,
+            text: `mapping to your life's movie`,
             image: gatsbyImage,
         },
         {
-            text: `Your waiting lists and viewing history will always be available, up-to-date, and ready to use!`,
-            image: laBoumImage,
-        },
-        {
-            text: `Movie Map By \n Jang, Vladimir, Nikolay`,
+            text: ``,
             image: ``,
         },
         {
-            text: `Enjoy your movie experience with MovieMap!`,
+            text: `Movie Map`,
         },
     ];
 
@@ -82,9 +60,8 @@ const About = () => {
                         <div
                             key={index}
                             ref={el => (graphicRefs.current[index] = el)}
-                            className={`absolute inset-0 flex top-1/4 justify-center transition-opacity duration-500 ${
-                                index === currentIndex ? 'opacity-100' : 'opacity-0'
-                            }`}
+                            className={`absolute inset-0 flex top-1/4 justify-center transition-opacity duration-500 ${index === currentIndex ? 'opacity-100' : 'opacity-0'
+                                }`}
                         >
                             {step.image && (
                                 <img src={step.image} alt="movie image" className=" w-[80%] h-1/3 object-contain" />
@@ -98,11 +75,10 @@ const About = () => {
                         <div
                             key={index}
                             ref={el => (stepRefs.current[index] = el)}
-                            className={`mb-[60vh] p-4 text-main-text font-bold text-2xl text-center rounded-lg shadow transition-opacity duration-500 ${
-                                index === currentIndex ? 'opacity-100' : 'opacity-0'
-                            }`}
+                            className={`mb-[60vh] p-4 text-main-text font-bold text-2xl text-center font-black-ops-one rounded-lg shadow transition-opacity duration-500 ${index === currentIndex ? 'opacity-100' : 'opacity-0'
+                                }`}
                         >
-                            <p className=" px-2 text-lg">{step.text}</p>
+                            <p className="whitespace-pre-line text-5xl">{step.text}</p>
                         </div>
                     ))}
                 </div>
