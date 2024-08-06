@@ -2,8 +2,7 @@ import { Link } from "react-router-dom";
 import { useUserContext } from '../hooks'
 
 const UserMovieList = ({ type }) => {
-    const { user } = useUserContext()
-    console.log(user?.movieList)
+    const { user } = useUserContext();
 
     if (!user) return <h1>Please login to see this page</h1>
     const listToShow = user?.movieList.filter(m => !!m.dateOfWatch === (type === 'history'))
