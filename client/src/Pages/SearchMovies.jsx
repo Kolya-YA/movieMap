@@ -60,16 +60,6 @@ const SearchMovies = () => {
 
     return (
         <div className="text-main-text flex flex-col h-screen">
-            <style>{`
-                .custom-scrollbar::-webkit-scrollbar {
-                    width: 12px;
-                }
-                .custom-scrollbar::-webkit-scrollbar-thumb {
-                    color: #ffffff;
-                    border-radius: 20px;
-                    border: 5px solid #ffffff;
-                }
-            `}</style>
             <div className="mt-5 mb-3 px-8">
                 <div className="flex items-center gap-4">
                     <SearchMovieForm setPage={setPage} setQuery={setQuery} setHasSearched={setHasSearched} />
