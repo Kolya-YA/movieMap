@@ -98,7 +98,7 @@ const About = () => {
                         <div
                             key={index}
                             ref={el => (stepRefs.current[index] = el)}
-                            className={`mb-[60vh] p-4 text-white font-bold text-lg text-center rounded-lg shadow transition-opacity duration-500 ${
+                            className={`mb-[60vh] p-4 text-main-text font-bold text-2xl text-center rounded-lg shadow transition-opacity duration-500 ${
                                 index === currentIndex ? 'opacity-100' : 'opacity-0'
                             }`}
                         >

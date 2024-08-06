@@ -7,7 +7,7 @@ const HomeUserAiList = ({ title, movieList }) => {
     }
     // console.log(movieList)
     return (
-        <section className="grid gap-4 p-2 bg-white/20">
+        <section className="grid gap-4 p-2 bg-block-bg">
             <h2 className="text-xl font-semibold">{title}</h2>
             <AiReq />
             {

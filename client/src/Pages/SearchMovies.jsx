@@ -59,7 +59,7 @@ const SearchMovies = () => {
     }, [loading, movies, page]);
 
     return (
-        <div className="text-white flex flex-col h-screen">
+        <div className="text-main-text flex flex-col h-screen">
             <style>{`
                 .custom-scrollbar::-webkit-scrollbar {
                     width: 12px;

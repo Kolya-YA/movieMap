@@ -3,7 +3,7 @@ import { HomeUserMovieCard } from "./";
 const HomePageMovieList = ({ movieList }) => {
 
     return (
-        <section className="grid gap-4 p-2 bg-green-400/20">
+        <section className="grid gap-4 p-2 bg-block-bg">
             <h2 className="text-xl font-semibold">{movieList?.title} list</h2>
             {
                 !movieList?.list?.results.length
