@@ -21,7 +21,6 @@ const SearchMovies = () => {
         setLoading(true);
         setHasSearched(true);
         const url = `/api/v1/search/movies?query=${query}&page=${page}`;
-        console.log(query);
 
         try {
             const { data } = await axios.get(url);
@@ -72,8 +71,8 @@ const SearchMovies = () => {
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         {movies?.results
                             ?.filter(movie => movie.poster_path)
-                            .map(movie => (
-                                <MovieCard movie={movie} key={movie.id} />
+                            .map((movie, index) => (
+                                <MovieCard movie={movie} key={index} />
                             ))}
                     </div>
                     {hasSearched &&

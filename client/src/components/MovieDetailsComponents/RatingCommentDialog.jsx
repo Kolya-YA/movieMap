@@ -3,7 +3,6 @@ import StarRating from '../StarRating';
 import { useAuthCheck, useUserContext } from '../../hooks';
 
 const RatingCommentDialog = ({ isOpen, onClose, movieToEdit }) => {
-
     const dialogRef = useRef(null);
     const checkAuth = useAuthCheck();
     const { updateMovieInUserList } = useUserContext();
@@ -20,19 +19,19 @@ const RatingCommentDialog = ({ isOpen, onClose, movieToEdit }) => {
         else dialog.close();
     }, [isOpen]);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = e => {
         e.preventDefault();
         if (!checkAuth()) return; // user is not logged in or token has expired
         try {
             updateMovieInUserList(movieToEdit.id, formData);
         } catch (error) {
-            console.error("Movie update error: ", error);
+            console.error('Movie update error: ', error);
         }
 
         onClose();
     };
 
-    const handleBackdropClick = (event) => {
+    const handleBackdropClick = event => {
         const dialogDimensions = dialogRef.current.getBoundingClientRect();
         if (
             event.clientX < dialogDimensions.left ||
@@ -46,19 +45,24 @@ const RatingCommentDialog = ({ isOpen, onClose, movieToEdit }) => {
 
     return (
         // biome-ignore lint/a11y/useKeyWithClickEvents: <explanation>
-        <dialog ref={dialogRef} onClick={handleBackdropClick} onClose={onClose} className='
+        <dialog
+            ref={dialogRef}
+            onClick={handleBackdropClick}
+            onClose={onClose}
+            className="
             p-4 max-w-md mx-auto rounded-lg shadow-lg
             bg-black text-main-text
-            backdrop:bg-white/80'>
+            backdrop:bg-white/80"
+        >
             <button
-                type='button'
+                type="button"
                 onClick={onClose}
                 className=" absolute top-2 end-2 block ms-auto px-2 text-gray-300 hover:text-gray-100"
             >
                 ×
             </button>
             <form onSubmit={handleSubmit} className="grid gap-4">
-                <div className="text-center">
+                <div className="flex justify-center items-center relative w-fit">
                     <StarRating rating={formData.rating} />
                     <input
                         type="range"
@@ -66,12 +70,9 @@ const RatingCommentDialog = ({ isOpen, onClose, movieToEdit }) => {
                         min="0"
                         max="10"
                         value={formData.rating}
-                        onChange={(e) => setFormData({ ...formData, rating: e.target.value })}
-                        className="px-1 rounded-md   bg-gray-500"
+                        onChange={e => setFormData({ ...formData, rating: e.target.value })}
+                        className="absolute inset-0 w-full  h-full px-1 opacity-0 cursor-pointer"
                     />
-                    <label htmlFor="rating" className="block text-sm font-medium">
-                        Rating: {formData.rating}
-                    </label>
                 </div>
                 <div>
                     <label htmlFor="comment" className="text-sm">
@@ -80,7 +81,7 @@ const RatingCommentDialog = ({ isOpen, onClose, movieToEdit }) => {
                     <textarea
                         id="comment"
                         value={formData.comment}
-                        onChange={(e) => setFormData({ ...formData, comment: e.target.value })}
+                        onChange={e => setFormData({ ...formData, comment: e.target.value })}
                         rows={4}
                         className="w-full px-1 rounded-md bg-gray-500"
                     />
@@ -93,7 +94,7 @@ const RatingCommentDialog = ({ isOpen, onClose, movieToEdit }) => {
                 </button>
             </form>
         </dialog>
-    )
-}
+    );
+};
 
 export default RatingCommentDialog;
