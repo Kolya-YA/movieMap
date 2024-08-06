@@ -60,9 +60,8 @@ const About = () => {
                         <div
                             key={index}
                             ref={el => (graphicRefs.current[index] = el)}
-                            className={`absolute inset-0 flex top-1/4 justify-center transition-opacity duration-500 ${
-                                index === currentIndex ? 'opacity-100' : 'opacity-0'
-                            }`}
+                            className={`absolute inset-0 flex top-1/4 justify-center transition-opacity duration-500 ${index === currentIndex ? 'opacity-100' : 'opacity-0'
+                                }`}
                         >
                             {step.image && (
                                 <img src={step.image} alt="movie image" className=" w-[80%] h-1/3 object-contain" />
@@ -76,9 +75,8 @@ const About = () => {
                         <div
                             key={index}
                             ref={el => (stepRefs.current[index] = el)}
-                            className={`mb-[60vh] p-4 text-white font-bold text-2xl text-center font-black-ops-one rounded-lg shadow transition-opacity duration-500 ${
-                                index === currentIndex ? 'opacity-100' : 'opacity-0'
-                            }`}
+                            className={`mb-[60vh] p-4 text-main-text font-bold text-2xl text-center font-black-ops-one rounded-lg shadow transition-opacity duration-500 ${index === currentIndex ? 'opacity-100' : 'opacity-0'
+                                }`}
                         >
                             <p className="whitespace-pre-line text-5xl">{step.text}</p>
                         </div>

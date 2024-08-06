@@ -61,7 +61,7 @@ const SignUpForm = () => {
       }
     } else {
       showErrorToast(error?.message);
-      }
+    }
     setError(error?.message);
 
   }
@@ -163,12 +163,10 @@ const SignUpForm = () => {
 
       <Button
         type="submit"
-        text="Sign Up"
-        className="btn-login mx-auto w-24 "
-      >
-        {isSubmitting ? "Signing up..." : "Sign Up"}
-      </Button>
-      {error && <p style={{ color: "red" }}>{(error?.message)?.toString()|| "!!!ERROR!!!"}</p>}
+        text={isSubmitting ? "Signing up..." : "Sign Up"}
+        className="mx-auto w-24 "
+      />
+      {error && <p style={{ color: "red" }}>{(error?.message)?.toString() || "!!!ERROR!!!"}</p>}
     </form>
   );
 };

@@ -48,7 +48,7 @@ const RatingCommentDialog = ({ isOpen, onClose, movieToEdit }) => {
         // biome-ignore lint/a11y/useKeyWithClickEvents: <explanation>
         <dialog ref={dialogRef} onClick={handleBackdropClick} onClose={onClose} className='
             p-4 max-w-md mx-auto rounded-lg shadow-lg
-            bg-black text-white
+            bg-black text-main-text
             backdrop:bg-white/80'>
             <button
                 type='button'
@@ -87,7 +87,7 @@ const RatingCommentDialog = ({ isOpen, onClose, movieToEdit }) => {
                 </div>
                 <button
                     type="submit"
-                    className="px-5 py-2 border border-gray-300 rounded-md text-sm text-white bg-gray-600 hover:bg-black"
+                    className="px-5 py-2 border border-gray-300 rounded-md text-sm text-main-text bg-gray-600 hover:bg-black"
                 >
                     Save
                 </button>

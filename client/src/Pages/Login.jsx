@@ -40,7 +40,7 @@ const Login = () => {
 
   if (user) {
     return (
-      <div className="max-w-md p-8 grid gap-6 text-white">
+      <div className="max-w-md p-8 grid gap-6">
         <h1>Welcome back {user.email}</h1>
         <p>You are already logged in</p>
         <Button text="Logout" onClick={logoutUser} />
@@ -49,7 +49,7 @@ const Login = () => {
   }
 
   return (
-    <div className="max-w-md p-8 grid gap-6 text-white">
+    <div className="max-w-md p-8 grid gap-6">
       <h2 className="text-2xl font-bold text-center">Login</h2>
       <form onSubmit={handleSubmit} className="grid gap-4">
         <label htmlFor="email" className="sr-only">

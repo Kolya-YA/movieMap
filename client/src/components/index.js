@@ -7,7 +7,6 @@ import HomeUserAiList from "./HomeUserAiList";
 import HomeUserMovieCard from "./HomeUserMovieCard";
 import UserHomePage from "./UserHomePage";
 import GuestHomePage from "./GuestHomePage";
-import LoginForm from "./LoginForm";
 import SignUpForm from "./SignUpForm";
 import Loading from "./Loading";
 import FormatNumber from "./FormatNumber";
@@ -28,7 +27,6 @@ export {
 	HomeUserList,
 	HomeUserAiList,
 	HomeUserMovieCard,
-	LoginForm,
 	SignUpForm,
 	Button,
 	AiReq,

@@ -59,7 +59,7 @@ const SearchMovies = () => {
     }, [loading, movies, page]);
 
     return (
-        <div className="text-white flex flex-col h-screen">
+        <div className="text-main-text flex flex-col h-screen">
             <style>{`
                 .custom-scrollbar::-webkit-scrollbar {
                     width: 12px;
@@ -132,7 +132,7 @@ function SearchMovieForm({ setPage, setQuery, setHasSearched }) {
 function MovieCard({ movie }) {
     // const cardRef = useTapHandler(movie.id);
     return (
-        <Link to={`../movie/${movie.id}`} className="grid grid-cols-[92px_1fr] items-center  gap-2 bg-gray-500/50 text-white rounded-xl overflow-hidden">
+        <Link to={`../movie/${movie.id}`} className="grid grid-cols-[92px_1fr] items-center  gap-2 bg-gray-500/50 text-inherit rounded-xl overflow-hidden">
             <img
                 // width="4rem"
                 // height="10rem"

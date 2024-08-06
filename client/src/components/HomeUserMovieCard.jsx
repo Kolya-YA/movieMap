@@ -26,7 +26,7 @@ const HomeUserMovieCard = ({ movie, type }) => {
         <li className="bg-slate-300 text-end rounded overflow-hidden aspect-[2/3] snap-always snap-start">
             <Link
                 to={cardLink}
-                className="relative grid [grid-template-areas:'card'] min-h-full text-white
+                className="relative grid [grid-template-areas:'card'] min-h-full text-main-text
                 hover:text-yellow-300 focus:ring-2 focus:ring-yellow-300 focus:ring-offset-2"
             >
                 {posterUrl && (

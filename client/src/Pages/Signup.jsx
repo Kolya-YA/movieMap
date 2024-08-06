@@ -11,7 +11,7 @@ const SignUp = () => {
     }
 
     return (
-        <section className='grid gap-8 py-8 px-4 text-white'>
+        <section className='grid gap-8 py-8 px-4 text-main-text'>
 
             <h1 className="text-2xl text-center font-semibold ">Sign up</h1>
             <p className='text-center text-balance'>
