@@ -24,7 +24,7 @@ const UserHomePage = ({ dailyRecs }) => {
             <HomeUserList movieList={waitingList} title="Watch list" listLink="waiting-list" />
             <HomeUserAiList movieList={aiList} title="AI recomendations" />
             <HomeUserList movieList={historyList} title="History list" listLink="history-list" />
-            <HomePageMovieList movieList={dailyRecs?.find(r => r.title === "Popular")} />
+            <HomePageMovieList movieList={dailyRecs?.find(r => r.title === "Most popular")} />
             <HomePageMovieList movieList={dailyRecs?.find(r => r.title === "Now playing")} />
             <HomePageMovieList movieList={dailyRecs?.find(r => r.title === "Upcoming")} />
             <HomePageMovieList movieList={dailyRecs?.find(r => r.title === "Top rated")} />
