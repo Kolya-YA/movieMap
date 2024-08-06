@@ -5,7 +5,7 @@ const Button = ({ text, onClick, className, isDisabled, btnLink }) => {
 
     const btnStyle =
         classNames(
-            "inline-block text-center rounded-md border border-white border-opacity-70 bg-black bg-opacity-70 shadow-diffused text-main-text py-2 px-4 transition duration-800 hover:bg-black hover:text-gray-600 hover:border-gray-600 hover:bg-opacity-100  ", className
+            "inline-block py-2 px-4 text-center text-main-text bg-black/70 rounded-md border border-white border-opacity-70 shadow-diffused transition duration-800 hover:bg-gray-900 hover:border-gray-600 hover:bg-opacity-100 disabled:text-gray-600", className
         )
 
     return (

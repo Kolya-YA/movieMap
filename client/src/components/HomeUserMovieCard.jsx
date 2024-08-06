@@ -23,11 +23,11 @@ const HomeUserMovieCard = ({ movie, type }) => {
 
 
     return (
-        <li className="bg-slate-300 my-2 text-end rounded-xl overflow-hidden aspect-[2/3] snap-always snap-start shadow-[3px_-4px_10px_-3px_#000]">
+        <li className="bg-gray-300 my-2 text-end rounded-xl overflow-hidden aspect-[2/3] snap-always snap-start shadow-[3px_-4px_10px_-3px_#000]">
             <Link
                 to={cardLink}
                 className="relative grid [grid-template-areas:'card'] min-h-full text-main-text
-                hover:text-yellow-300 focus:ring-2 focus:ring-yellow-300 focus:ring-offset-2"
+                hover:text-yellow-300 focus:text-yellow-300 transition-colors"
             >
                 {posterUrl && (
                     <img
@@ -47,7 +47,7 @@ const HomeUserMovieCard = ({ movie, type }) => {
 
                 </h3>
                 {type === 'AI' &&
-                    <LuBrainCircuit className="absolute top-2 right-2 text-2xl p-1 rounded-full text-yellow-700 bg-white/80" />
+                    <LuBrainCircuit className="absolute top-2 right-2 text-2xl p-1 rounded-full text-yellow-700 bg-white/70" />
                 }
             </Link>
         </li >
