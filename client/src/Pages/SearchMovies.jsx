@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { useEffect, useState, useCallback, useRef } from 'react';
 import { FormatNumber, StarRating, Button } from '../components';
-import { useSearchParams } from 'react-router-dom';
-import { useTapHandler } from '../hooks';
+import { useSearchParams, Link } from 'react-router-dom';
+// import { useTapHandler } from '../hooks';
 
 const limit_Page = 10;
 
@@ -130,7 +130,7 @@ function SearchMovieForm({ setPage, setQuery, setHasSearched }) {
 }
 
 function MovieCard({ movie }) {
-    const cardRef = useTapHandler(movie.id);
+    // const cardRef = useTapHandler(movie.id);
     return (
         <Link to={`../movie/${movie.id}`} className="grid grid-cols-[92px_1fr] items-center  gap-2 bg-gray-500/50 text-white rounded-xl overflow-hidden">
             <img
