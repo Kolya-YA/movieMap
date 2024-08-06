@@ -32,16 +32,19 @@ const AiReq = () => {
     if (!user) {
         return <p>Loading...</p>
     }
+    const credits = user.aiRequestsLimit - user.movieAiRecs?.length / user.aiReqMoviesPerReq;
 
     return (
-        <form onSubmit={onSubmit}>
-            <p>AI recomendations left for today: {user.aiRequestsLimit * user.aiReqMoviesPerReq - user.movieAiRecs?.length} / {user.aiRequestsLimit * user.aiReqMoviesPerReq}</p>
-            <RadioButton text="Alone" value="alone" companion={companion} onChange={(e) => setCompanion(e.target.value)} />
-            <RadioButton text="Family" value="family" companion={companion} onChange={(e) => setCompanion(e.target.value)} />
-            <RadioButton text="Romantic parner" value="romantic partner" companion={companion} onChange={(e) => setCompanion(e.target.value)} />
-            <RadioButton text="Friends" value="friends" companion={companion} onChange={(e) => setCompanion(e.target.value)} />
+        <form onSubmit={onSubmit} className="grid gap-2 justify-center">
+            <div className="flex justify-center gap-[1px]">
+                <RadioButton text="Alone" value="alone" companion={companion} onChange={(e) => setCompanion(e.target.value)} />
+                <RadioButton text="Family" value="family" companion={companion} onChange={(e) => setCompanion(e.target.value)} />
+                <RadioButton text="Romantic" value="romantic partner" companion={companion} onChange={(e) => setCompanion(e.target.value)} />
+                <RadioButton text="Friends" value="friends" companion={companion} onChange={(e) => setCompanion(e.target.value)} />
+            </div>
             <Button
-                text={isDisabled ? `Please wait ${countdown}s` : "Request AI advice"}
+                isDisabled={credits <= 0}
+                text={isDisabled ? `Please wait ${countdown}s` : `AI recs (${credits})`}
             />
         </form>
     );
@@ -51,15 +54,20 @@ export default AiReq;
 
 function RadioButton({ text, value, companion, onChange }) {
     return (
-        <label className="flex items-center space-x-2">
+        <label className="
+            px-3 py-2 cursor-pointer
+            bg-black/40 border-2 border-black first-of-type:rounded-l-md last-of-type:rounded-r-md
+            has-[:checked]:bg-white/80 has-[:checked]:text-black
+            transition-colors
+            ">
             <input
                 type="radio"
                 value={value}
                 checked={companion === value}
                 onChange={onChange}
-                className="form-radio"
+                className="hidden"
             />
-            <span>{text}</span>
+            {text}
         </label>
     );
 }
