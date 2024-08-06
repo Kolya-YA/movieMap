@@ -4,7 +4,6 @@ import { HomeUserList, HomePageMovieList, HomeUserAiList } from '../components'
 
 const UserHomePage = ({ dailyRecs }) => {
     const { user } = useUserContext();
-    console.log("UserHomePage -> user", user);
 
     const { movieList = [], movieAiRecs = [] } = user || {};
 

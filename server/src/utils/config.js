@@ -24,11 +24,13 @@ const POSTER_SIZES = {
 
 const DAILY_CACHE_DURATION = 24 * 60 * 60; // 24 hours
 
-const AI_REQ_DAILY_LIMIT = 10;
-const AI_REQ_MOVIES_PER_REQ = 5;
+const AI_REQ_DAILY_LIMIT = Number.parseInt(process.env.AI_REQ_DAILY_LIMIT)
+const AI_REQ_MOVIES_PER_REQ = Number.parseInt(
+	process.env.AI_REQ_MOVIES_PER_REQ,
+);
 
 const CORS_OPTIONS = {
-	// origin: process.env.ORIGINS.split(", "),
+	origin: process.env.ORIGINS.split(", "),
 };
 
 export {

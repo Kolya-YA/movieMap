@@ -86,9 +86,14 @@ const useUser = () => {
 		}
 	};
 
-	const getAiRecs = async () => {
+	const getAiRecs = async (companion) => {
+		const birthYear = user.birthYear ? new Date(user.birthYear).getFullYear() : 1990 // default birth year
+		const country = user.country || "Germany"; // default country
+		
 		try {
-			const { data } = await axios.get("/api/v1/users/ai-recs");
+			const { data } = await axios.get("/api/v1/users/ai-recs", {
+				params: { companion, birthYear, country },
+			});
 			updateLocalUser(data);
 		} catch (error) {
 			console.error("Failed to get AI recommendations: ", error);

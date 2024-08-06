@@ -6,8 +6,10 @@ import {
 	AI_REQ_DAILY_LIMIT,
 	AI_REQ_MOVIES_PER_REQ,
 } from "../../utils/config.js";
-
+console.log("AI_REQ_DAILY_LIMIT", AI_REQ_DAILY_LIMIT);
 const getUserAiRecs = async (req, res) => {
+	const { companion, birthYear, country } = req.query;
+	console.log("Params:", req.query);
 	try {
 		const user = await User.findById(req.userId);
 
@@ -21,7 +23,13 @@ const getUserAiRecs = async (req, res) => {
 		}
 		const exludeList = userAiRecs?.map((movie) => movie.title);
 
-		const aiAdvise = await getAiAdvice(user?.movieList, exludeList);
+		const aiAdvise = await getAiAdvice(
+			user?.movieList,
+			companion,
+			birthYear,
+			country,
+			exludeList,
+		);
 		// const aiAdvise = [
 		// 	"The Princess Bride",
 		// 	"Moana",

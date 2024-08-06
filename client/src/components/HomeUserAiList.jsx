@@ -1,12 +1,11 @@
-import { Link } from "react-router-dom";
 import { AiReq, HomeUserMovieCard } from ".";
 
 const HomeUserAiList = ({ title, movieList }) => {
-    
+
     if (!movieList) {
         return <p>Loading...</p>
     }
-
+    // console.log(movieList)
     return (
         <section className="grid gap-4 p-2 bg-white/20">
             <h2 className="text-xl font-semibold">{title}</h2>
@@ -16,11 +15,12 @@ const HomeUserAiList = ({ title, movieList }) => {
                     ? (
                         <>
                             <ul className="grid gap-2 grid-flow-col overflow-x-auto auto-cols-[154px] snap-x snap-mandatory">
-                                {movieList.map((movie) => (
-                                    <HomeUserMovieCard key={movie._id} movie={movie} type='AI' />
-                                ))}
+                                {movieList
+                                    .sort((a, b) => (new Date(b.createdAt) - new Date(a.createdAt)))
+                                    .map((movie) => (
+                                        <HomeUserMovieCard key={movie._id} movie={movie} type='AI' />
+                                    ))}
                             </ul>
-                            <Link to='/waiting-list' className="text-blue-200 hover:underline text-end">To full list</Link>
                         </>
                     )
                     : <p>No movies in your list</p>
