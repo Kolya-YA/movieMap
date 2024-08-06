@@ -4,12 +4,12 @@ export default {
 	theme: {
 		extend: {
 			fontFamily: {
-				playfair: ["Playfair"],
-				"black-ops-one": ["Black Ops One", "cursive"],
+				title: ["Playfair Display", "sans-serif"],
+				body: ["Roboto", "system-ui", "sans-serif"],
 			},
 			colors: {
 				"block-bg": "#f1f1f140",
-        "main-text": "#f1f1f1",
+				"main-text": "#f1f1f1",
 			},
 
 			boxShadow: {

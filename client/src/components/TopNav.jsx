@@ -47,22 +47,27 @@ const TopNav = () => {
       <ul
         ref={dropdownRef}
         id="main-navigation"
-        className={`absolute ${navOpen ? '' : 'hidden'} top-full right-0 bg-black bg-opacity-80 text-main-text text-xl text-right w-[200px] p-6 flex flex-col space-y-4 rounded-b-2xl z-10 transition-opacity duration-300 ease-in-out ${navOpen ? 'opacity-100' : 'opacity-0'}`}
+        className={`absolute ${navOpen ? '' : 'hidden'} top-full right-0 bg-black bg-opacity-80 text-main-text text-xl text-center p-6
+        flex flex-col aligh-center gap-3 rounded-b-2xl z-10 transition-opacity duration-300 ease-in-out ${navOpen ? 'opacity-100' : 'opacity-0'}`}
       >
         {user ? (
           <>
             <li onClick={handleItemClick}>
               <NavLink to="/profile ">Profile</NavLink>
             </li>
+            <hr />
             <li onClick={handleItemClick}>
               <NavLink to="/waiting-list">Watch list</NavLink>
             </li>
+            <hr />
             <li onClick={handleItemClick}>
               <NavLink to="/history-list">History</NavLink>
             </li>
+            <hr />
             <li onClick={handleItemClick}>
               <NavLink onClick={logoutUser}>Logout</NavLink>
             </li>
+            <hr />
             {user.isAdmin && (
               <li onClick={handleItemClick}>
                 <NavLink to="/admin">Admin</NavLink>
@@ -74,17 +79,19 @@ const TopNav = () => {
             <li onClick={handleItemClick}>
               <NavLink to="/login">Login</NavLink>
             </li>
+            <hr />
             <li onClick={handleItemClick}>
               <NavLink to="/signup">Signup</NavLink>
             </li>
+            <hr />
           </>
         )}
-        <hr />
-        <li onClick={handleItemClick}>
-          <NavLink to="/search">Search</NavLink>
-        </li>
         <li onClick={handleItemClick}>
           <NavLink to="/about">About</NavLink>
+        </li>
+        <hr />
+        <li onClick={handleItemClick}>
+          <NavLink to="/toc">Terms & Conditions</NavLink>
         </li>
       </ul>
     </nav>
