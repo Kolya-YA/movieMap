@@ -4,7 +4,7 @@ import backgroundImg from "../assets/movie-theater.webp";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
 
-import { Header } from "../components";
+import { Header, ScrollToTop } from "../components";
 
 const MainLayout = () => {
   return (
@@ -17,6 +17,7 @@ const MainLayout = () => {
           <Outlet />
       </main>
       <ToastContainer />
+      <ScrollToTop />
     </UserProvider>
   );
 };
