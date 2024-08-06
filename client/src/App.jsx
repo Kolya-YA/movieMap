@@ -4,7 +4,8 @@ import { MainLayout } from './layouts'
 import { About, Home, Login, Movie, SearchMovies, SignUp, UserMovieList, UserProfile } from './Pages'
 import axios from 'axios'
 
-axios.defaults.baseURL = import.meta.env.VITE_DEV_API_URL;
+axios.defaults.baseURL = import.meta.env.VITE_API_URL;
+// axios.defaults.baseURL = import.meta.env.VITE_DEV_API_URL;
 
 const UserProtectedRoute = () => {
     const checkAuth = useAuthCheck();
