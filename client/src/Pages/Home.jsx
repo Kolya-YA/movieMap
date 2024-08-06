@@ -22,7 +22,7 @@ const Home = () => {
     }, [])
 
     return (
-        <div className="grid gap-4 text-white">
+        <div className="grid gap-4 text-main-text">
             <Suspense fallback={<div>Loading...</div>}>
                 {user
                     ? <UserHomePage dailyRecs={dailyRecs} />

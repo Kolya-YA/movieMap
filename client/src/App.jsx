@@ -24,7 +24,7 @@ function App() {
                     <Route path="/about" element={<About />} />
                     <Route path="/search" element={<SearchMovies />} />
                     <Route path="/movie/:id" element={<Movie />} />
-                    <Route path="/*" element={<div className='text-white'>404</div>} />
+                    <Route path="/*" element={<div className='text-main-text'>404</div>} />
                     <Route element={<UserProtectedRoute />} >
                         <Route path="/profile" element={<UserProfile />} />
                         <Route path="/waiting-list" element={<UserMovieList type="waiting" />} />

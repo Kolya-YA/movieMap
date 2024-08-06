@@ -8,12 +8,12 @@ const Movie = () => {
     const { id } = useParams();
     const { detail, isLoading: isDataLoading, error } = useMovieDetail(id);
 
-    if (error) return <div className="text-white">{error}</div>;
+    if (error) return <div className="text-main-text">{error}</div>;
     if (isDataLoading) return <Loading />;
     if (!detail) return <div>No data</div>;
 
     return (
-        <div className="text-white grid grid-cols-1 grid-rows-[1fr_auto] p-2 font-playfair">
+        <div className="text-main-text grid grid-cols-1 grid-rows-[1fr_auto] p-2 font-playfair">
             <div className="aspect-[2/3]">
                 <img
                     className="rounded-lg"
