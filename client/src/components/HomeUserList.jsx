@@ -1,15 +1,16 @@
-import { Link } from "react-router-dom";
-import { HomeUserMovieCard } from ".";
+import { Button, HomeUserMovieCard } from ".";
 
-const HomeUserList = ({ title, movieList }) => {
-    
+const HomeUserList = ({ title, movieList, listLink }) => {
+
     if (!movieList) {
         return <p>Loading...</p>
     }
 
     return (
-        <section className="grid gap-4 p-2 bg-white/20">
-            <h2 className="text-xl font-semibold">{title}</h2>
+        <section className="grid gap-4 py-4 px-2 bg-white/20">
+            <h2 className="text-center text-xl font-medium">
+                <Button btnLink={listLink} text={title} />
+            </h2>
             {
                 movieList.length
                     ? (
@@ -19,7 +20,6 @@ const HomeUserList = ({ title, movieList }) => {
                                     <HomeUserMovieCard key={movie.tmdbMovieId} movie={movie} />
                                 ))}
                             </ul>
-                            <Link to='/waiting-list' className="text-blue-200 hover:underline text-end">To full list</Link>
                         </>
                     )
                     : <p>No movies in your list</p>

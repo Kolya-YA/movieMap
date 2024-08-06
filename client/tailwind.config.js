@@ -8,7 +8,7 @@ export default {
 				body: ["Roboto", "system-ui", "sans-serif"],
 			},
 			colors: {
-				"block-bg": "#f1f1f140",
+				"block-bg": "#f1f1f130",
 				"main-text": "#f1f1f1",
 			},
 

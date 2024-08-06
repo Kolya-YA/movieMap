@@ -35,7 +35,7 @@ const AiReq = () => {
 
     return (
         <form onSubmit={onSubmit}>
-            <p>AI advice left for today: {user.aiRequestsLimit * user.aiReqMoviesPerReq - user.movieAiRecs?.length} / {user.aiRequestsLimit * user.aiReqMoviesPerReq}</p>
+            <p>AI recomendations left for today: {user.aiRequestsLimit * user.aiReqMoviesPerReq - user.movieAiRecs?.length} / {user.aiRequestsLimit * user.aiReqMoviesPerReq}</p>
             <RadioButton text="Alone" value="alone" companion={companion} onChange={(e) => setCompanion(e.target.value)} />
             <RadioButton text="Family" value="family" companion={companion} onChange={(e) => setCompanion(e.target.value)} />
             <RadioButton text="Romantic parner" value="romantic partner" companion={companion} onChange={(e) => setCompanion(e.target.value)} />

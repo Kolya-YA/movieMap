@@ -5,7 +5,7 @@ const getDailyRecomendations = async (req, res, next) => {
 	const { location: region } = req.query;
 	const sources = {
 		"Top rated": "/movie/top_rated",
-		"Popular": "/movie/popular",
+		"Most popular": "/movie/popular",
 		"Now playing": "/movie/now_playing",
 		"Upcoming": "/movie/upcoming",
 	};

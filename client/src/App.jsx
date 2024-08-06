@@ -27,7 +27,7 @@ function App() {
                     <Route path="/*" element={<div className='text-main-text'>404</div>} />
                     <Route element={<UserProtectedRoute />} >
                         <Route path="/profile" element={<UserProfile />} />
-                        <Route path="/waiting-list" element={<UserMovieList type="waiting" />} />
+                        <Route path="/waiting-list" element={<UserMovieList type="watch" />} />
                         <Route path="/history-list" element={<UserMovieList type="history" />} />
                     </Route>
                 </Route>
