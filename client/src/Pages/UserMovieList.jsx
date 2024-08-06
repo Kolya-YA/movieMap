@@ -5,8 +5,6 @@ import { StarRating, FormatNumber } from '../components';
 
 const UserMovieList = ({ type }) => {
     const { user } = useUserContext();
-    console.log(user?.movieList);
-    console.log(user);
 
     if (!user) return <h1>Please login to see this page</h1>;
     const listToShow = user?.movieList.filter(m => !!m.dateOfWatch === (type === 'history'));
@@ -49,13 +47,21 @@ function MovieCard({ movie }) {
                         <StarRating rating={movie.movie?.vote_average} />
                         (<FormatNumber number={movie.movie?.vote_count} />)
                     </div>
-                    <div className="flex gap-2 text-sm ">
-                        <StarRating rating={movie.rating} />
-                    </div>
 
-                    <p className="text-sm mt-4">
-                        Added <FormattedDate isoDate={movie.dateOfWatch} />
-                    </p>
+                    <div>
+                        {movie.dateOfWatch ? (
+                            <div className="text-sm mt-4">
+                                <div className="flex gap-2 text-sm ">
+                                    <StarRating rating={movie.rating} />
+                                </div>
+                                Watched <FormattedDate isoDate={movie.dateOfWatch} />
+                            </div>
+                        ) : (
+                            <p className="text-sm mt-4">
+                                Added <FormattedDate isoDate={movie.dateOfAdded} />
+                            </p>
+                        )}
+                    </div>
                 </div>
             </div>
         </Link>
