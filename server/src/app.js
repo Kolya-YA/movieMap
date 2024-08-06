@@ -23,10 +23,11 @@ app.use("/api/v1/details", detailsRoutes);
 app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/config", configRoutes);
 
+app.use(errorHandler);
+
 app.use((_req, res) => {
 	res.status(404).send({ error: "Unknown endpoint" });
 });
 
-app.use(errorHandler);
 
 export default app;
