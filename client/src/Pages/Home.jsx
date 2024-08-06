@@ -1,11 +1,13 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, lazy, Suspense } from 'react'
 import axios from 'axios'
 import { useUserContext } from '../hooks'
-import { UserHomePage, GuestHomePage } from '../components'
+const UserHomePage = lazy(() => import('../components/UserHomePage'))
+const GuestHomePage = lazy(() => import('../components/GuestHomePage'))
+
 
 const Home = () => {
-    const { user } = useUserContext()    
-    const [dailyRecs, setDailyRecs] = useState([])    
+    const { user } = useUserContext()
+    const [dailyRecs, setDailyRecs] = useState([])
 
     useEffect(() => {
         const fetchServer = async () => {
@@ -21,10 +23,12 @@ const Home = () => {
 
     return (
         <div className="grid gap-4 text-white">
-            {user
-                ? <UserHomePage dailyRecs={dailyRecs} />
-                : <GuestHomePage dailyRecs={dailyRecs} />
-            }
+            <Suspense fallback={<div>Loading...</div>}>
+                {user
+                    ? <UserHomePage dailyRecs={dailyRecs} />
+                    : <GuestHomePage dailyRecs={dailyRecs} />
+                }
+            </Suspense>
         </div>
     );
 }

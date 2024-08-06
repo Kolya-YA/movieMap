@@ -1,7 +1,15 @@
 import { Schema, model } from "mongoose";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { JWT_EXPIRATION, JWT_SECRET } from "../utils/config.js";
+import MovieListItemSchema from "./movieListItemSchema.js";
+// import AiMovieListItemSchema from "./aiMovieListItemSchema.js";
+
+import {
+	JWT_EXPIRATION,
+	JWT_SECRET,
+	AI_REQ_DAILY_LIMIT,
+	AI_REQ_MOVIES_PER_REQ,
+} from "../utils/config.js";
 
 const dateMinusXYears = (x) => {
 	const curDate = new Date();
@@ -73,43 +81,13 @@ const UserSchema = new Schema(
 			min: 100,
 			max: 999,
 		},
-		movieList: [
-			{
-				movie: {
-					type: Schema.Types.ObjectId,
-					ref: "Movie",
-				},
-				tmdbMovieId: {
-					type: Number,
-					required: true,
-					unqiue: true,
-				},
-				dateOfAdded: {
-					type: Date,
-					default: Date.now,
-				},
-				dateOfWatch: {
-					type: Date,
-				},
-				rating: {
-					type: Number,
-					min: 0,
-					max: 10,
-				},
-				comment: {
-					type: String,
-					maxlength: 512,
-				},
-				deleted: {
-					type: Number,
-					default: 0,
-				},
-			},
-		],
-		movAIRecs: [],
+		movieList: [MovieListItemSchema],
+
 	},
 	{ timestamps: true },
 );
+
+UserSchema.index({ email: 1 }, { unique: true });
 
 UserSchema.pre("save", async function (next) {
 	if (this.isModified("password")) {
@@ -135,26 +113,37 @@ UserSchema.methods.createAuthToken = function () {
 	);
 };
 
+UserSchema.virtual('movieAiRecs', {
+	ref: 'AiMovie',
+	localField: '_id',
+	foreignField: 'userId'
+});
+
+UserSchema.pre(/^find/, function (next) {
+	this.populate({
+		path: "movieList.movie",
+		select:
+			"id title release_date poster_path runtime genres_list.name vote_average vote_count",
+	})
+	.populate("movieAiRecs");
+	next();
+});
+
 UserSchema.set("toJSON", {
+	virtuals: true,
 	transform: (document, returnedObject) => {
 		returnedObject.movieList = returnedObject.movieList.map((movie) => {
 			movie.id = movie._id?.toString();
 			movie._id = undefined;
 			return movie;
 		});
+		returnedObject.aiRequestsLimit = AI_REQ_DAILY_LIMIT;
+		returnedObject.aiReqMoviesPerReq = AI_REQ_MOVIES_PER_REQ;
 		returnedObject.id = returnedObject._id?.toString();
 		returnedObject._id = undefined;
 		returnedObject.__v = undefined;
 		returnedObject.password = undefined;
 	},
-});
-
-UserSchema.pre(/^find/, function (next) {
-	this.populate({
-		path: "movieList.movie",
-		select: "id title release_date poster_path runtime genres_list.name vote_average vote_count",
-	});
-	next();
 });
 
 const User = model("User", UserSchema);

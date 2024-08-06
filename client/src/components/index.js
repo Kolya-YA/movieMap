@@ -3,6 +3,7 @@ import TopNav from "./TopNav";
 import UserInfo from "./UserInfo";
 import HomePageMovieList from "./HomePageMovieList";
 import HomeUserList from "./HomeUserList";
+import HomeUserAiList from "./HomeUserAiList";	
 import HomeUserMovieCard from "./HomeUserMovieCard";
 import UserHomePage from "./UserHomePage";
 import GuestHomePage from "./GuestHomePage";
@@ -12,6 +13,7 @@ import Loading from "./Loading";
 import FormatNumber from "./FormatNumber";
 import StarRating from "./StarRating";
 import Button from "./Button";
+import AiReq from "./AiReq";
 
 export {
 	Loading,
@@ -24,8 +26,10 @@ export {
 	GuestHomePage,
 	HomePageMovieList,
 	HomeUserList,
+	HomeUserAiList,
 	HomeUserMovieCard,
 	LoginForm,
 	SignUpForm,
 	Button,
+	AiReq,
 };

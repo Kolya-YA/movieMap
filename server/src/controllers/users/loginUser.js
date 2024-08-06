@@ -2,8 +2,8 @@ import User from "../../models/user.js";
 
 const loginUser = async (req, res) => {
 	const { email, password } = req.body;
-
 	try {
+		console.log("loginUser -> email", email);
 		const user = await User.findOne({ email });
 
 		if (!user || !(await user.checkPassword(password))) {

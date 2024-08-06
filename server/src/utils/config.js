@@ -5,6 +5,8 @@ const TMDB_API_KEY = process.env.TMDB_API_KEY;
 const TMDB_URL = process.env.TMDB_API;
 const TMDB_IMAGE_API = process.env.TMDB_IMAGE_API;
 
+const GOOGLE_GEN_API_KEY = process.env.GOOGLE_GEN_API_KEY;
+
 const MONGODB_URI = process.env.MONGODB_URI;
 
 const JWT_SECRET = process.env.JWT_SECRET;
@@ -22,8 +24,13 @@ const POSTER_SIZES = {
 
 const DAILY_CACHE_DURATION = 24 * 60 * 60; // 24 hours
 
+const AI_REQ_DAILY_LIMIT = Number.parseInt(process.env.AI_REQ_DAILY_LIMIT)
+const AI_REQ_MOVIES_PER_REQ = Number.parseInt(
+	process.env.AI_REQ_MOVIES_PER_REQ,
+);
+
 const CORS_OPTIONS = {
-	// origin: process.env.ORIGINS.split(", "),
+	origin: process.env.ORIGINS.split(", "),
 };
 
 export {
@@ -37,5 +44,8 @@ export {
 	JWT_EXPIRATION,
 	POSTER_SIZES,
 	DAILY_CACHE_DURATION,
+	AI_REQ_DAILY_LIMIT,
+	AI_REQ_MOVIES_PER_REQ,
 	CORS_OPTIONS,
+	GOOGLE_GEN_API_KEY,
 };

@@ -86,13 +86,27 @@ const useUser = () => {
 		}
 	};
 
+	const getAiRecs = async (companion) => {
+		const birthYear = user.birthYear ? new Date(user.birthYear).getFullYear() : 1990 // default birth year
+		const country = user.country || "Germany"; // default country
+		
+		try {
+			const { data } = await axios.get("/api/v1/users/ai-recs", {
+				params: { companion, birthYear, country },
+			});
+			updateLocalUser(data);
+		} catch (error) {
+			console.error("Failed to get AI recommendations: ", error);
+		}
+	};
+
 	function updateLocalUser(data) {
 		const { token, user } = data;
 		if (!token) {
 			throw new Error("No token in response");
 		}
 		localStorage.setItem("token", token);
-		setUser(user);
+		setUser((prevUser) => ({ ...prevUser, ...user }));
 		axios.defaults.headers.common.Authorization = `Bearer ${token}`;
 	}
 
@@ -104,6 +118,7 @@ const useUser = () => {
 		addMovieToUserList,
 		toggleMovieInUserList,
 		updateMovieInUserList,
+		getAiRecs,
 	};
 };
 

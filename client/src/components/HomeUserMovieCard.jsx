@@ -1,3 +1,4 @@
+import { LuBrainCircuit } from "react-icons/lu";
 import { Link } from "react-router-dom";
 
 const HomeUserMovieCard = ({ movie, type }) => {
@@ -8,9 +9,16 @@ const HomeUserMovieCard = ({ movie, type }) => {
 
     if (type === 'R') {
         posterUrl = movie?.poster_path && `https://image.tmdb.org/t/p/w154${movie.poster_path}`
-        cardTitle = movie?.title || 'To full waiting list'
+        cardTitle = movie?.title || 'Unknown movie'
         cardLink = movie?.id ? `/movie/${movie.id}` : '/waiting-list'
         lastCard = !movie?.id
+    }
+    
+    if (type === 'AI') {
+        posterUrl = movie?.poster_path && `https://image.tmdb.org/t/p/w154${movie.poster_path}`
+        cardTitle = movie?.title || 'To full list'
+        cardLink = `/movie/${movie?.tmdbMovieId}`
+        lastCard = !movie?.tmdbMovieId
     }
 
 
@@ -18,7 +26,7 @@ const HomeUserMovieCard = ({ movie, type }) => {
         <li className="bg-slate-300 text-end rounded overflow-hidden aspect-[2/3] snap-always snap-start">
             <Link
                 to={cardLink}
-                className="grid [grid-template-areas:'card'] min-h-full text-white
+                className="relative grid [grid-template-areas:'card'] min-h-full text-white
                 hover:text-yellow-300 focus:ring-2 focus:ring-yellow-300 focus:ring-offset-2"
             >
                 {posterUrl && (
@@ -30,9 +38,17 @@ const HomeUserMovieCard = ({ movie, type }) => {
                         loading="lazy"
                     />
                 )}
-                <h3 className={`[grid-area:card] text-xl mt-auto px-1 py-2 bg-black/80 text-center text-balance ${lastCard ? 'mb-auto' : ''}`}>
+                <h3 className={`
+                    [grid-area:card] text-xl mt-auto px-1 py-2 bg-black/80 text-center text-balance
+                    ${lastCard ? 'mb-auto' : ''}
+                    ${type === 'AI' ? ' bg-white/80 text-gray-800' : ''}
+                    `}>
                     {cardTitle}
+
                 </h3>
+                {type === 'AI' &&
+                    <LuBrainCircuit className="absolute top-2 right-2 text-2xl p-1 rounded-full text-yellow-700 bg-white/80" />
+                }
             </Link>
         </li >
     )
