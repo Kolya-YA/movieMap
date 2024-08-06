@@ -13,7 +13,7 @@ const HomeUserMovieCard = ({ movie, type }) => {
         cardLink = movie?.id ? `/movie/${movie.id}` : '/waiting-list'
         lastCard = !movie?.id
     }
-    
+
     if (type === 'AI') {
         posterUrl = movie?.poster_path && `https://image.tmdb.org/t/p/w154${movie.poster_path}`
         cardTitle = movie?.title || 'To full list'
@@ -23,7 +23,7 @@ const HomeUserMovieCard = ({ movie, type }) => {
 
 
     return (
-        <li className="bg-slate-300 text-end rounded overflow-hidden aspect-[2/3] snap-always snap-start">
+        <li className="bg-slate-300 my-2 text-end rounded-xl overflow-hidden aspect-[2/3] snap-always snap-start shadow-[3px_-4px_10px_-3px_#000]">
             <Link
                 to={cardLink}
                 className="relative grid [grid-template-areas:'card'] min-h-full text-main-text
@@ -39,7 +39,7 @@ const HomeUserMovieCard = ({ movie, type }) => {
                     />
                 )}
                 <h3 className={`
-                    [grid-area:card] text-xl mt-auto px-1 py-2 bg-black/80 text-center text-balance
+                    [grid-area:card] text-xl mt-auto px-1 py-2 bg-black/80 text-center text-balance italic font-medium
                     ${lastCard ? 'mb-auto' : ''}
                     ${type === 'AI' ? ' bg-white/80 text-gray-800' : ''}
                     `}>

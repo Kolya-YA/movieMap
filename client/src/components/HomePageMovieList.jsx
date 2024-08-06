@@ -3,8 +3,14 @@ import { HomeUserMovieCard } from "./";
 const HomePageMovieList = ({ movieList }) => {
 
     return (
-        <section className="grid gap-4 p-2 bg-block-bg">
-            <h2 className="text-xl font-semibold">{movieList?.title} list</h2>
+        <section className="grid gap-4 py-4 px-2 bg-block-bg">
+            <h2 className="text-center text-xl font-medium">
+                <span className=
+                    "inline-block text-center rounded-md border border-white border-opacity-70 bg-black bg-opacity-70 shadow-diffused text-main-text py-2 px-4  "
+                >
+                    {movieList?.title}
+                </span>
+            </h2>
             {
                 !movieList?.list?.results.length
                     ? <p>No movies in your list</p>
@@ -16,7 +22,7 @@ const HomePageMovieList = ({ movieList }) => {
                         </ul>
                     )
             }
-        </section>
+        </section >
     )
 }
 
