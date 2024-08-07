@@ -69,7 +69,7 @@ const SearchMovies = () => {
                 }
             `}</style>
             <div className="mt-5 mb-3 px-8">
-                <div className="flex items-center gap-4">
+                <div className="flex justify-center">
                     <SearchMovieForm setPage={setPage} setQuery={setQuery} setHasSearched={setHasSearched} />
                 </div>
                 {hasSearched && <p className="mt-1">Total results: {movies?.total_results}</p>}
@@ -80,8 +80,8 @@ const SearchMovies = () => {
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         {movies?.results
                             ?.filter(movie => movie.poster_path)
-                            .map((movie, index) => (
-                                <MovieCard movie={movie} key={index} />
+                            .map((movie) => (
+                                <MovieCard movie={movie} key={movie.id} />
                             ))}
                     </div>
                     {hasSearched &&
@@ -118,7 +118,7 @@ function SearchMovieForm({ setPage, setQuery, setHasSearched }) {
     };
 
     return (
-        <form className="flex items-center gap-4" onSubmit={handleSubmit}>
+        <form className="flex gap-4 max-w-lg" onSubmit={handleSubmit}>
             <input
                 ref={inputRef}
                 type="text"

@@ -10,7 +10,7 @@ const MainLayout = () => {
   return (
     <UserProvider>
       <Header />
-      <main className="grid place-content-center bg-cover bg-center bg-fixed"
+      <main className="grid place-content-stretch bg-cover bg-center bg-fixed"
         style={{
           backgroundImage: `url(${backgroundImg})`
         }}>
