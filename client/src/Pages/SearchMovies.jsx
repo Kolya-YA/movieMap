@@ -2,7 +2,6 @@ import axios from 'axios';
 import { useEffect, useState, useCallback, useRef } from 'react';
 import { FormatNumber, StarRating, Button } from '../components';
 import { useSearchParams, Link } from 'react-router-dom';
-// import { useTapHandler } from '../hooks';
 
 const limit_Page = 10;
 
@@ -81,8 +80,8 @@ const SearchMovies = () => {
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         {movies?.results
                             ?.filter(movie => movie.poster_path)
-                            .map((movie) => (
-                                <MovieCard movie={movie} key={movie.id} />
+                            .map((movie, index) => (
+                                <MovieCard movie={movie} key={index} />
                             ))}
                     </div>
                     {hasSearched &&
@@ -107,7 +106,7 @@ function SearchMovieForm({ setPage, setQuery, setHasSearched }) {
     const [input, setInput] = useState(searchParams.get('query') || '');
 
     useEffect(() => {
-        if(inputRef.current) inputRef.current.focus();
+        if (inputRef.current) inputRef.current.focus();
     }, []);
 
     const handleSubmit = e => {
@@ -135,12 +134,12 @@ function SearchMovieForm({ setPage, setQuery, setHasSearched }) {
 }
 
 function MovieCard({ movie }) {
-    // const cardRef = useTapHandler(movie.id);
     return (
-        <Link to={`../movie/${movie.id}`} className="grid grid-cols-[92px_1fr] items-center  gap-2 bg-gray-500/50 text-inherit rounded-xl overflow-hidden">
+        <Link
+            to={`../movie/${movie.id}`}
+            className="grid grid-cols-[92px_1fr] items-center  gap-2 bg-gray-500/50 text-inherit rounded-xl overflow-hidden"
+        >
             <img
-                // width="4rem"
-                // height="10rem"
                 className="w-[92px] aspect-[2/3]"
                 src={`https://image.tmdb.org/t/p/w92${movie.poster_path}`}
                 alt={`${movie.title} poster`}
