@@ -13,6 +13,7 @@ import FormatNumber from "./FormatNumber";
 import StarRating from "./StarRating";
 import Button from "./Button";
 import AiReq from "./AiReq";
+import ScrollToTop from "./ScrollToTop";
 
 export {
 	Loading,
@@ -30,4 +31,5 @@ export {
 	SignUpForm,
 	Button,
 	AiReq,
+	ScrollToTop,
 };
