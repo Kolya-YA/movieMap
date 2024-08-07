@@ -8,12 +8,12 @@ import UserProfile from "./UserProfile";
 import UserMovieList from "./UserMovieList";
 
 export {
-	Home,
-	Login,
-	SignUp,
-	About,
-	SearchMovies,
-	Movie,
-	UserProfile,
-	UserMovieList,
+  Home,
+  Login,
+  SignUp,
+  About,
+  SearchMovies,
+  Movie,
+  UserProfile,
+  UserMovieList,
 };
