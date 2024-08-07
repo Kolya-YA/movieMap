@@ -62,7 +62,10 @@ const RatingCommentDialog = ({ isOpen, onClose, movieToEdit }) => {
                 ×
             </button>
             <form onSubmit={handleSubmit} className="grid gap-4">
-                <div className="flex justify-center items-center relative w-fit">
+                <div className=" relative w-fit">
+                    <label htmlFor="comment" className="text-sm">
+                        My rating
+                    </label>
                     <StarRating rating={formData.rating} />
                     <input
                         type="range"

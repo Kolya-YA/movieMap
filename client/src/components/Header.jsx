@@ -12,7 +12,7 @@ const Header = () => {
                 <Link to='/' className="text-xl min-[380px]:text-4xl font-title font-black text-main-text">Movie Map</Link>
             </div>
             <div className="flex">
-                <Link to="search" className="p-2 pt-4 ml-2bg-white/20 text-main-text font-semibold rounded-lg hover:bg-white/40 focus:outline-none focus:ring focus:ring-violet-400 focus:ring-opacity-75" type="button">
+                <Link to="search" className="p-2 pt-4 ml-2bg-white/20 text-main-text font-semibold rounded-lg hover:bg-gray-700 focus:outline-none focus:ring focus:ring-gray-400 focus:ring-opacity-75" type="button">
                     <LuSearch size={26} className="" />
                     <span className="sr-only">Search movie</span>
                 </Link>

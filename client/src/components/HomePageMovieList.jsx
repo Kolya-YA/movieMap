@@ -8,7 +8,7 @@ const HomePageMovieList = ({ movieList }) => {
                 <span className=
                     "inline-block text-center rounded-md border border-white border-opacity-70 bg-black bg-opacity-70 shadow-diffused text-main-text py-2 px-4  "
                 >
-                    {movieList?.title}
+                    {movieList?.title ? movieList?.title : "Lodaing..."}
                 </span>
             </h2>
             {
