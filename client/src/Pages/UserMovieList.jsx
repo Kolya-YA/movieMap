@@ -11,8 +11,8 @@ const UserMovieList = ({ type }) => {
     console.log(listToShow);
 
     return (
-        <div className="text-main-text">
-            <h1 className="text-3xl font-semibold text-center pb-2">{type}</h1>
+        <div className="grid gap-3 mx-auto mt-3 mb-auto text-main-text">
+            <h1 className="text-3xl font-semibold text-center">{type}</h1>
             <div className="flex-grow overflow-auto custom-scrollbar">
                 <div className="card-list p-4">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

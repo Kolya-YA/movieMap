@@ -5,6 +5,7 @@ on:
     branches: [main ,dev]
     paths:
       - 'server/**'
+      - '.github/**'
 
 jobs:
   deploy:
@@ -14,18 +15,18 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
       with:
-        path: server
+        sparse-checkout: 'server'
 
     - name: Create .env file
       run: |
-        echo "MONGO_URI=${{ secrets.MONGO_URI }}" >> server/.env
+        echo "MONGODB_URI=${{ secrets.MONGODB_URI }}" >> server/.env
         echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> server/.env
         echo "ORIGINS=${{ secrets.ORIGINS }}" >> server/.env
         echo "GOOGLE_GEN_API_KEY=${{ secrets.GOOGLE_GEN_API_KEY }}" >> server/.env
-        echo "AI_REQ_DAILY_LIMIT=${{ secrets.AI_REQ_DAILY_LIMIT }}" >> server/.env
-        echo "AI_AI_REQ_MOVIES_PER_REQ=${{ secrets.AI_REQ_MOVIES_PER_REQ }}" >> server/.env
-        echo "TMDB_API=${{ secrets.TMDB_API }}" >> server/.env
-        echo "TMDB_IMAGE_API=${{ secrets.TMDB_IMAGE_API }}" >> server/.env
+        echo "AI_REQ_DAILY_LIMIT=${{ vars.AI_REQ_DAILY_LIMIT }}" >> server/.env
+        echo "AI_AI_REQ_MOVIES_PER_REQ=${{ vars.AI_REQ_MOVIES_PER_REQ }}" >> server/.env
+        echo "TMDB_API=${{ vars.TMDB_API }}" >> server/.env
+        echo "TMDB_IMAGE_API=${{ vars.TMDB_IMAGE_API }}" >> server/.env
         echo "TMDB_AUTH_TOKEN=${{ secrets.TMDB_AUTH_TOKEN }}" >> server/.env
         echo "TMDB_AUTH_TOKEN=${{ secrets.TMDB_API_KEY }}" >> server/.env
 

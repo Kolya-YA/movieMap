@@ -1,4 +1,4 @@
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3000;
 
 const TMDB_AUTH_TOKEN = process.env.TMDB_AUTH_TOKEN;
 const TMDB_API_KEY = process.env.TMDB_API_KEY;

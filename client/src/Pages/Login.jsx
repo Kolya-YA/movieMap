@@ -49,9 +49,9 @@ const Login = () => {
   }
 
   return (
-    <div className="max-w-md p-8 grid gap-6">
+    <section className="max-w-md mx-auto mb-auto p-8 grid gap-6 text-main-text">
       <h2 className="text-2xl font-bold text-center">Login</h2>
-      <form onSubmit={handleSubmit} className="grid gap-4 text-main-text">
+      <form onSubmit={handleSubmit} className="grid gap-4">
         <label htmlFor="email" className="sr-only">
           Email
         </label>
@@ -86,7 +86,7 @@ const Login = () => {
           </Link>
         </div>
       </form>
-    </div>
+    </section>
   );
 };
 
