@@ -1,90 +1,46 @@
-import React, { useEffect, useRef, useState } from 'react';
-import gatsbyImage from '../assets/images/about/gatsby.jpeg';
-import laBoumImage from '../assets/images/about/laBoum.jpeg';
-import amelieImage from '../assets/images/about/amelie.png';
-
 const About = () => {
-    const [currentIndex, setCurrentIndex] = useState(0);
-    const stepRefs = useRef([]);
-    const graphicRefs = useRef([]);
-
-    useEffect(() => {
-        const handleScroll = () => {
-            for (let i = currentIndex - 1; i < currentIndex + 2; i++) {
-                const step = stepRefs.current[i];
-                if (!step) continue;
-                const rect = step.getBoundingClientRect();
-                if (rect.top > window.innerHeight * 0.1 && rect.top < window.innerHeight * 0.8) {
-                    setCurrentIndex(i);
-                    break;
-                }
-            }
-        };
-
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, [currentIndex]);
-
-    useEffect(() => {
-        window.scrollTo(0, 0);
-    }, []);
-
-    const steps = [
-        {
-            text: `When you're not sure what to watch`,
-            image: laBoumImage,
-        },
-        {
-            text: `we're here to help`,
-            image: amelieImage,
-        },
-
-        {
-            text: `mapping to your life's movie`,
-            image: gatsbyImage,
-        },
-        {
-            text: ``,
-            image: ``,
-        },
-        {
-            text: `Movie Map`,
-        },
-    ];
-
-    return (
-        <div className="font-sans">
-            <section className="relative">
-                <div className="sticky top-0 h-screen overflow-hidden">
-                    {steps.map((step, index) => (
-                        <div
-                            key={index}
-                            ref={el => (graphicRefs.current[index] = el)}
-                            className={`absolute inset-0 flex top-1/4 justify-center transition-opacity duration-500 ${index === currentIndex ? 'opacity-100' : 'opacity-0'
-                                }`}
-                        >
-                            {step.image && (
-                                <img src={step.image} alt="movie image" className=" w-[80%] h-1/3 object-contain" />
-                            )}
-                        </div>
-                    ))}
-                </div>
-
-                <div className="relative">
-                    {steps.map((step, index) => (
-                        <div
-                            key={index}
-                            ref={el => (stepRefs.current[index] = el)}
-                            className={`mb-[60vh] p-4 text-main-text font-bold text-2xl text-center font-black-ops-one rounded-lg shadow transition-opacity duration-500 ${index === currentIndex ? 'opacity-100' : 'opacity-0'
-                                }`}
-                        >
-                            <p className="whitespace-pre-line text-5xl">{step.text}</p>
-                        </div>
-                    ))}
-                </div>
-            </section>
-        </div>
-    );
+  return (
+    <div className="text-white text-center [&>p]:text-pretty p-8 max-w-4xl mx-auto">
+      <h1 className="text-4xl font-bold mb-4">About Our App</h1>
+      <p className="mb-4 text-lg text-pretty">
+        Welcome to our application, designed to be clean, simple, and intuitive.
+        We leverage the latest technologies to offer you AI-generated advice
+        based on your country, age, and favorite movies from your lists. Our
+        goal is to provide you with personalized recommendations to enhance your
+        movie-watching experience.
+      </p>
+      <p className="mb-4 text-lg">
+        Our application also allows you to keep track of your watch list and
+        build a library of all the movies you have watched. You can add comments
+        and ratings to each movie, so you can always remember your thoughts and
+        impressions from your last viewing.
+      </p>
+      <p className="text-lg">
+        With our app, you have a comprehensive tool to manage your movie
+        preferences and discover new films tailored just for you. Enjoy the
+        journey of exploring and cataloging your favorite movies with ease and
+        efficiency.
+      </p>
+      <h2 className="text-3xl font-bold my-4">Meet Our Team</h2>
+      <p className="mb-2 text-lg">Application created by:</p>
+      <ul className="flex-col mb-4 text-lg">
+        <li className="flex gap-4 justify-center">
+            <p>Nikolay Kolomyytsev</p>
+            <a href="https://www.linkedin.com/in/nikolay-kolomyytsev" className="text-blue-500" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+        <li className="flex gap-4 justify-center"><p>Hyeongwook Jang</p><a href="https://www.linkedin.com/in/hyeong-wook-j-5b996b230" className="text-blue-500" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+        <li className="flex gap-4 justify-center"><p>Vladimir Gerov</p><a href="https://www.linkedin.com/in/vladimir-gerov2024" className="text-blue-500" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+      </ul>
+      <p className="mb-4 text-lg">
+        We are a team of three junior full-stack web developers, passionate about coding and eager to make our mark in the tech industry. As we embark on our programming journeys, we've been driven by a shared enthusiasm for learning and collaboration.
+      </p>
+      <p className="mb-4 text-lg">
+        This application represents the culmination of our hard work during the final project of our intensive three-month bootcamp from WBS Coding School. Over the past two weeks, we've embraced the challenge of transforming an idea into a fully deployed and functional product. This project has not only honed our technical skills but also taught us the value of teamwork, communication, and perseverance.
+      </p>
+      <p className="text-lg">
+        Together, we've navigated the complexities of full-stack development, combining our individual strengths to create something we're proud of. We're excited to continue growing as developers and look forward to many more projects in the future.
+      </p>
+    </div>
+  );
 };
 
 export default About;
