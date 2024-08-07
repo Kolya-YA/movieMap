@@ -1,6 +1,21 @@
 const About = () => {
   return (
     <div className="text-white text-center [&>p]:text-pretty p-8 max-w-4xl mx-auto">
+      <p>We adhered to the latest standards throughout our development.</p>
+      <p>Explore our code on our <a href="https://github.com/Kolya-YA/movieMap" className="text-blue-300" target="_blank" rel="noopener noreferrer">GitHub Repository.</a></p>
+      
+      <p className="pt-8">Our future plans for further development include:</p>
+      <ul className="grid gap-2 pb-8 pt-4">
+        <li>Implement a billing system for paid user subscriptions</li>
+        <li>Enhance User Experience and Interface</li>
+        <li>
+        Add Series in the search results.
+        </li>
+        <li>Extend our project to PWA.</li>
+        <li>Add sharing functionality.</li>
+        <li>Improve Desktop layouts.</li>
+        <li>Improve AI functionality.</li>
+      </ul>
       <h1 className="text-4xl font-bold mb-4">About Our App</h1>
       <p className="mb-4 text-lg text-pretty">
         Welcome to our application, designed to be clean, simple, and intuitive.
@@ -26,9 +41,9 @@ const About = () => {
       <ul className="flex-col mb-4 text-lg">
         <li className="flex gap-4 justify-center">
             <p>Nikolay Kolomyytsev</p>
-            <a href="https://www.linkedin.com/in/nikolay-kolomyytsev" className="text-blue-500" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
-        <li className="flex gap-4 justify-center"><p>Hyeongwook Jang</p><a href="https://www.linkedin.com/in/hyeong-wook-j-5b996b230" className="text-blue-500" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
-        <li className="flex gap-4 justify-center"><p>Vladimir Gerov</p><a href="https://www.linkedin.com/in/vladimir-gerov2024" className="text-blue-500" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+            <a href="https://www.linkedin.com/in/nikolay-kolomyytsev" className="text-blue-300" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+        <li className="flex gap-4 justify-center"><p>Hyeongwook Jang</p><a href="https://www.linkedin.com/in/hyeong-wook-j-5b996b230" className="text-blue-300" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+        <li className="flex gap-4 justify-center"><p>Vladimir Gerov</p><a href="https://www.linkedin.com/in/vladimir-gerov2024" className="text-blue-300" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
       </ul>
       <p className="mb-4 text-lg">
         We are a team of three junior full-stack web developers, passionate about coding and eager to make our mark in the tech industry. As we embark on our programming journeys, we've been driven by a shared enthusiasm for learning and collaboration.

@@ -11,7 +11,7 @@ const TermsAndConditions = () => {
         <h2 className="text-md font-bold mb-2">Impressum</h2>
         <p>Information according to § 5 TMG</p>
         <p>Website Operators:</p>
-        <p className="py-1">Nikolay Kolomitsev</p>
+        <p className="py-1">Nikolay Kolomyytsev</p>
         <p className="py-1">Hyeongwook Jang</p>
         <p className="py-1">Vladimir Gerov</p>
       </div>
@@ -20,7 +20,7 @@ const TermsAndConditions = () => {
         <h2 className="text-md font-bold mb-2">Contact</h2>
         <p>Email: moviemap.me@gmail.com</p>
         <p>Responsible for the content according to § 55 Abs. 2 RStV:</p>
-        <p className="py-1">Nikolay Kolomitsev</p>
+        <p className="py-1">Nikolay Kolomyytsev</p>
         <p className="py-1">Hyeongwook Jang</p>
         <p className="py-1">Vladimir Gerov</p>
       </div>
