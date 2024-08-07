@@ -81,8 +81,8 @@ const SearchMovies = () => {
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         {movies?.results
                             ?.filter(movie => movie.poster_path)
-                            .map((movie, index) => (
-                                <MovieCard movie={movie} key={index} />
+                            .map((movie) => (
+                                <MovieCard movie={movie} key={movie.id} />
                             ))}
                     </div>
                     {hasSearched &&
@@ -102,8 +102,13 @@ const SearchMovies = () => {
 export default SearchMovies;
 
 function SearchMovieForm({ setPage, setQuery, setHasSearched }) {
+    const inputRef = useRef(null);
     const [searchParams, setSearchParams] = useSearchParams();
     const [input, setInput] = useState(searchParams.get('query') || '');
+
+    useEffect(() => {
+        if(inputRef.current) inputRef.current.focus();
+    }, []);
 
     const handleSubmit = e => {
         e.preventDefault();
@@ -116,6 +121,7 @@ function SearchMovieForm({ setPage, setQuery, setHasSearched }) {
     return (
         <form className="flex items-center gap-4" onSubmit={handleSubmit}>
             <input
+                ref={inputRef}
                 type="text"
                 name="query"
                 className="border border-gray-300 rounded-md border-white-hover-gray p-2"
