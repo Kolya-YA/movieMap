@@ -52,11 +52,11 @@ function App() {
             <Route path="/profile" element={<UserProfile />} />
             <Route
               path="/waiting-list"
-              element={<UserMovieList type="watch" />}
+              element={<UserMovieList type="Watch list" />}
             />
             <Route
               path="/history-list"
-              element={<UserMovieList type="history" />}
+              element={<UserMovieList type="History" />}
             />
           </Route>
         </Route>
