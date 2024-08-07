@@ -7,8 +7,8 @@ const About = () => {
 
     return (
         // <div className="text-main-text flex flex-col h-screen"></div>
-        <section className="text-main-text flex flex-col h-screen">
-            <h1 className="text-2xl font-semibold text-center">User profile</h1>
+        <section className="text-main-text">
+            <h1 className="text-3xl font-semibold text-center my-4">User profile</h1>
             {user && <UserInfo user={user} />}
         </section>
     );
