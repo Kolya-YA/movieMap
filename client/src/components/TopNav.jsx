@@ -91,7 +91,7 @@ const TopNav = () => {
         </li>
         <hr />
         <li onClick={handleItemClick}>
-          <NavLink to="/toc">Terms & Conditions</NavLink>
+          <NavLink to="/terms-and-conditions">Terms & Conditions</NavLink>
         </li>
       </ul>
     </nav>

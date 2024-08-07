@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "axios";
 
@@ -8,6 +8,7 @@ import DateOfBirthPicker from "./FormComponents/BirthDateSelector";
 import { CheckboxComponent, InputComponent, SelectComponent, } from "./FormComponents";
 import PasswordToggleButton from './FormComponents/PasswordToggleButton';
 import Button from "./Button";
+import TermsAndConditions from "./TermsAndConditions";
 import { LuMail, LuKeyRound, LuMapPin, LuPin, } from "react-icons/lu";
 
 const SignUpForm = () => {
@@ -85,7 +86,7 @@ const SignUpForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="grid gap-4 max-w-md">
+    <form onSubmit={handleSubmit} className="grid gap-4 align-center text-center text-max-w-md">
       <InputComponent
         type="email"
         id="email"
@@ -160,6 +161,10 @@ const SignUpForm = () => {
         value={formData.dpAgreement}
         onChange={changeHandler}
       />
+
+        <Link to="/terms-and-conditions" className="text-blue-500 underline ml-2">
+          View Terms and Conditions
+        </Link>
 
       <Button
         type="submit"
