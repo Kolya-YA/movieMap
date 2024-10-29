@@ -24,11 +24,11 @@ jobs:
         echo "ORIGINS=${{ secrets.ORIGINS }}" >> server/.env
         echo "GOOGLE_GEN_API_KEY=${{ secrets.GOOGLE_GEN_API_KEY }}" >> server/.env
         echo "AI_REQ_DAILY_LIMIT=${{ vars.AI_REQ_DAILY_LIMIT }}" >> server/.env
-        echo "AI_AI_REQ_MOVIES_PER_REQ=${{ vars.AI_REQ_MOVIES_PER_REQ }}" >> server/.env
+        echo "AI_REQ_MOVIES_PER_REQ=${{ vars.AI_REQ_MOVIES_PER_REQ }}" >> server/.env
         echo "TMDB_API=${{ vars.TMDB_API }}" >> server/.env
         echo "TMDB_IMAGE_API=${{ vars.TMDB_IMAGE_API }}" >> server/.env
         echo "TMDB_AUTH_TOKEN=${{ secrets.TMDB_AUTH_TOKEN }}" >> server/.env
-        echo "TMDB_AUTH_TOKEN=${{ secrets.TMDB_API_KEY }}" >> server/.env
+        echo "TMDB_AUTH_KEY=${{ secrets.TMDB_API_KEY }}" >> server/.env
 
     - name: Setup SSH
       run: |
