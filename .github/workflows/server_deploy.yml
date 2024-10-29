@@ -1,0 +1,58 @@
+name: Deploy Node.js App
+
+on:
+  push:
+    branches: [main ,dev]
+    paths:
+      - 'server/**'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        path: server
+
+    - name: Create .env file
+      run: |
+        echo "MONGO_URI=${{ secrets.MONGO_URI }}" >> server/.env
+        echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> server/.env
+        echo "ORIGINS=${{ secrets.ORIGINS }}" >> server/.env
+        echo "GOOGLE_GEN_API_KEY=${{ secrets.GOOGLE_GEN_API_KEY }}" >> server/.env
+        echo "AI_REQ_DAILY_LIMIT=${{ secrets.AI_REQ_DAILY_LIMIT }}" >> server/.env
+        echo "AI_AI_REQ_MOVIES_PER_REQ=${{ secrets.AI_REQ_MOVIES_PER_REQ }}" >> server/.env
+        echo "TMDB_API=${{ secrets.TMDB_API }}" >> server/.env
+        echo "TMDB_IMAGE_API=${{ secrets.TMDB_IMAGE_API }}" >> server/.env
+        echo "TMDB_AUTH_TOKEN=${{ secrets.TMDB_AUTH_TOKEN }}" >> server/.env
+        echo "TMDB_AUTH_TOKEN=${{ secrets.TMDB_API_KEY }}" >> server/.env
+
+    - name: Setup SSH
+      run: |
+        mkdir -p ~/.ssh/
+        echo "${{ secrets.SSH_KEY }}" > ~/.ssh/deploy_key
+        chmod 600 ~/.ssh/deploy_key
+        echo "${{ secrets.KNOWN_HOSTS }}" > ~/.ssh/known_hosts
+
+    - name: Deploy to Server
+      run: |
+        rsync -avz --delete \
+          --exclude '.git*' \
+          --exclude 'node_modules' \
+          -e "ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no" \
+          server/ \
+          ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.DEPLOY_PATH }}
+
+    - name: Install Dependencies & Restart Service
+      run: |
+        ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << EOF
+          cd ${{ secrets.DEPLOY_PATH }}
+          . ~/.nvm/nvm.sh
+          npm install --production
+          pm2 restart moviemap-api || pm2 start npm --name "moviemap-api" -- start
+        EOF
+
+        # Cleanup
+        rm ~/.ssh/deploy_key
