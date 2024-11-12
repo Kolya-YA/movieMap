@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const HomeUserMovieCard = ({ movie, type }) => {
     const posterPath = movie?.movie?.poster_path || movie?.poster_path
-    const posterUrl = `/api/v1/img/w154${posterPath}`
+    const posterUrl = `${import.meta.env.VITE_API_URL}/api/v1/img/w154${posterPath}`
 
     let cardTitle = movie?.movie?.title || 'To full waiting list'
     let cardLink = movie?.tmdbMovieId ? `/movie/${movie.tmdbMovieId}` : '/waiting-list'
