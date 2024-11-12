@@ -141,7 +141,7 @@ function MovieCard({ movie }) {
         >
             <img
                 className="w-[92px] aspect-[2/3]"
-                src={`/api/v1/img/w92${movie.poster_path}`}
+                src={`${import.meta.env.VITE_API_URL}/api/v1/img/w92${movie.poster_path}`}
                 alt={`${movie.title} poster`}
                 loading="lazy"
             />
