@@ -17,7 +17,7 @@ const Movie = () => {
             <div className="">
                 <img
                     className="mx-auto rounded-lg"
-                    src={`/api/v1/img/w342/${detail?.poster_path}`}
+                    src={`${import.meta.env.VITE_API_URL}/api/v1/img/w342${detail?.poster_path}`}
                     alt={detail.title}
                 />
             </div>
