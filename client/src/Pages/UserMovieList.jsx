@@ -34,7 +34,7 @@ function MovieCard({ movie }) {
             <div className="grid grid-cols-[92px_1fr] items-center bg-gray-500/50 text-inherit rounded-xl overflow-hidden shadow-[3px_-4px_10px_-3px_#000]">
                 <img
                     className="w-[92px] aspect-[2/3]"
-                    src={`https://image.tmdb.org/t/p/w92${movie.movie.poster_path}`}
+                    src={`/api/v1/img/w92${movie.movie.poster_path}`}
                     alt={`${movie.movie.title} poster`}
                     loading="lazy"
                 />

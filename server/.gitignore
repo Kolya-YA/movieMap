@@ -13,6 +13,8 @@ dist-ssr
 *.local
 .env
 
+imgCache
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

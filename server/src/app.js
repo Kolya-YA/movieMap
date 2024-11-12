@@ -5,6 +5,7 @@ import connectDB from "./utils/database.js";
 
 import searchRoutes from "./routes/searchRoutes.js";
 import detailsRoutes from "./routes/detailsRoutes.js";
+import imgProxyRoutes from "./routes/imgProxyRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import configRoutes from "./routes/configRoutes.js";
 
@@ -20,6 +21,7 @@ app.use(express.json());
 
 app.use("/api/v1/search", searchRoutes);
 app.use("/api/v1/details", detailsRoutes);
+app.use("/api/v1/img", imgProxyRoutes);
 app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/config", configRoutes);
 

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { TMDB_AUTH_TOKEN, TMDB_URL } from './config.js';
+import { TMDB_AUTH_TOKEN, TMDB_URL, TMDB_IMAGE_API } from './config.js';
 
 const tmdbApi = axios.create({
     baseURL: TMDB_URL,
@@ -10,4 +10,9 @@ const tmdbApi = axios.create({
     },
 });
 
-export { tmdbApi };
+const tmdbImageApi = axios.create({
+    baseURL: TMDB_IMAGE_API,
+    responseType: 'stream',
+});
+
+export { tmdbApi, tmdbImageApi };
