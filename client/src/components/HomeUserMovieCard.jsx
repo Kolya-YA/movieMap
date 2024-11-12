@@ -2,25 +2,24 @@ import { LuBrainCircuit } from "react-icons/lu";
 import { Link } from "react-router-dom";
 
 const HomeUserMovieCard = ({ movie, type }) => {
-    let posterUrl = movie?.movie?.poster_path && `https://image.tmdb.org/t/p/w154${movie.movie.poster_path}`
+    const posterPath = movie?.movie?.poster_path || movie?.poster_path
+    const posterUrl = `/api/v1/img/w154${posterPath}`
+
     let cardTitle = movie?.movie?.title || 'To full waiting list'
     let cardLink = movie?.tmdbMovieId ? `/movie/${movie.tmdbMovieId}` : '/waiting-list'
     let lastCard = !movie?.tmdbMovieId
 
     if (type === 'R') {
-        posterUrl = movie?.poster_path && `https://image.tmdb.org/t/p/w154${movie.poster_path}`
         cardTitle = movie?.title || 'Unknown movie'
         cardLink = movie?.id ? `/movie/${movie.id}` : '/waiting-list'
         lastCard = !movie?.id
     }
 
     if (type === 'AI') {
-        posterUrl = movie?.poster_path && `https://image.tmdb.org/t/p/w154${movie.poster_path}`
         cardTitle = movie?.title || 'To full list'
         cardLink = `/movie/${movie?.tmdbMovieId}`
         lastCard = !movie?.tmdbMovieId
     }
-
 
     return (
         <li className="bg-gray-300 my-2 text-end rounded-xl overflow-hidden aspect-[2/3] snap-always snap-start shadow-[3px_-4px_10px_-3px_#000]">

@@ -11,13 +11,13 @@ const Movie = () => {
     if (error) return <div className="text-main-text">{error}</div>;
     if (isDataLoading) return <Loading />;
     if (!detail) return <div>No data</div>;
-
+    
     return (
         <div className="text-main-text grid grid-cols-1 grid-rows-[1fr_auto] p-2 font-playfair">
             <div className="">
                 <img
                     className="mx-auto rounded-lg"
-                    src={`https://image.tmdb.org/t/p/w342/${detail.poster_path}`}
+                    src={`/api/v1/img/w342/${detail?.poster_path}`}
                     alt={detail.title}
                 />
             </div>
